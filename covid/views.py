@@ -44,7 +44,7 @@ def news(request):
 
 def country(request, country_name='all'):
     if country_name == 'all':
-        countries = CountryData.objects.all()
+        countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:
         country_data = CountryData.objects.get(name__iexact=f'{country_name}')
