@@ -1,7 +1,7 @@
 from django.db import models
 
-class Data(models.Model):
-    name = models.TextField()
+class CountryData(models.Model):
+    name = models.TextField(primary_key=True)
     totalcase = models.IntegerField()
     activecase = models.IntegerField()
     newcase = models.IntegerField()
