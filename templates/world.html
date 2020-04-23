@@ -36,16 +36,17 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody style='border:3px solid black;'>
           {% for country in countries %}
-          <tr>
+          <tr style='border:3x solid black;'>
             <td>{{country.name}}</td>
             <td>{{country.totalcase}}</td>
             <td>{{country.activecase}}</td>
-            <td>{{country.newcase}}</td>
+            <td style='background-color:yellow;'>+{{country.newcase}}</td>
             <td>{{country.deaths}}</td>
-            <td>{{country.newdeath}}</td>
-            <td>{{country.recovered}}</td>
+            <td style='background-color:red;'>+{{country.newdeath}}</td>
+            
+            <td style="background-color:lightgreen;">{{country.recovered}}</td>
             <td>{{country.tests}}</td>
           </tr>
           {% endfor %}

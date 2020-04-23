@@ -47,5 +47,6 @@ def country(request, country_name='all'):
 
 def world(request):
     scrape()
-    countries = CountryData.objects.all()
+    countries = CountryData.objects.order_by('-totalcase')
+
     return render(request, 'world.html', {'countries': countries})
