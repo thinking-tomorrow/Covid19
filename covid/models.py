@@ -9,3 +9,13 @@ class Data(models.Model):
     newdeath = models.IntegerField()
     recovered = models.IntegerField()
     tests = models.IntegerField()
+
+class News(models.Model):
+    heading = models.CharField(max_length=50)
+    body = models.TextField()
+    img = models.ImageField()
+    date = models.DateField()
+
+    class Meta:
+        verbose_name_plural = "news"
+
