@@ -43,9 +43,13 @@ def news(request):
     return render(request, 'news.html', {'latest_news': latest_news})
 
 def country(request, country_name='all'):
-    return render(request, 'country.html', {'country': country_name})
+    if country_name == 'all':
+        countries = CountryData.objects.all()
+        return render(request, 'country.html', {'countries': countries})
+    else:
+        country_data = CountryData.objects.get(name__iexact=f'{country_name}')
+        return render(request, 'country.html', {'country': country_data})
 
 def world(request):
-    scrape()
-    countries = CountryData.objects.all()
-    return render(request, 'world.html', {'countries': countries})
+    # scrape()
+    return render(request, 'world.html')
