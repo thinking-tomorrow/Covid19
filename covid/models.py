@@ -1,6 +1,6 @@
 from django.db import models
 
-class Data(models.Model):
+class CountryData(models.Model):
     name = models.TextField()
     totalcase = models.IntegerField()
     activecase = models.IntegerField()

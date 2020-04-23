@@ -6,5 +6,6 @@ urlpatterns = [
     path('',        views.home, name='home'),
     path('news',    views.news, name='news'),
     path('country', views.country, name='country'),
+    path('country/<str:country_name>', views.country),
     path('world',   views.world, name='world')
 ]
