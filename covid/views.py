@@ -56,7 +56,7 @@ def news(request):
 
 def country(request, country_name='all'):
     if country_name == 'all':
-        countries = CountryData.objects.all()
+        countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:
         country_data = CountryData.objects.get(name__iexact=f'{country_name}')
@@ -64,4 +64,4 @@ def country(request, country_name='all'):
 
 def world(request):
     world_data = scrape_world()
-    return render(request, 'world.html', {'world': world_data})
+    return render(request, 'world.html', {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2]})
