@@ -1,6 +1,6 @@
 from django.db import models
 
-class CountryData(models.Model):
+class Data(models.Model):
     name = models.TextField()
     totalcase = models.IntegerField()
     activecase = models.IntegerField()
@@ -18,4 +18,3 @@ class News(models.Model):
 
     class Meta:
         verbose_name_plural = "news"
-

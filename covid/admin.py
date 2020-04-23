@@ -3,4 +3,3 @@ from .models import Data,News
 
 admin.site.register(Data)
 admin.site.register(News)
-
