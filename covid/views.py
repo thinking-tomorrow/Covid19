@@ -16,7 +16,7 @@ def scrape():
     soup = BeautifulSoup(source, 'lxml')
 
     countries = soup.find_all('tr')
-    countries = countries[9:220]
+    countries = countries[9:221]
 
     for country in countries:
         rows = country.find_all('td')
@@ -35,6 +35,18 @@ def scrape():
         my_country.save()
 
 
+def scrape_world():
+    source = requests.get('https://www.worldometers.info/coronavirus/').text
+    soup = BeautifulSoup(source, 'lxml')
+
+    totals = soup.find_all('div', class_='maincounter-number')
+    world_data = []
+    for total in totals:
+        world_data.append(total.span.text)
+
+    return world_data
+
+
 def home(request):
     return render(request, 'home.html')
 
@@ -51,5 +63,5 @@ def country(request, country_name='all'):
         return render(request, 'country.html', {'country': country_data})
 
 def world(request):
-    # scrape()
-    return render(request, 'world.html')
+    world_data = scrape_world()
+    return render(request, 'world.html', {'world': world_data})
