@@ -7,3 +7,9 @@ def home(request):
 
 def news(request):
     return render(request, 'news.html')
+
+def country(request):
+    return render(request, 'country.html')
+
+def world(request):
+    return render(request, 'world.html')
