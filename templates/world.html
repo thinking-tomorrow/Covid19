@@ -20,5 +20,37 @@
   </head>
   <body>
     <h1> WORLD PAGE </h1>
+    
+    <div class="table table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Total Cases</th>
+            <th>Active Cases</th>
+            <th>New Cases</th>
+            <th>Deaths</th>
+            <th>New Deaths</th>
+            <th>Recovered</th>
+            <th>Tests</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for country in countries %}
+          <tr>
+            <td>{{country.name}}</td>
+            <td>{{country.totalcase}}</td>
+            <td>{{country.activecase}}</td>
+            <td>{{country.newcase}}</td>
+            <td>{{country.deaths}}</td>
+            <td>{{country.newdeath}}</td>
+            <td>{{country.recovered}}</td>
+            <td>{{country.tests}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
