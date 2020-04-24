@@ -47,10 +47,10 @@
       </div>
     </nav>
     
-    <h1 style='padding-top:20px;'>COUNTRY PAGE</h1>
+    
 
     {% if countries %}
-
+    <h1 style='padding-top:20px;text-align:center;'>COUNTRY PAGE</h1>
     <div class="table table-responsive">
       <table class="table">
         <thead>
@@ -85,7 +85,14 @@
 
     {% else %}
 
-    <p>{{country.name}} {{country.totalcase}}</p>
+    <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:40px;'>{{country.name}}</h1>
+      
+      <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
+      <p class='cases'>{{country.totalcase}}</p>
+      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
+      <p class='deaths'>{{country.deaths}}</p>
+      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:lightgreen;'>Coronavirus Winners:</h2>
+      <p class='recovery'>{{country.recovered}}</p>
 
     {% endif %}
   </body>
