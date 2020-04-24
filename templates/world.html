@@ -46,11 +46,17 @@
         </form>
       </div>
     </nav>
-    <div class="world">
-      <h1> WORLD PAGE </h1>
-      <p>Total {{world_total}}</p>
-      <p>Death {{world_death}}</p>
-      <p>Recov {{world_recovery}}</p>
-    </div>
+
+      
+      <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:40px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
+      <a href='#' class='link'>Graphs</a>
+      <a href='/country' class='link-next'>Countries</a>
+      <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
+      <p class='cases'>{{world_total}}</p>
+      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
+      <p class='deaths'>{{world_death}}</p>
+      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:lightgreen;'>Coronavirus Winners:</h2>
+      <p class='recovery'>{{world_recovery}}</p>
+
   </body>
 </html>

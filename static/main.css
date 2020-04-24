@@ -46,7 +46,45 @@
     }
 }
 
+
 .world{
-    font-size: 40px;
-    text-align: center;
+    text-align:center;
+    padding-top: 25px;
+    font-size:40px;
+}
+
+.link{
+    font-size: 15px;
+    padding-top:30px;
+    padding-bottom:20px;
+    color: lightgreen;
+    padding-left:500px;
+}
+
+.link-next{
+    padding-left:15px;
+    color:lightgreen;    
+}
+
+.cases{
+    font-size:30px;
+    text-align:center;
+    padding-top: 15px;
+    font-weight:bold;
+}
+
+.deaths{
+    font-size:30px;
+    text-align:center;
+    padding-top: 15px;
+    font-weight:bold;
+    color:red;
+}
+
+.recovery{
+    font-size:30px;
+    text-align:center;
+    padding-top: 15px;
+    font-weight:bold;
+    color:lightgreen;
 }
