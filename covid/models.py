@@ -9,6 +9,7 @@ class CountryData(models.Model):
     newdeath = models.IntegerField()
     recovered = models.IntegerField()
     tests = models.IntegerField()
+    flag = models.TextField(null=True)
 
 class News(models.Model):
     heading = models.CharField(max_length=50)

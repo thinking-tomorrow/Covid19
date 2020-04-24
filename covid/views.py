@@ -19,11 +19,18 @@ def scrape():
     countries = countries[9:221]
 
     for country in countries:
+
         rows = country.find_all('td')
         rows = list(map(lambda x:str(x.text).replace(',', ''), rows))
 
+        name = rows[0]
+        
+        country = '-'.join(name.split())
+        url = f"https://www.countries-ofthe-world.com/flags-normal/flag-of-{country}.png"
+
+
         my_country              = CountryData()
-        my_country.name         = rows[0]
+        my_country.name         = name
         my_country.totalcase    = my_int(rows[1])
         my_country.activecase   = my_int(rows[6])
         my_country.newcase      = my_int(rows[2].replace('+', ''))
@@ -31,6 +38,7 @@ def scrape():
         my_country.newdeath     = my_int(rows[4].replace('+', ''))
         my_country.recovered    = my_int(rows[5])
         my_country.tests        = my_int(rows[10])
+        my_country.flag         = url
 
         my_country.save()
 
@@ -56,6 +64,7 @@ def news(request):
 
 def country(request, country_name='all'):
     if country_name == 'all':
+        # scrape()
         countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:
