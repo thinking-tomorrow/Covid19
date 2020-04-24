@@ -69,6 +69,7 @@
         <tbody>
           {% for country in countries %}
           <tr>
+            <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>
             <td>{{country.totalcase}}</td>
             <td>{{country.activecase}}</td>
