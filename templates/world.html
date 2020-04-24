@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- My Style Sheets -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -19,9 +19,38 @@
     <title>Covid Info</title>
   </head>
   <body>
-    <h1> WORLD PAGE </h1>
-    <p>Total {{world_total}}</p>
-    <p>Death {{world_death}}</p>
-    <p>Recov {{world_recovery}}</p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">COVID INFO</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href='/'><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/news"><i class="far fa-newspaper"></i>News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <div class="world">
+      <h1> WORLD PAGE </h1>
+      <p>Total {{world_total}}</p>
+      <p>Death {{world_death}}</p>
+      <p>Recov {{world_recovery}}</p>
+    </div>
   </body>
 </html>
