@@ -11,6 +11,9 @@ def my_int(str):
     else:
         return 0
 
+def tips(request):
+    return render(request,'tips.html')
+
 def scrape():
     source = requests.get('https://www.worldometers.info/coronavirus/').text
     soup = BeautifulSoup(source, 'lxml')
@@ -64,7 +67,7 @@ def news(request):
 
 def country(request, country_name='all'):
     if country_name == 'all':
-        # scrape()
+        scrape()
         countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:

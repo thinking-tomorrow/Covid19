@@ -15,7 +15,7 @@
 
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
-
+    
     <title>Covid Info</title>
   </head>
   <body>
@@ -36,8 +36,12 @@
           <li class="nav-item">
             <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tips"><i class="fas fa-question"></i> Tips and Tricks</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -55,6 +59,7 @@
       <table class="table">
         <thead>
           <tr>
+            <th>Country</th>
             <th>Name</th>
             <th>Total Cases</th>
             <th>Active Cases</th>
@@ -85,8 +90,8 @@
     </div>
 
     {% else %}
-
-    <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:40px;'>{{country.name}}</h1>
+    <img src="{{country.flag}}" style="height:100px;width:200px;margin-top:40px;margin-left:565px;">
+    <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
       
       <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
       <p class='cases'>{{country.totalcase}}</p>
