@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- My Style Sheets -->
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Font Awesome Script -->
+    <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
+
+    <title>Covid Info</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">COVID INFO</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href='/'><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/news"><i class="far fa-newspaper"></i>News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tips"><i class="fas fa-question"></i> Tips and Tricks</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <h1 style='text-align:center;padding-top:20px;'>Tips and Tricks</h1>
+    <h3 style='padding-left:20px;padding-top:20px;'>WHAT IS COVID-19 ?</h3>
+    <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>Coronavirus disease 2019 (COVID-19) is an infectious disease caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2).
+         The disease was first identified in December 2019 in Wuhan, the capital of China's Hubei province, and has since spread globally, resulting in the ongoing 2019–20 coronavirus pandemic.
+         As of 24 April 2020, more than 2.79 million cases have been reported across 185 countries and territories, resulting in more than 195,000 deaths. More than 781,000 people have recovered.</p>
+         <h3 style='padding-left:20px;padding-top:20px;'>WHAT CAUSES COVID-19 ?</h3>
+         <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>
+            Some details about how the disease is spread are still being determined.
+            The WHO and the U.S. Centers for Disease Control and Prevention (CDC) say it is primarily spread during close contact and by small droplets produced when people cough, sneeze or talk;with close contact being within approximately 1–2 m (3–7 ft).
+            Both sputum and saliva can carry large viral loads.
+            Loud talking releases more droplets than normal talking.
+            A study in Singapore found that an uncovered cough can lead to droplets travelling up to 4.5 metres (15 feet)
+         </p>
+    </body>
+</html>
