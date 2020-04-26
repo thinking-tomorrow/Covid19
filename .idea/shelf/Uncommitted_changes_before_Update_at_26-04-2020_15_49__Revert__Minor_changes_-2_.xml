@@ -1,9 +1,0 @@
-<changelist name="Uncommitted_changes_before_Update_at_26-04-2020_15_49_[Revert__Minor_changes_-2]" date="1587896354656" recycled="false" toDelete="true">
-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26-04-2020_15_49_[Revert__Minor_changes_-2]/shelved.patch" />
-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 26-04-2020 15:49 [Revert &quot;Minor changes&quot;-2]" />
-  <binary>
-    <option name="BEFORE_PATH" value="db.sqlite3" />
-    <option name="AFTER_PATH" value="db.sqlite3" />
-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26-04-2020_15_49_[Revert__Minor_changes_-2]/db.sqlite3" />
-  </binary>
-</changelist>
