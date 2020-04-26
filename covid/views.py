@@ -77,3 +77,18 @@ def country(request, country_name='all'):
 def world(request):
     world_data = scrape_world()
     return render(request, 'world.html', {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2]})
+
+def search(request):
+
+    if request.method == "POST":
+
+        data = request.POST['data']
+
+        news = News.objects.filter(heading__contains=data)
+        
+        return render(request,'searchnews.html',{'news':news})
+
+    else:
+        pass
+
+    return redirect('/')
