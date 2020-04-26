@@ -54,14 +54,16 @@
 
 
     {% for news in latest_news %}
-    <div class="card" style="width: 18rem;padding-left:20px;margin-top:20px;display: inline-block;">
-      <img class="card-img-top" src="{{news.img.url}}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">{{news.heading}}</h5>
-        <p class="card-text">{{news.body}}</p>
-        <a href="#" class="btn btn-primary">{{news.date}}</a>
+    <a href="news-detail/{{news.id}}">
+      <div class="card" style="height:350px;width: 18rem;padding-left:20px;margin-top:20px;display: inline-block;">
+        <img class="card-img-top" src="{{news.img.url}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{news.heading}}</h5>
+          <p class="card-text">{{news.body}}</p>
+          <a href="#" class="btn btn-primary">{{news.date}}</a>
+        </div>
       </div>
-    </div>
+    </a>
     {% endfor %}
 
 

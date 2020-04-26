@@ -115,14 +115,14 @@ def world(request):
 def search(request):
 
     if request.method == "POST":
-
         data = request.POST['data']
-
         news = News.objects.filter(heading__contains=data)
-        
-        return render(request,'searchnews.html',{'news':news})
-
+        return render(request,'searchnews.html', {'news':news})
     else:
         pass
 
     return redirect('/')
+
+
+def news_detail(request, news_id):
+    return render(request, 'news-detail.html', {'news': news_id})
