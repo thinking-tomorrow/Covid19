@@ -12,8 +12,9 @@ class CountryData(models.Model):
     flag = models.TextField(null=True)
 
 class News(models.Model):
-    heading = models.CharField(max_length=50)
+    heading = models.CharField(max_length=100)
     body = models.TextField()
+    link = models.TextField()
     img = models.ImageField()
     date = models.DateField()
 
