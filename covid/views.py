@@ -58,6 +58,30 @@ def scrape_world():
     return world_data
 
 
+def scrape_news():
+    source = requests.get('https://www.indiatimes.com/').text
+    soup = BeautifulSoup(source, 'lxml')
+
+    articles = soup.find_all('div', class_='card-div')
+    articles = articles[0:len(articles)-1]
+
+    for article in articles:
+        title = article.a['title']
+        url = article.a['href']
+        img = article.img['src']
+
+        r = requests.get(url, allow_redirects=True)
+        open(f'', 'wb').write(r.content)
+
+
+        news = News()
+        news.heading(title)
+        news.body(url)
+        news.img()
+        news.date()
+        news.save()
+
+
 def home(request):
     return render(request, 'home.html')
 
@@ -67,7 +91,7 @@ def news(request):
 
 def country(request, country_name='all'):
     if country_name == 'all':
-        scrape()
+        # scrape()
         countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:
