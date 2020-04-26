@@ -8,5 +8,6 @@ urlpatterns = [
     path('country', views.country, name='country'),
     path('country/<str:country_name>', views.country, name='country'),
     path('world',   views.world, name='world'),
-    path('tips',views.tips,name='tips')
+    path('tips',views.tips,name='tips'),
+    path('search',views.search,name='search')
 ]
