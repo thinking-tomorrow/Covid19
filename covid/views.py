@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import News, CountryData
 from bs4 import BeautifulSoup
 import requests
+from datetime import datetime
 import sys
 
 def my_int(str):
@@ -66,26 +67,35 @@ def scrape_news():
     articles = articles[0:len(articles)-1]
 
     for article in articles:
+        last_id = News.objects.latest('id').id
         title = article.a['title']
         url = article.a['href']
         img = article.img['src']
 
-        r = requests.get(url, allow_redirects=True)
-        open(f'', 'wb').write(r.content)
+        r = requests.get(img, allow_redirects=True)
+        open(f'media/{last_id+1}.jpg', 'wb').write(r.content)
 
+        text_source = requests.get(url).text
+        text_soup = BeautifulSoup(text_source, 'lxml')
+
+        div = text_soup.article.find_all('div', class_='left-container')
+        text = str()
+        ps = div[0].find_all('p', class_=None)
+        for p in ps:
+            text += p.text
 
         news = News()
-        news.heading(title)
-        news.body(url)
-        news.img()
-        news.date()
+        news.heading = title
+        news.body = text
+        news.img = str(last_id+1) + '.jpg'
+        news.date = str(datetime.now())[:10]
         news.save()
-
 
 def home(request):
     return render(request, 'home.html')
 
 def news(request):
+    # scrape_news()
     latest_news = News.objects.all()
     return render(request, 'news.html', {'latest_news': latest_news})
 
@@ -105,14 +115,14 @@ def world(request):
 def search(request):
 
     if request.method == "POST":
-
         data = request.POST['data']
-
         news = News.objects.filter(heading__contains=data)
-        
-        return render(request,'searchnews.html',{'news':news})
-
+        return render(request,'searchnews.html', {'news':news})
     else:
         pass
 
     return redirect('/')
+
+
+def news_detail(request, news_id):
+    return render(request, 'news-detail.html', {'news': news_id})
