@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- My Style Sheets -->
-    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
-    
+
     <title>Covid Info</title>
   </head>
   <body>
@@ -140,7 +140,7 @@
     </div>
 
     {% else %}
-    <img src="{{country.flag}}" style="height:100px;width:200px;margin-top:40px;margin-left:565px;">
+    <img src="{{country.flag.url}}" style="height:100px;width:200px;margin-top:40px;margin-left:565px;">
     <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
       
       <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>

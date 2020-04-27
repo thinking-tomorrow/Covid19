@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import News, CountryData
 from bs4 import BeautifulSoup
 import requests
+from os import path
 from datetime import datetime
 import sys
 
@@ -28,10 +29,12 @@ def scrape():
         rows = list(map(lambda x:str(x.text).replace(',', ''), rows))
 
         name = rows[0]
-        
-        country = '-'.join(name.split())
-        url = f"https://www.countries-ofthe-world.com/flags-normal/flag-of-{country}.png"
 
+        if not path.isfile(f'media/flag/{name}.png'):
+            country = name.replace(' ', '_').lower()
+            url = f'http://img.freeflagicons.com/thumb/rectangular_icon_with_shadow/{country}/{country}_640.png'
+            r = requests.get(url, allow_redirects=True, headers={"User-Agent": "XY"})
+            open(f'media/flag/{name}.png', 'wb').write(r.content)
 
         my_country              = CountryData()
         my_country.name         = name
@@ -42,7 +45,7 @@ def scrape():
         my_country.newdeath     = my_int(rows[4].replace('+', ''))
         my_country.recovered    = my_int(rows[5])
         my_country.tests        = my_int(rows[10])
-        my_country.flag         = url
+        my_country.flag         = f'media/flag/{name}.png'
 
         my_country.save()
 
