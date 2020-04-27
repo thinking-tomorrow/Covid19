@@ -56,7 +56,7 @@
     {% for news in latest_news %}
     <a href="news-detail/{{news.id}}">
       <div class="card" style="height:350px;width: 18rem;padding-left:20px;margin-top:20px;display: inline-block;">
-        <img class="card-img-top" src="{{news.img.url}}" alt="Card image cap">
+        <img class="card-img-top" src="{{news.img.url}}" alt="{{news.title}}">
         <div class="card-body">
           <h5 class="card-title">{{news.heading}}</h5>
           <p class="card-text">{{news.body}}</p>
