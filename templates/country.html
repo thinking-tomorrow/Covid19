@@ -21,6 +21,7 @@
 
     <!-- My Script -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/modalLoading.js' %}"></script>
     
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
@@ -90,78 +91,26 @@
 
         <tbody>
           {% for country in countries %}
-          
-          
-          {% if country.totalcase >  500000%}
-          <tr style='background-color:rgb(102, 0, 0)'>
-            
-            <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
-            <td><a href="country/{{country.name}}">{{country.name}}</a></td>
-            <td style='font-weight:bold;color:white;'>{{country.totalcase}}</td>
-            <td style='font-weight:bold;color:white;'>{{country.activecase}}</td>
-            <td style='background-color:yellow;'>{{country.newcase}}</td>
-            <td style='color:white;'>{{country.deaths}}</td>
-            <td style='background-color:red;'>{{country.newdeath}}</td>
-            <td style='color:lightgreen;'>{{country.recovered}}</td>
-            <td style='color:white ;'>{{country.tests}}</td>
-            
-          </tr>
-          {% elif country.totalcase > 100000 %}
-          <tr style='background-color:rgb(150, 0, 24)'>
+
+          <tr>
             <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>
             <td>{{country.totalcase}}</td>
             <td>{{country.activecase}}</td>
-            <td style='background-color:yellow;'>{{country.newcase}}</td>
+            <td>{{country.newcase}}</td>
             <td>{{country.deaths}}</td>
-            <td style='background-color:red;'>{{country.newdeath}}</td>
-            <td style='background-color:lightgreen;'>{{country.recovered}}</td>
+            <td>{{country.newdeath}}</td>
+            <td>{{country.recovered}}</td>
             <td>{{country.tests}}</td>
           </tr>
-          {% elif country.totalcase > 50000 %}
-          <tr style='background-color:rgb(226, 61, 40)'>
-            <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
-            <td><a href="country/{{country.name}}">{{country.name}}</a></td>
-            <td>{{country.totalcase}}</td>
-            <td>{{country.activecase}}</td>
-            <td style='background-color:yellow;'>{{country.newcase}}</td>
-            <td>{{country.deaths}}</td>
-            <td style='background-color:red;'>{{country.newdeath}}</td>
-            <td style='background-color:lightgreen;'>{{country.recovered}}</td>
-            <td>{{country.tests}}</td>
-          </tr>
-          {% elif country.totalcase > 25000 %}
-          <tr style='background-color:yellow'>
-            <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
-            <td><a href="country/{{country.name}}">{{country.name}}</a></td>
-            <td>{{country.totalcase}}</td>
-            <td>{{country.activecase}}</td>
-            <td style='background-color:yellow;'>{{country.newcase}}</td>
-            <td>{{country.deaths}}</td>
-            <td style='background-color:red;'>{{country.newdeath}}</td>
-            <td style='background-color:lightgreen;'>{{country.recovered}}</td>
-            <td>{{country.tests}}</td>
-          </tr>
-          {% else %}
-          <tr style='background-color:lightyellow'>
-            <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
-            <td><a href="country/{{country.name}}">{{country.name}}</a></td>
-            <td>{{country.totalcase}}</td>
-            <td>{{country.activecase}}</td>
-            <td style='background-color:yellow;'>{{country.newcase}}</td>
-            <td>{{country.deaths}}</td>
-            <td style='background-color:red;'>{{country.newdeath}}</td>
-            <td style='background-color:lightgreen;'>{{country.recovered}}</td>
-            <td>{{country.tests}}</td>
-          </tr>
-          {% endif %}
+
           {% endfor %}
         </tbody>
       </table>
     </div>
 
     {% else %}
-    <img src="{{country.flag.url}}" style="height:100px;width:200px;margin-top:40px;margin-left:565px;">
+    <img src="../{{country.flag}}" style="height:100px;width:200px;margin-top:40px;margin-left:565px;">
     <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
       
       <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>

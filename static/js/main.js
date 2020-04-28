@@ -62,6 +62,7 @@ function sortTable(sort_on, sort_criteria) {
 
 $(document).ready(function(){
     $('.fas').click(function () {
+      // modalLoading.init(true);
       console.log("started")
       th = $(this).parent();
       id = $(th).parent().children().index($(th));
@@ -73,7 +74,8 @@ $(document).ready(function(){
       else{
         sortTable(id, 'ascending')
       }
-
-      console.log("ended"); 
+      
+      // modalLoading.init(true);
+      // console.log("ended"); 
     });
 });

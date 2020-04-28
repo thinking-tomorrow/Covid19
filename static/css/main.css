@@ -88,3 +88,7 @@
     font-weight:bold;
     color:lightgreen;
 }
+
+.fas{
+    cursor: pointer;
+}
