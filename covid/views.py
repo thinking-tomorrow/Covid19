@@ -104,7 +104,7 @@ def news(request):
 
 def country(request, country_name='all'):
     if country_name == 'all':
-        scrape()
+        # scrape()
         countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:
