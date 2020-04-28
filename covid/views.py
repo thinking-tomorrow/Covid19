@@ -94,15 +94,17 @@ def scrape_news():
         news.date = str(datetime.now())[:10]
         news.save()
 
+def home(request):
+    return render(request, 'home.html')
 
 def news(request):
-    #scrape_news()
+    # scrape_news()
     latest_news = News.objects.all()
     return render(request, 'news.html', {'latest_news': latest_news})
 
 def country(request, country_name='all'):
     if country_name == 'all':
-        #scrape()
+        scrape()
         countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:
@@ -126,17 +128,4 @@ def search(request):
 
 
 def news_detail(request, news_id):
-
-    news = News.objects.filter(id=news_id)
-
-    print(news)
-
-    return render(request, 'news-detail.html', {'news': news})
-
-
-def home(request):
-    #scrape_news()
-
-    news = News.objects.all()
-
-    return render(request, 'home.html',{'news':news})
+    return render(request, 'news-detail.html', {'news': news_id})

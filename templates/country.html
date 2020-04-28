@@ -9,10 +9,16 @@
 
     <!-- My Style Sheets -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- My Script -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
@@ -56,18 +62,18 @@
     {% if countries %}
     <h1 style='padding-top:20px;text-align:center;'>COUNTRY PAGE</h1>
     <div class="table table-responsive">
-      <table class="table">
+      <table class="table" id="myTable">
         <thead>
           <tr>
             <th>Country</th>
-            <th>Name</th>
-            <th>Total Cases</th>
-            <th>Active Cases</th>
-            <th>New Cases</th>
-            <th>Deaths</th>
-            <th>New Deaths</th>
-            <th>Recovered</th>
-            <th>Tests</th>
+            <th id="name">Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="total">Total Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="active">Active Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="new-case">New Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="death">Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="new-death">New Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="recovered">Recovered <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="test">Tests <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
           </tr>
         </thead>
 
