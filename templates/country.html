@@ -73,8 +73,13 @@
 
         <tbody>
           {% for country in countries %}
+          
+          
           {% if country.totalcase >  500000%}
           <tr style='background-color:rgb(102, 0, 0)'>
+            {% if country.name == 'USA' %}
+            <td>Hello</td>
+            {% else %}
             <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>
             <td style='font-weight:bold;color:white;'>{{country.totalcase}}</td>
@@ -84,6 +89,7 @@
             <td style='background-color:red;'>{{country.newdeath}}</td>
             <td style='color:lightgreen;'>{{country.recovered}}</td>
             <td style='color:white ;'>{{country.tests}}</td>
+            {% endif %}
           </tr>
           {% elif country.totalcase > 100000 %}
           <tr style='background-color:rgb(150, 0, 24)'>

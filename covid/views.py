@@ -98,7 +98,7 @@ def home(request):
     return render(request, 'home.html')
 
 def news(request):
-    # scrape_news()
+    #scrape_news()
     latest_news = News.objects.all()
     return render(request, 'news.html', {'latest_news': latest_news})
 
@@ -128,4 +128,9 @@ def search(request):
 
 
 def news_detail(request, news_id):
-    return render(request, 'news-detail.html', {'news': news_id})
+
+    news = News.objects.filter(id=news_id)
+
+    print(news)
+
+    return render(request, 'news-detail.html', {'news': news})
