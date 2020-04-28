@@ -104,7 +104,7 @@ def news(request):
 
 def country(request, country_name='all'):
     if country_name == 'all':
-        scrape()
+        #scrape()
         countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:
@@ -129,3 +129,14 @@ def search(request):
 
 def news_detail(request, news_id):
     return render(request, 'news-detail.html', {'news': news_id})
+
+def searchcountries(request):
+
+
+    if request.method == 'POST':
+
+        country = request.POST['country']
+
+        countries = CountryData.objects.filter(name__contains=country)
+
+        return render(request,'countrysearchresult.html',{'countries':countries})

@@ -10,5 +10,6 @@ urlpatterns = [
     path('country/<str:country_name>', views.country, name='country'),
     path('world', views.world, name='world'),
     path('tips', views.tips,name='tips'),
-    path('search', views.search,name='search')
+    path('search', views.search,name='search'),
+    path('searchcountries',views.searchcountries,name='searchcountries')
 ]
