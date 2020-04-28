@@ -52,7 +52,10 @@
     </nav>
 
     {% for new in news %}
-    <h1 style='padding-top:200px;'>{{new.heading}}</h1>
+    <h1 style='padding-top:20px;'>{{new.heading}}</h1>
+    <img src='{{new.img.url}}' style='margin-left:450px;margin-top:30px;'>
+    <h6 style='margin-left:20px;margin-top:25px;'>{{new.date}}</h6>
+    <p style='margin-left:20px;margin-top:30px;'>{{new.body}}</p>
     {% endfor %}
 </body>
 </html>
