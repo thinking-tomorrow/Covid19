@@ -75,7 +75,7 @@ $(document).ready(function(){
         sortTable(id, 'ascending')
       }
       
-      modalLoading.init(true);
+      // modalLoading.init(true);
       // console.log("ended"); 
     });
 });
