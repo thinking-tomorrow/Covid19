@@ -64,10 +64,12 @@ $(document).ready(function(){
 
   var table = document.getElementById("myTable");
   for (var i = 0, row; row = table.rows[i]; i++) {
+    
+    if(i==0)  
+      continue;
+
     total = row.cells[2].innerHTML;
-    // row.addClass('table-danger')
     if(total > 100000)
-      // $(row).addClass('table-danger')
       $(row).css("background-color", "rgba(255, 0, 0, 0.5)")
     else if(total > 50000)
       $(row).addClass('table-danger')
@@ -80,21 +82,22 @@ $(document).ready(function(){
     else
       $(row).addClass('table-success')  
   }
-    $('.fas').click(function () {
-      // modalLoading.init(true);
-      console.log("started")
-      th = $(this).parent();
-      id = $(th).parent().children().index($(th));
-      sort = $(this).attr('class');
 
-      if (sort.includes('fa-sort-up')){
-        sortTable(id, 'descending');
-      }
-      else{
-        sortTable(id, 'ascending')
-      }
-      
-      // modalLoading.init(true);
-      // console.log("ended"); 
-    });
+  $('.fas').click(function () {
+    // modalLoading.init(true);
+    console.log("started")
+    th = $(this).parent();
+    id = $(th).parent().children().index($(th));
+    sort = $(this).attr('class');
+
+    if (sort.includes('fa-sort-up')){
+      sortTable(id, 'descending');
+    }
+    else{
+      sortTable(id, 'ascending')
+    }
+    
+    // modalLoading.init(true);
+    // console.log("ended"); 
+  });
 });

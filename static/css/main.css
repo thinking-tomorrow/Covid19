@@ -92,3 +92,11 @@
 .fas{
     cursor: pointer;
 }
+
+tr{
+    /* opacity: 0.5; */
+}
+
+tr:hover{
+    cursor: pointer;
+}

@@ -8,11 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- My Style Sheets -->
-    <link rel="stylesheet" href="{% static 'main.css' %}">
-    
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+
+    <!-- My Script -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
@@ -30,13 +38,13 @@
           <li class="nav-item">
             <a class="nav-link" href='/'><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/news"><i class="far fa-newspaper"></i>News</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
           </li>
           <li class="nav-item">
@@ -50,21 +58,20 @@
         </form>
       </div>
     </nav>
+    
+    <img src="../{{country.flag}}" style="height:100px;width:200px;margin-top:40px;margin-left:565px;">
+    <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
+      
+    <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
+    <p class='cases'>{{country.totalcase}}</p>
+    <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
+    <p class='deaths'>{{country.deaths}}</p>
+    <h2 style='text-align:center;padding-top:30px;font-size:35px;color:lightgreen;'>Coronavirus Winners:</h2>
+    <p class='recovery'>{{country.recovered}}</p>
 
-    {% for new in news %}
-    <div class="card" style="width: 18rem;padding-left:20px;margin-top:20px;display: inline-block;">
-      <img class="card-img-top" src="{{new.img.url}}" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">{{new.heading}}</h5>
-        <p class="card-text">{{new.body}}</p>
-        <a href="#" class="btn btn-primary">{{new.date}}</a>
-      </div>
-    </div>
-    {% endfor %}
-
+    
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
 </html>
