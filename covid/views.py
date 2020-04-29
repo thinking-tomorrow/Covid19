@@ -45,6 +45,10 @@ def scrape():
         my_country.newdeath     = my_int(rows[4].replace('+', ''))
         my_country.recovered    = my_int(rows[5])
         my_country.tests        = my_int(rows[10])
+        my_country.total_pop    = my_int(rows[8])
+        my_country.death_pop    = my_int(rows[9])
+        my_country.test_pop     = my_int(rows[11])
+
         my_country.flag         = f'media/flag/{name}.png'
 
         my_country.save()
