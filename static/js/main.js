@@ -61,6 +61,25 @@ function sortTable(sort_on, sort_criteria) {
 }
 
 $(document).ready(function(){
+
+  var table = document.getElementById("myTable");
+  for (var i = 0, row; row = table.rows[i]; i++) {
+    total = row.cells[2].innerHTML;
+    // row.addClass('table-danger')
+    if(total > 100000)
+      // $(row).addClass('table-danger')
+      $(row).css("background-color", "rgba(255, 0, 0, 0.6)")
+    else if(total > 50000)
+      $(row).addClass('table-danger')
+    else if(total > 10000)
+      $(row).addClass('table-warning')  
+    else if(total > 5000)
+      $(row).css("background-color", "rgba(255, 255, 0, 0.3)")
+    else if(total > 1000)
+      $(row).css("background-color", "rgba(255, 255, 0, 0.1)")
+    else
+      $(row).addClass('table-success')  
+  }
     $('.fas').click(function () {
       // modalLoading.init(true);
       console.log("started")

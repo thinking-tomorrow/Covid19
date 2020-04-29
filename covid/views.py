@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import News, CountryData
 from bs4 import BeautifulSoup
-import requests
-from os import path
 from datetime import datetime
+from os import path
+import requests
 import sys
 
 def my_int(str):
@@ -92,10 +92,12 @@ def scrape_news():
         news.body = text
         news.img = str(last_id+1) + '.jpg'
         news.date = str(datetime.now())[:10]
+        news.link = url
         news.save()
 
 def home(request):
-    return render(request, 'home.html')
+    news = News.objects.all()
+    return render(request, 'home.html',{'latest_news': news})
 
 def news(request):
     # scrape_news()
@@ -104,7 +106,7 @@ def news(request):
 
 def country(request, country_name='all'):
     if country_name == 'all':
-        #scrape()
+        # scrape()
         countries = CountryData.objects.order_by('-totalcase')
         return render(request, 'country.html', {'countries': countries})
     else:
@@ -128,15 +130,13 @@ def search(request):
 
 
 def news_detail(request, news_id):
-    return render(request, 'news-detail.html', {'news': news_id})
+    news = News.objects.filter(id=news_id)
+    return render(request, 'news-detail.html', {'news': news})
+
 
 def searchcountries(request):
 
-
     if request.method == 'POST':
-
         country = request.POST['country']
-
         countries = CountryData.objects.filter(name__contains=country)
-
         return render(request,'countrysearchresult.html',{'countries':countries})
