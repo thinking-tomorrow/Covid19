@@ -25,6 +25,14 @@
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
+    <style>
+      .table.sticky th{
+        position: sticky;
+        top:0;
+        background-color: white;
+      }
+    </style>
+
     <title>Covid Info</title>
   </head>
   <body>
@@ -71,9 +79,9 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     
-    <div class="table table-responsive">
+    
 
-      <table class="table" id="myTable">
+      <table class="table sticky" id="myTable">
         <thead>
           <tr>
             <th>Country</th>
