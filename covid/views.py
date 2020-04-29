@@ -98,7 +98,7 @@ def home(request):
     return render(request, 'home.html')
 
 def news(request):
-    # scrape_news()
+    #scrape_news()
     latest_news = News.objects.all()
     return render(request, 'news.html', {'latest_news': latest_news})
 
