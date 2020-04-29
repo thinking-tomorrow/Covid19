@@ -97,21 +97,21 @@ def scrape_news():
 
 def home(request):
     news = News.objects.all()
-    return render(request, 'home.html',{'latest_news': news})
+    return render(request, 'home.html', {'latest_news': news})
 
 def news(request):
     #scrape_news()
     latest_news = News.objects.all()
     return render(request, 'news.html', {'latest_news': latest_news})
 
-def country(request, country_name='all'):
-    if country_name == 'all':
-        # scrape()
-        countries = CountryData.objects.order_by('-totalcase')
-        return render(request, 'country.html', {'countries': countries})
-    else:
-        country_data = CountryData.objects.get(name__iexact=f'{country_name}')
-        return render(request, 'country.html', {'country': country_data})
+def country(request):
+    # scrape()
+    countries = CountryData.objects.order_by('-totalcase')
+    return render(request, 'country.html', {'countries': countries})
+    
+def country_detail(request, country_name):
+    country_data = CountryData.objects.get(name__iexact=f'{country_name}')
+    return render(request, 'country_detail.html', {'country': country_data})
 
 def world(request):
     world_data = scrape_world()
@@ -122,7 +122,7 @@ def search(request):
     if request.method == "POST":
         data = request.POST['data']
         news = News.objects.filter(heading__contains=data)
-        return render(request,'searchnews.html', {'news':news})
+        return render(request,'news.html', {'latest_news':news})
     else:
         pass
 
@@ -139,4 +139,4 @@ def searchcountries(request):
     if request.method == 'POST':
         country = request.POST['country']
         countries = CountryData.objects.filter(name__contains=country)
-        return render(request,'countrysearchresult.html',{'countries':countries})
+        return render(request,'country.html',{'countries':countries})

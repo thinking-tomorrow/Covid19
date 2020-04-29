@@ -19,7 +19,7 @@
     padding-bottom:10px;
     text-align:center;
 }
-
+ 
 .update{
     padding-top:10px;
     text-align:center;
@@ -66,14 +66,14 @@
     color:lightgreen;    
 }
 
-.cases{
+#cases{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
     font-weight:bold;
 }
 
-.deaths{
+#deaths{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
@@ -81,7 +81,7 @@
     color:red;
 }
 
-.recovery{
+#recovery{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
@@ -93,11 +93,10 @@
     cursor: pointer;
 }
 
-div.sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    background-color: yellow;
-    padding: 50px;
-    font-size: 20px;
-  }
+tr{
+    /* opacity: 0.5; */
+}
+
+tr:hover{
+    cursor: pointer;
+}
