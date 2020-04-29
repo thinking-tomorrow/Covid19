@@ -19,7 +19,7 @@
 
 
     <!-- My Script -->
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/background.js' %}"></script>
     
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
@@ -63,11 +63,11 @@
     <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
       
     <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
-    <p class='cases'>{{country.totalcase}}</p>
+    <p id='cases'>{{country.totalcase}}</p>
     <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
-    <p class='deaths'>{{country.deaths}}</p>
+    <p id='deaths'>{{country.deaths}}</p>
     <h2 style='text-align:center;padding-top:30px;font-size:35px;color:lightgreen;'>Coronavirus Winners:</h2>
-    <p class='recovery'>{{country.recovered}}</p>
+    <p id='recovery'>{{country.recovered}}</p>
 
     
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
