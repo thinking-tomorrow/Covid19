@@ -1,3 +1,4 @@
+  
 {% load static %}
 
 <!DOCTYPE html>
@@ -19,30 +20,12 @@
 
 
     <!-- My Script -->
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
     
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
     <title>Covid Info</title>
-    <style>
-      div.sticky {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        
-        padding: 50px;
-        font-size: 20px;
-      }
-      th.sticky-header {
-        position: sticky;
-        top: 0;
-        z-index: 10;
-        /*To not have transparent background.
-        background-color: white;*/
-      }
-      
-    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -92,23 +75,18 @@
 
       <table class="table" id="myTable">
         <thead>
-          
-            
           <tr>
-            
-            <th class="sticky-header">Country</th>
-            <th class="sticky-header" id="name">Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th class="sticky-header" id="total">Total Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th class="sticky-header" id="active">Active Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th class="sticky-header" id="new-case">New Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th class="sticky-header" id="death">Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th class="sticky-header" id="new-death">New Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th class="sticky-header" id="recovered">Recovered <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th class="sticky-header" id="test">Tests <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th>Country</th>
+            <th id="name">Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="total">Total Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="active">Active Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="new-case">New Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="death">Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="new-death">New Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="recovered">Recovered <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="test">Tests <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
           </tr>
-        
-       
-      </thead>
+        </thead>
 
         <tbody>
           {% for country in countries %}
