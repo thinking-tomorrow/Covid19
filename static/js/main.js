@@ -68,7 +68,7 @@ $(document).ready(function(){
     // row.addClass('table-danger')
     if(total > 100000)
       // $(row).addClass('table-danger')
-      $(row).css("background-color", "rgba(255, 0, 0, 0.6)")
+      $(row).css("background-color", "rgba(255, 0, 0, 0.5)")
     else if(total > 50000)
       $(row).addClass('table-danger')
     else if(total > 10000)
