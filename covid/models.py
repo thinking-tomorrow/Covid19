@@ -13,6 +13,7 @@ class CountryData(models.Model):
     total_pop = models.IntegerField()
     death_pop = models.IntegerField()
     test_pop = models.IntegerField()
+    continent = models.TextField()
 
 class News(models.Model):
     heading = models.CharField(max_length=100)

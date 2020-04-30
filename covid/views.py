@@ -48,6 +48,7 @@ def scrape():
         my_country.total_pop    = my_int(rows[8])
         my_country.death_pop    = my_int(rows[9])
         my_country.test_pop     = my_int(rows[11])
+        my_country.continent    = rows[12]
 
         my_country.flag         = f'media/flag/{name}.png'
 
@@ -109,7 +110,7 @@ def news(request):
     return render(request, 'news.html', {'latest_news': latest_news})
 
 def country(request):
-    #scrape()
+    scrape()
     countries = CountryData.objects.order_by('-totalcase')
     return render(request, 'country.html', {'countries': countries})
     
