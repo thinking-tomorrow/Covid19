@@ -30,6 +30,7 @@ class CountryNews(models.Model):
     country = models.CharField(max_length=100)
     title   = models.CharField(max_length=100)
     link    = models.TextField() 
+    date    = models.DateField()
 
     class Meta:
         verbose_name_plural = 'CountryNews'
