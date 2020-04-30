@@ -145,3 +145,13 @@ def searchcountries(request):
         country = request.POST['country']
         countries = CountryData.objects.filter(name__contains=country)
         return render(request,'country.html',{'countries':countries})
+
+def continent(request,continent_name):
+
+    scrape()
+    countries =  CountryData.objects.filter(continent=continent_name)
+
+    countries.order_by('-totalcase')
+
+    return render(request, 'country.html', {'countries': countries})
+

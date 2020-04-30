@@ -1,3 +1,4 @@
+
 function sortTable(sort_on, sort_criteria) {
   var table, rows, switching, i, x, y, shouldSwitch;
   table = document.getElementById("myTable");
