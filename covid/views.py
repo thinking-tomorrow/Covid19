@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from os import path
 import requests
+import urllib
 import sys
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
@@ -112,6 +113,37 @@ def scrape_news():
         news.date = str(datetime.now())[:10]
         news.link = url
         news.save()
+
+
+def scrape_country_news():
+
+    USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:65.0) Gecko/20100101 Firefox/65.0"
+
+    query = "Covid Spain"
+    query = query.replace(' ', '+')
+    URL = f"https://google.com/search?q={query}"
+
+
+    headers = {"user-agent": USER_AGENT}
+    resp = requests.get(URL, headers=headers)
+
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.content, "html.parser")
+
+        for g in soup.find_all('div', class_='r'):
+            anchors = g.find_all('a')
+            if anchors:
+                link = anchors[0]['href']
+                title = g.find('h3').text
+                item = {
+                    "title": title,
+                    "link": link
+                }
+
+                if 'wikipedia.org' in link or 'worldometer' in link:
+                    continue
+
+
 
 def home(request):
     news = News.objects.all()
