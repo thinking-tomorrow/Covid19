@@ -19,6 +19,11 @@
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
     <title>Covid Info</title>
+    <style>
+      p::first-letter{
+        font-size:200%;
+      }
+    </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -55,7 +60,7 @@
 
     {% for new in news %}
     <h1 style='padding-top:20px;'>{{new.heading}}</h1>
-    <img src='{{new.img.url}}' style='margin-left:450px;margin-top:30px;'>
+    <img src='{{new.img.url}}' style='margin-left:50px;margin-top:30px;width:20%;display:inline;float:left;margin-right:20px;'>
     <h6 style='margin-left:20px;margin-top:25px;'>{{new.date}}</h6>
     <p style='margin-left:20px;margin-top:30px;'>{{new.body}}</p>
     {% endfor %}

@@ -104,12 +104,12 @@ def home(request):
     return render(request, 'home.html', {'latest_news': news})
 
 def news(request):
-    # scrape_news()
+    #scrape_news()
     latest_news = News.objects.all()
     return render(request, 'news.html', {'latest_news': latest_news})
 
 def country(request):
-    # scrape()
+    #scrape()
     countries = CountryData.objects.order_by('-totalcase')
     return render(request, 'country.html', {'countries': countries})
     
