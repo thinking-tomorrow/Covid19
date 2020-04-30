@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import News, CountryData
+from .models import News, CountryData, CountryNews
 from bs4 import BeautifulSoup
 from datetime import datetime
 from os import path
@@ -117,35 +117,44 @@ def scrape_news():
 
 def scrape_country_news():
 
+    countries = CountryData.objects.all()
+
     USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:65.0) Gecko/20100101 Firefox/65.0"
 
-    query = "Covid Spain"
-    query = query.replace(' ', '+')
-    URL = f"https://google.com/search?q={query}"
+    for country in countries:
+        query = f"Covid {country.name}"
+        query = query.replace(' ', '+')
+        URL = f"https://google.com/search?q={query}"
 
 
-    headers = {"user-agent": USER_AGENT}
-    resp = requests.get(URL, headers=headers)
+        headers = {"user-agent": USER_AGENT}
+        resp = requests.get(URL, headers=headers)
 
-    if resp.status_code == 200:
-        soup = BeautifulSoup(resp.content, "html.parser")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.content, "html.parser")
 
-        for g in soup.find_all('div', class_='r'):
-            anchors = g.find_all('a')
-            if anchors:
-                link = anchors[0]['href']
-                title = g.find('h3').text
-                item = {
-                    "title": title,
-                    "link": link
-                }
+            for g in soup.find_all('div', class_='r'):
+                anchors = g.find_all('a')
+                if anchors:
+                    link = anchors[0]['href']
+                    title = g.find('h3').text
+                    item = {
+                        "title": title,
+                        "link": link
+                    }
 
-                if 'wikipedia.org' in link or 'worldometer' in link:
-                    continue
-
-
+                    if 'wikipedia.org' in link or 'worldometer' in link:
+                        continue
+                    
+                    news = CountryNews()
+                    news.country = country.name
+                    news.link = link
+                    news.title = title
+                    news.date = str(datetime.now())[:10]
+                    news.save()
 
 def home(request):
+    # scrape_country_news()
     news = News.objects.all()
     return render(request, 'home.html', {'latest_news': news})
 
