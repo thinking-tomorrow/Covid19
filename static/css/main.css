@@ -99,3 +99,7 @@ tr{
 tr:hover{
     cursor: pointer;
 }
+
+tr:first-child:hover{
+    cursor: inherit;
+}
