@@ -24,3 +24,12 @@ class News(models.Model):
 
     class Meta:
         verbose_name_plural = "news"
+
+
+class CountryNews(models.Model):
+    country = models.CharField(max_length=100)
+    title   = models.CharField(max_length=100)
+    link    = models.TextField() 
+
+    class Meta:
+        verbose_name_plural = 'CountryNews'
