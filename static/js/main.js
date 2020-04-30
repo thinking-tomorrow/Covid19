@@ -100,16 +100,4 @@ $(document).ready(function(){
     // modalLoading.init(true);
     // console.log("ended"); 
   });
-
-  // $('.nav-link').click(function (){
-  //   $('.active').removeClass('active');
-  //   $(this).addClass('active');
-  //   $("tr").show()
-
-  //   continent = $(this).html();
-
-  //   if (continent != 'World')
-  //     $("tr[name!='"+continent+"']").hide();
-  //     $("tr[name='head']").show()
-  // });
 });
