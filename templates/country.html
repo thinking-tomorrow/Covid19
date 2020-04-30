@@ -82,33 +82,33 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     
-     <ul class="nav nav-tabs" style="margin-top:20px;">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">World</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Asia</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Africa</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Europe</a>
-  </li>
-    <li class="nav-item">
-    <a class="nav-link" href="#">North America</a>
-  </li>
-   <li class="nav-item">
-    <a class="nav-link" href="#">South America</a>
-  </li>
-   <li class="nav-item">
-    <a class="nav-link" href="#">Oceania</a>
-  </li>
-</ul>
+    <ul class="nav nav-tabs" style="margin-top:20px;">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">World</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Asia</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Africa</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Europe</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">North America</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">South America</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Australia/Oceania</a>
+      </li>
+    </ul>
 
       <table class="table sticky" id="myTable">
         <thead>
-          <tr>
+          <tr name="head">
             <th>Country</th>
             <th id="name">Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
             <th id="total">Total Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
@@ -124,7 +124,7 @@
         <tbody>
           {% for country in countries %}
 
-          <tr>
+          <tr name="{{country.continent}}">
             <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>
             <td>{{country.totalcase}}</td>
