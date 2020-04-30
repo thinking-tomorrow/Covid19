@@ -23,6 +23,22 @@
       p::first-letter{
         font-size:200%;
       }
+      img{
+        margin-left:50px;
+        margin-top:30px;
+        width:20%;
+        display:inline;
+        float:left;
+        margin-right:20px;
+      }
+      @media only screen and (max-width:600px){
+        img{
+        margin-left:10px;
+        margin-top:20px;
+        margin-bottom:20px;
+        width:100%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -60,7 +76,7 @@
 
     {% for new in news %}
     <h1 style='padding-top:20px;'>{{new.heading}}</h1>
-    <img src='{{new.img.url}}' style='margin-left:50px;margin-top:30px;width:20%;display:inline;float:left;margin-right:20px;'>
+    <img src='{{new.img.url}}'>
     <h6 style='margin-left:20px;margin-top:25px;'>{{new.date}}</h6>
     <p style='margin-left:20px;margin-top:30px;'>{{new.body}}</p>
     {% endfor %}

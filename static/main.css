@@ -57,7 +57,7 @@
     padding-top:30px;
     padding-bottom:20px;
     color: lightgreen;
-    padding-left:500px;
+    
 }
 
 .link-next{
@@ -65,14 +65,14 @@
     color:lightgreen;    
 }
 
-#cases{
+.cases{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
     font-weight:bold;
 }
 
-#deaths{
+.deaths{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
@@ -80,7 +80,7 @@
     color:red;
 }
 
-#recovery{
+.recovery{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
