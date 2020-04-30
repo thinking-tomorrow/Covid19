@@ -23,7 +23,7 @@
 
 
     <!-- My Script -->
-    <script src="{% static 'main.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
     
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
@@ -65,7 +65,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search">
+          <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
@@ -82,33 +82,33 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     
-     <ul class="nav nav-tabs" style="margin-top:20px;">
-  <li class="nav-item">
-    <a class="nav-link active" href="#">World</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'continent' 'Asia'%}">Asia</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Africa</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Europe</a>
-  </li>
-    <li class="nav-item">
-    <a class="nav-link" href="#">North America</a>
-  </li>
-   <li class="nav-item">
-    <a class="nav-link" href="#">South America</a>
-  </li>
-   <li class="nav-item">
-    <a class="nav-link" href="#">Oceania</a>
-  </li>
-</ul>
+    <ul class="nav nav-tabs" style="margin-top:20px;">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">World</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Asia</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Africa</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Europe</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">North America</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">South America</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Australia/Oceania</a>
+      </li>
+    </ul>
 
       <table class="table sticky" id="myTable">
         <thead>
-          <tr>
+          <tr name="head">
             <th>Country</th>
             <th id="name">Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
             <th id="total">Total Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
@@ -124,7 +124,7 @@
         <tbody>
           {% for country in countries %}
 
-          <tr>
+          <tr name="{{country.continent}}">
             <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>
             <td>{{country.totalcase}}</td>
