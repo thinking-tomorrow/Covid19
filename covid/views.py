@@ -169,8 +169,9 @@ def country(request):
     return render(request, 'country.html', {'countries': countries})
     
 def country_detail(request, country_name):
+    news = CountryNews.objects.filter(country=country_name)
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
-    return render(request, 'country_detail.html', {'country': country_data})
+    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news})
 
 def world(request):
     world_data = scrape_world()

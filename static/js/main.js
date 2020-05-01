@@ -60,6 +60,25 @@ function sortTable(sort_on, sort_criteria) {
   }
 }
 
+function filterTable() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search_country");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
 $(document).ready(function(){
 
   var table = document.getElementById("myTable");

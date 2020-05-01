@@ -2,10 +2,10 @@ $(document).ready(function (){
     cases = $("#cases").text()
 
     if(cases > 100000){
-        $('body').css("background-size", "cover")
-        $("body").css("color", "white")
+        $('#data').css("background-size", "cover")
+        $("#data").css("color", "white")
     
-        $('body').css('background-image', 'url(../static/images/background_1.jpg)')
+        $('#data').css('background-image', 'url(../static/images/background_1.jpg)')
     }
     // else if(cases > 50000)
     //     $('body').css('background-image', 'url(../static/images/background_2.png)')

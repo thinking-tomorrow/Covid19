@@ -76,10 +76,9 @@
     {% if countries %}
     <h1 style='padding-top:20px;text-align:center;'>COUNTRY PAGE</h1>
 
-    <form class="form-inline my-2 my-lg-0" action="{% url 'searchcountries' %}" method='post' style='margin-top:20px;margin-bottom:20px;'>
-      {% csrf_token %}
-      <input class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
+      <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
+      <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
     </form>
     
     <ul class="nav nav-tabs" style="margin-top:20px;">
@@ -125,7 +124,7 @@
           {% for country in countries %}
 
           <tr name="{{country.continent}}">
-            <td><img src="{{country.flag}}" style="height: 50px; width: 80px; border: 0.5px solid black"></td>
+            <td><img src="{{country.flag}}" style="height: 50px; width: 80px;"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>
             <td>{{country.totalcase}}</td>
             <td>{{country.activecase}}</td>
