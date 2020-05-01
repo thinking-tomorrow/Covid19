@@ -60,20 +60,75 @@ function sortTable(sort_on, sort_criteria) {
   }
 }
 
+function filterTable() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search_country");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
 $(document).ready(function(){
-    $('.fas').click(function () {
-      console.log("started")
-      th = $(this).parent();
-      id = $(th).parent().children().index($(th));
-      sort = $(this).attr('class');
 
-      if (sort.includes('fa-sort-up')){
-        sortTable(id, 'descending');
-      }
-      else{
-        sortTable(id, 'ascending')
-      }
+  var table = document.getElementById("myTable");
+  for (var i = 0, row; row = table.rows[i]; i++) {
+    
+    if(i==0)  
+      continue;
 
-      console.log("ended"); 
-    });
+    total = row.cells[2].innerHTML;
+    if(total > 100000)
+      $(row).css("background-color", "rgba(255, 0, 0, 0.5)")
+    else if(total > 50000)
+      $(row).addClass('table-danger')
+    else if(total > 10000)
+      $(row).addClass('table-warning')  
+    else if(total > 5000)
+      $(row).css("background-color", "rgba(255, 255, 0, 0.3)")
+    else if(total > 1000)
+      $(row).css("background-color", "rgba(255, 255, 0, 0.1)")
+    else
+      $(row).addClass('table-success')  
+  }
+
+  $('.fas').click(function () {
+    // modalLoading.init(true);
+    console.log("started")
+    th = $(this).parent();
+    id = $(th).parent().children().index($(th));
+    sort = $(this).attr('class');
+
+    if (sort.includes('fa-sort-up')){
+      sortTable(id, 'descending');
+    }
+    else{
+      sortTable(id, 'ascending')
+    }
+    
+    // modalLoading.init(true);
+    // console.log("ended"); 
+  });
+
+  $('.nav-link').click(function (){
+    $('.active').removeClass('active');
+    $(this).addClass('active');
+    $("tr").show()
+
+    continent = $(this).html();
+
+    if (continent != 'World')
+      $("tr[name!='"+continent+"']").hide();
+      $("tr[name='head']").show()
+  });
 });

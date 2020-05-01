@@ -1,4 +1,3 @@
-
 .parallax {
     /* The image used */
     background-image: url("{% static 'salute.jpg' %}");
@@ -19,7 +18,7 @@
     padding-bottom:10px;
     text-align:center;
 }
-
+ 
 .update{
     padding-top:10px;
     text-align:center;
@@ -58,7 +57,7 @@
     padding-top:30px;
     padding-bottom:20px;
     color: lightgreen;
-    padding-left:500px;
+    
 }
 
 .link-next{
@@ -66,14 +65,14 @@
     color:lightgreen;    
 }
 
-.cases{
+#cases{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
     font-weight:bold;
 }
 
-.deaths{
+#deaths{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
@@ -81,10 +80,26 @@
     color:red;
 }
 
-.recovery{
+#recovery{
     font-size:30px;
     text-align:center;
     padding-top: 15px;
     font-weight:bold;
     color:lightgreen;
+}
+
+.fas{
+    cursor: pointer;
+}
+
+tr{
+    /* opacity: 0.5; */
+}
+
+tr:hover{
+    cursor: pointer;
+}
+
+tr:first-child:hover{
+    cursor: inherit;
 }

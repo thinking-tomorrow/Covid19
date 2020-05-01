@@ -200,3 +200,6 @@ def searchcountries(request):
         country = request.POST['country']
         countries = CountryData.objects.filter(name__contains=country)
         return render(request,'country.html',{'countries':countries})
+
+def about(request):
+    return render(request,'about.html')
