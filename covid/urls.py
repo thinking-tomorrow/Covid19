@@ -11,6 +11,5 @@ urlpatterns = [
     path('world', views.world, name='world'),
     path('tips', views.tips,name='tips'),
     path('search', views.search,name='search'),
-    path('searchcountries',views.searchcountries, name='searchcountries'),
-    
+    path('searchcountries',views.searchcountries, name='searchcountries')
 ]
