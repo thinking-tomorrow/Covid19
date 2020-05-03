@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import News, CountryData, CountryNews
+from .models import News, CountryData, CountryNews, DailyData
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import datetime, timedelta
 from os import path
 import requests
 import urllib
 import sys
+import pandas as pd
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
                 "S. Korea": "Korea South", "Czechia": "Czech Republic", "North Macedonia": "Macedonia", 
@@ -114,6 +115,33 @@ def scrape_news():
         news.link = url
         news.save()
 
+def dailydatacountrywise(country):
+
+    daily = DailyData()
+
+    print(country)
+    print(" In daily data ")
+
+    url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+
+    df = pd.read_csv(url)
+
+    df.rename(columns={'location':'Country'},inplace=True)
+
+    date = str(datetime.now() - timedelta(days=1))[:10]
+    fil = df['date'] == date
+    df = df[fil]
+
+    df.set_index('Country',inplace=True)
+
+    daily.country = str(country)
+    daily.totalcase = df.at[str(country),'total_cases']
+    daily.newcase = df.at[str(country),'new_cases']
+    daily.deaths = df.at[str(country),'total_cases']
+    daily.newdeath = df.at[str(country),'new_deaths']
+    daily.date = date
+
+    daily.save()
 
 def scrape_country_news():
 
@@ -170,8 +198,15 @@ def country(request):
     
 def country_detail(request, country_name):
     news = CountryNews.objects.filter(country=country_name)
+
+    dailydatacountrywise(country_name)
+
+    print(country_name)
+
+    dailydata = DailyData.objects.filter(country=country_name)
+
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
-    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news})
+    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'data':dailydata})
 
 def world(request):
     world_data = scrape_world()
