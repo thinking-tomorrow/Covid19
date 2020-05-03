@@ -34,3 +34,13 @@ class CountryNews(models.Model):
 
     class Meta:
         verbose_name_plural = 'CountryNews'
+
+class DailyData(models.Model):
+
+    country = models.TextField(primary_key=True)
+    totalcase = models.IntegerField()
+    newcase = models.IntegerField()
+    deaths = models.IntegerField()
+    newdeath = models.IntegerField()
+    date = models.DateField()
+
