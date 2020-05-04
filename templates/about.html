@@ -12,8 +12,10 @@
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <style>
       img{
@@ -26,15 +28,47 @@
           width:50%;
         }
       }
+
+      .detail{
+        margin: 15px;
+        padding: 20px;
+      }
     </style>
+
+      <script>
+        $(document).ready(function (){
+          $('[data-toggle="popover"]').each( function() {
+            //try doing console log out of popover.
+            id = $(this).attr('id');
+
+            if (id=='sajjad'){
+              title_tag = "<h4>Sajjad Ahmed</h4>"
+              content_tag = '<div><p>Studying at Don Bosco School, Park Circus (class 9). A tech geek. Love to code and in love with Java and Python. Inquisitive about electronics.</p><a href="https://github.com/sajjad006" target="_blank"><i class="fas fa-link"></i> https://github.com/sajjad006</a><br><a target="_blank" href="mailto://mailsajjad006@gmail.com"><i class="far fa-envelope-open"></i> mailsajjad006@gmail.com</a></div>'
+            }else{
+              title_tag = "<h4>Hrishikesh Bhanja</h4>"
+              content_tag = '<div><p>Student @ Don Bosco School Park Circus - class 9(13 years old). Love Python . Love the subject Computer Science itself . Also have a liking for Maths & Science.</p><a href="https://github.com/Hrishikesh-coder" target="_blank"><i class="fas fa-link"></i> https://github.com/Hrishikesh-coder</a><br><a target="_blank" href="mailto://hrishipotter123@gmail.com"><i class="far fa-envelope-open"></i> hrishipotter123@gmail.com</a></div>'
+            }
+
+            
+            $(this).popover({
+              title: title_tag, 
+              content: content_tag,
+              html: true,
+              placement: "top",
+              animation: true,
+            }); 
+          });
+        });
+
+    </script>
 
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
     <title>Covid Info</title>
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <body style="background-image: url('{% static 'images/background_about.jpg' %}'); background-size: covers">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#">COVID INFO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -42,7 +76,7 @@
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href='/'><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
@@ -57,10 +91,13 @@
           <li class="nav-item">
             <a class="nav-link" href="/tips"><i class="fas fa-question"></i> Tips and Tricks</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
           </li>
         </ul>
+        
+        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
@@ -68,20 +105,44 @@
         </form>
       </div>
     </nav>
+
     <img src="{% static 'logo.png' %}">
-    <h3 style='padding-top:20px;'>WHAT IS THIS WEBSITE ABOUT ?</h3>
-    <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>This website is about creating awareness in people's mind against this deadly virus know as Coronavirus , whose scientific name is SARS-CoV2 . This virus has affected almost every country in the world and
-        has forced human beings into remote existence . However, we are hopeful that we shall overcome and better times shall come . This website is nothing but a simple attempt to create awareness among the masses about this disease . </p>
-    <h3 style='padding-top:20px;'>WHAT DO WE DO ?</h3>
-    <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>We show real-time data and analysis of the affested, recovered and deceased people all over the world . We have broken down the data into country-wise formats with specific data for each country.
-        Not only that, we also provide reliable news that our user can trust on related to COVID-19 . Undoubtedly, this website is your one-stop guide for COVID-19 information.
-    </p>
-    <h3 style='padding-top:20px;'>FROM WHERE DO WE GET THIS DATA ?</h3>
-    <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>Every effort has been made to avoid any kind of error in the data in this website. This data is a compilation of</p>
+
+    <div class="detail">
+      <h3>WHAT IS THIS WEBSITE ABOUT ?</h3>
+      <p>This website is about creating awareness in people's mind against the deadly virus nCoV-19 which has maimed and crippled the society. It has forced human beings into remote existence. However, we are hopeful 
+      that we shall overcome and better times shall come . This website is nothing but a simple attempt to create awareness among the masses about this disease . </p>
+    </div>
+
+    <div class="detail">
+      <h3>WHAT DO WE DO ?</h3>
+      <p>We show real-time data and analysis of the affected people all over the world . We have broken down the data into multiple formats with specific data for each country which allows a layman to understand whats
+      actually going in any particular country around the globe. Not only that, we also provide reliable news that our user can trust on related to COVID-19 . Undoubtedly, this website is your one-stop guide for COVID-19 information.
+      </p>
+    </div>
+
+    <div class="detail">
+      <h3>FROM WHERE DO WE GET THIS DATA ?</h3>
+      <p>Every effort has been made to avoid any kind of error in the data in this website. This data is a compilation of different kind of data available on the official websites of all countries. This compilation 
+      is completely done by our web scrapping algorithm with no human intervention. Utmost level of transparency is maintained with no censorship. Our team of experts at <a href="https://github.com/thinking-tomorrow" target="_blank" style="color: blue;"><b>Thinking Tomorrow</b></a>
+      are working round the clock to improve your experience. Feel free to contact us at <b><a href="mailto:ouremail@email.com" style="color: blue;">ouremail@email.com</a></b></p>
+    </div>
+
+    <div class="detail">
+
+      <h3>WHO ARE WE ?</h3>
+      <p>This website has been created by 
+      <b><a style="color: blue; text-decoration: underline; cursor: pointer" tabindex="0" data-trigger="focus hover" data-toggle="popover" id="sajjad">Sajjad Ahmed</a></b> and 
+      <b><a style="color: blue; text-decoration: underline; cursor: pointer" tabindex="0" data-trigger="focus hover" data-toggle="popover" id="hrishi">Hrishikesh Bhanja</a></b> 
+      
+      of Don bosco School, Park Circus. This is a simple effort by us to arouse consciousness in the minds of people which are buzzing with numerous questions at this moment. This website is completely open source and the 
+      source of the same can be accessed from our GitHub repository. <a href="https://github.com/thinking-tomorrow/Covid19" target="_blank" style="color: blue;">Click here</a> to view the source code.</p>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -20,9 +20,28 @@
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
     <title>Covid Info</title>
+
+    <style>
+      .detail{
+        margin: 15px;
+        padding: 20px;
+      }
+
+      .detail p{
+        padding: 25px;
+      }
+
+      @media only screen and (max-width: 600px) {
+        img{
+          width: 100%;
+          padding: 10px;
+        }
+      }
+    </style>
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <body style="background-image: url('{% static 'images/background_about.jpg' %}'); background-size: cover;">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#">COVID INFO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -49,6 +68,10 @@
             <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
           </li>
         </ul>
+
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
@@ -56,59 +79,84 @@
         </form>
       </div>
     </nav>
-    <h1 style='text-align:center;padding-top:20px;padding-bottom:25px;font-size:100px;color:cadetblue;'>Tips and Tricks</h1>
-    <img src="{% static 'images/corona.jpg' %}" width=1500px;>
-    <h3 style='padding-left:20px;padding-top:20px;'>WHAT IS COVID-19 ?</h3>
-    <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>Coronavirus disease 2019 (COVID-19) is an infectious disease caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2).
-         The disease was first identified in December 2019 in Wuhan, the capital of China's Hubei province, and has since spread globally, resulting in the ongoing 2019–20 coronavirus pandemic.
-         As of 24 April 2020, more than 2.79 million cases have been reported across 185 countries and territories, resulting in more than 195,000 deaths. More than 781,000 people have recovered.</p>
-         <h3 style='padding-left:20px;padding-top:20px;'>WHAT CAUSES COVID-19 ?</h3>
-         <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>
-            Some details about how the disease is spread are still being determined.
-            The WHO and the U.S. Centers for Disease Control and Prevention (CDC) say it is primarily spread during close contact and by small droplets produced when people cough, sneeze or talk;with close contact being within approximately 1–2 m (3–7 ft).
-            Both sputum and saliva can carry large viral loads.
-            Loud talking releases more droplets than normal talking.
-            A study in Singapore found that an uncovered cough can lead to droplets travelling up to 4.5 metres (15 feet)
-         </p>
-         <h3 style='padding-left:20px;padding-top:20px;'>WHAT ARE THE SYMPTOMS OF COVID-19 ?</h3>
-         <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>
-            Fever is the most common symptom, although some older people and those with other health problems experience fever later in the disease.In one study, 44% of people had fever when they presented to the hospital, while 89% went on to develop fever at some point during their hospitalization.
 
-            Other common symptoms include cough, loss of appetite, fatigue, shortness of breath, sputum production, and muscle and joint pains.Symptoms such as nausea, vomiting and diarrhoea have been observed in varying percentages.Less common symptoms include sneezing, runny nose, or sore throat.
-            
-            More serious symptoms include difficulty breathing, persistent chest pain or pressure, confusion, difficulty waking, and bluish face or lips. Immediate medical attention is advised if these symptoms are present.
-         </p>
-         <img src="{% static 'images/tips.png' %}" width=1350px;>
-         <h3 style='padding-left:20px;padding-top:20px;'>WHAT DO I DO IF I EXPERIENCE SYMPTOMS OF COVID-19 ?</h3>
-         <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>
-            Stay home. Most people with COVID-19 have mild illness and can recover at home without medical care. Do not leave your home, except to get medical care. Do not visit public areas.
-            Take care of yourself. Get rest and stay hydrated.
-            Stay in touch with your doctor. Call before you get medical care. Be sure to get care if you have trouble breathing, or have any other emergency warning signs, or if you think it is an emergency.
-            Avoid public transportation, ride-sharing, or taxi
-         </p>
-         <h3 style='padding-left:20px;padding-top:20px;'>STAY HOME, SAVE LIVES</h3>
-         <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>
-          Help stop coronavirus<br>
-          1. <b>STAY</b> home<br>
-          2. <b>KEEP</b>a safe distance<br>
-          3. <b>WASH</b> hands often<br>
-          4. <b> COVER</b> your cough<br>
-          5. <b> SICK?</b> Call the helpline
-         </p>
-         <h3 style='padding-left:20px;padding-top:20px;'>SOME PROTECTIVE MEASURES</h3>
-         <p style='padding-left:10px;padding-top:25px;font-weight:bold;'>
-          <b>Wash your hands frequently</b><br>
-          Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water.<br>
-          <b>Maintain social distancing</b><br>
-          Maintain at least 1 metre (3 feet) distance between yourself and anyone who is coughing or sneezing.<br>
-          <b>Practice respiratory hygiene</b><br>
-          Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze. Then dispose of the used tissue immediately.
-         </p>
-         <h1 style="text-align:center;padding-top:30px;font-weight:bold;color:blue">TOGETHER WE SHALL OVERCOME , STAY HOME STAY SAFE &#128512;</h1>
-    
-         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    
-        </body>
+    <h1 style='text-align:center;padding-top:20px;padding-bottom:25px;font-size:80px;color:white;'>Tips and Tricks</h1>
+
+    <center>
+      <img src="{% static 'images/corona.jpg' %}" width="30%"> 
+    </center>
+
+    <div class="detail">
+      <h3>WHAT IS COVID-19 ?</h3>
+
+      <p>Coronavirus disease 2019 (COVID-19) is an infectious disease caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2).
+      The disease was first identified in December 2019 in Wuhan, the capital of China's Hubei province, and has since spread globally, resulting in the ongoing 2019–20 coronavirus pandemic.
+      As of 24 April 2020, more than 2.79 million cases have been reported across 185 countries and territories, resulting in more than 195,000 deaths. More than 781,000 people have recovered.</p>
+    </div>
+
+    <div class="detail">
+      <h3>WHAT CAUSES COVID-19 ?</h3>
+      <p>Some details about how the disease is spread are still being determined.
+        The WHO and the U.S. Centers for Disease Control and Prevention (CDC) say it is primarily spread during close contact and by small droplets produced when people cough, sneeze or talk;with close contact being within approximately 1–2 m (3–7 ft).
+        Both sputum and saliva can carry large viral loads.
+        Loud talking releases more droplets than normal talking.
+        A study in Singapore found that an uncovered cough can lead to droplets travelling up to 4.5 metres (15 feet)
+      </p>
+    </div>
+
+    <div class="detail">
+      <h3>WHAT ARE THE SYMPTOMS OF COVID-19 ?</h3>
+
+      <p>
+        Fever is the most common symptom, although some older people and those with other health problems experience fever later in the disease.In one study, 44% of people had fever when they presented to the hospital, while 89% went on to develop fever at some point during their hospitalization. 
+        Other common symptoms include cough, loss of appetite, fatigue, shortness of breath, sputum production, and muscle and joint pains.Symptoms such as nausea, vomiting and diarrhoea have been observed in varying percentages.Less common symptoms include sneezing, runny nose, or sore throat.
+        More serious symptoms include difficulty breathing, persistent chest pain or pressure, confusion, difficulty waking, and bluish face or lips. Immediate medical attention is advised if these symptoms are present.
+      </p>
+
+      <center>
+        <img src="{% static 'images/tips.png' %}" width="30%">
+      </center>
+    </div>
+
+    <div class="detail">
+      <h3>WHAT DO I DO IF I EXPERIENCE SYMPTOMS OF COVID-19 ?</h3>
+      <p>
+        Stay home. Most people with COVID-19 have mild illness and can recover at home without medical care. Do not leave your home, except to get medical care. Do not visit public areas.
+        Take care of yourself. Get rest and stay hydrated.
+        Stay in touch with your doctor. Call before you get medical care. Be sure to get care if you have trouble breathing, or have any other emergency warning signs, or if you think it is an emergency.
+        Avoid public transportation, ride-sharing, or taxi
+      </p>
+    </div>
+
+    <div class="detail">
+      <h3>STAY HOME, SAVE LIVES</h3>
+      <p>
+      Help stop coronavirus<br>
+      1. <b>STAY</b> home<br>
+      2. <b>KEEP</b>a safe distance<br>
+      3. <b>WASH</b> hands often<br>
+      4. <b> COVER</b> your cough<br>
+      5. <b> SICK?</b> Call the helpline
+      </p>
+    </div>
+
+    <div class="detail">
+      <h3>SOME PROTECTIVE MEASURES</h3>
+      <p>
+      <b>Wash your hands frequently</b><br>
+      Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water.<br>
+      <b>Maintain social distancing</b><br>
+      Maintain at least 1 metre (3 feet) distance between yourself and anyone who is coughing or sneezing.<br>
+      <b>Practice respiratory hygiene</b><br>
+      Make sure you, and the people around you, follow good respiratory hygiene. This means covering your mouth and nose with your bent elbow or tissue when you cough or sneeze. Then dispose of the used tissue immediately.
+      </p>
+    </div>
+
+    <h2 style="text-align:center;margin-top:30px;font-weight:bold;color:blue">TOGETHER <br> WE SHALL OVERCOME <br> STAY HOME <br> STAY SAFE</h2>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  </body>
 </html>
