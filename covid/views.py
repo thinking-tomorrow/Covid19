@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import News, CountryData, CountryNews, DailyData
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+from sqlalchemy import create_engine
 from os import path
 import requests
 import urllib
@@ -115,12 +116,10 @@ def scrape_news():
         news.link = url
         news.save()
 
+
 def dailydatacountrywise(country):
 
     daily = DailyData()
-
-    print(country)
-    print(" In daily data ")
 
     url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
 
@@ -142,6 +141,25 @@ def dailydatacountrywise(country):
     daily.date = date
 
     daily.save()
+
+
+def daily_data():
+    url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+    columns = {'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths'}
+    df = pd.read_csv(url, usecols=columns, index_col='location')
+    df.rename(columns={'location':'Country'},inplace=True)
+
+    for index, row in df.iterrows():
+        print(index)
+        daily = DailyData()
+        daily.country = str(index)
+        daily.totalcase = row['total_cases']
+        daily.newcase = row['new_cases']
+        daily.deaths = row['total_deaths']
+        daily.newdeath = row['total_deaths']
+        daily.date = row['date']
+        daily.save()
+
 
 def scrape_country_news():
 
@@ -183,6 +201,7 @@ def scrape_country_news():
 
 def home(request):
     # scrape_country_news()
+    daily_data()
     news = News.objects.all()
     return render(request, 'home.html', {'latest_news': news})
 
@@ -206,7 +225,7 @@ def country_detail(request, country_name):
     dailydata = DailyData.objects.filter(country=country_name)
 
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
-    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'data':dailydata})
+    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news})
 
 def world(request):
     world_data = scrape_world()

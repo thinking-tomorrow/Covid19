@@ -77,10 +77,12 @@
           <div class="carousel-item">
             <img class="d-block w-100" src="{{news.img.url}}" alt="Second slide">
             
-            <div class="carousel-caption d-none d-md-block">
-              <h5>{{news.heading}}</h5>
-              <p>{{news.date}}</p>
-            </div>        
+            <a href="news-detail/{{news.id}}" class="stretched-link">
+              <div class="carousel-caption d-none d-md-block">
+                <h5>{{news.heading}}</h5>
+                <p>{{news.date}}</p>
+              </div>
+            </a>        
           </div>
           {% endfor %}
         </div>
