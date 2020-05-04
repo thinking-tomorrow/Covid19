@@ -201,7 +201,7 @@ def scrape_country_news():
 
 def home(request):
     # scrape_country_news()
-    daily_data()
+    # daily_data()
     news = News.objects.all()
     return render(request, 'home.html', {'latest_news': news})
 

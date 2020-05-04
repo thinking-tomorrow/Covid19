@@ -5,11 +5,8 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- My Style Sheets -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
@@ -20,10 +17,66 @@
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <title>Covid Info</title>
+
+    <style>
+      .center {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        margin-top: 20px;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .center{
+          box-sizing: border-box;
+          width:100%;
+          padding: 10px;
+        }
+      }
+      #recovery{
+        color: green;
+      }
+    </style>
+
+    <script>
+      function animateValue(id, start, end, duration) {
+        var range = end - start;
+        var current = start;
+        var increment = end > start? 1 : -1;
+        var stepTime = Math.abs(Math.floor(duration / range));
+        var obj = document.getElementById(id);
+        var timer = setInterval(function() {
+            current += increment;
+            obj.innerHTML = current;
+            if (current == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+      }
+
+      function count(){
+        var cases = document.getElementById('cases');
+        var deaths = document.getElementById('deaths');
+        var recovery = document.getElementById('recovery');
+
+        case_count = parseInt(cases.innerHTML.replace(/,/g, ''));
+        death_count = parseInt(deaths.innerHTML.replace(/,/g, ''));
+        recovery_count = parseInt(recovery.innerHTML.replace(/,/g, ''));
+
+        animateValue('cases', case_count-200, case_count, 5000);
+        animateValue('deaths', death_count-200, death_count, 5000);
+        animateValue('recovery', recovery_count-200, recovery_count, 5000);
+      }
+    </script>
+
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <body style="background-image: url('{% static 'images/countryflags.jpg' %}'); background-size: cover"  onload='count()'>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#">COVID INFO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -50,6 +103,10 @@
             <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
           </li>
         </ul>
+
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
@@ -57,20 +114,21 @@
         </form>
       </div>
     </nav>
+    
+    <center>
+      <div style="background-color: rgba(255,255,255,0.7);" class="center">
+        <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:40px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
+        <p id='cases'>{{world_total}}</p>
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
+        <p id='deaths'>{{world_death}}</p>
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Coronavirus Winners:</h2>
+        <p id='recovery'>{{world_recovery}}</p>
+      </div>
+    </center>      
 
-      
-      <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:40px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
-      <a href='#' class='link'>Graphs</a>
-      <a href='/country' class='link-next'>Countries</a>
-      <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
-      <p id='cases'>{{world_total}}</p>
-      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
-      <p id='deaths'>{{world_death}}</p>
-      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:lightgreen;'>Coronavirus Winners:</h2>
-      <p id='recovery'>{{world_recovery}}</p>
-
-      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>

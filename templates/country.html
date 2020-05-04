@@ -31,7 +31,7 @@
     <style>
       .table.sticky th{
         position: sticky;
-        top:0;
+        top: 60px;
         background-color: white;
       }
       
@@ -39,8 +39,8 @@
 
     <title>Covid Info</title>
   </head>
-  <body >
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#">COVID INFO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -67,6 +67,10 @@
             <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
           </li>
         </ul>
+
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
