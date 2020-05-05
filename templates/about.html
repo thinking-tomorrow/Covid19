@@ -19,12 +19,12 @@
 
     <style>
       img{
-        margin-left:400px;
-        margin-top:30px;
+        margin-top: 30px;
       }
+
       @media only screen and (max-width: 600px) {
         img{
-          margin-left:100px;
+          margin-top: 30px;
           width:50%;
         }
       }
@@ -108,9 +108,11 @@
 
     <div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-  </div>
+    </div>
 
-    <img src="{% static 'logo.png' %}">
+    <center>
+      <img src="{% static 'logo.png' %}">
+    </center>
 
     <div class="detail">
       <h3>WHAT IS THIS WEBSITE ABOUT ?</h3>
