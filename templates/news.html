@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- My Style Sheets -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -61,7 +61,9 @@
       </div>
     </nav>
 
-
+    <div class="loader">
+      <img src="{% static 'preloader.svg' %}" alt="Loading..." />
+  </div>
 
     {% for news in latest_news %}
     <div class="card" style="height:250px;width: 18rem;height:45rem;padding-left:20px;margin-top:20px;display: inline-block;">
@@ -74,7 +76,12 @@
     </div>
     {% endfor %}
 
-
+    <script>
+      window.addEventListener("load", function () {
+        const loader = document.querySelector(".loader");
+        loader.className += " hidden"; // class "loader hidden"
+    });
+    </script>
 
         <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- My Style Sheets -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -106,6 +106,10 @@
       </div>
     </nav>
 
+    <div class="loader">
+      <img src="{% static 'preloader.svg' %}" alt="Loading..." />
+  </div>
+
     <img src="{% static 'logo.png' %}">
 
     <div class="detail">
@@ -138,7 +142,13 @@
       of Don bosco School, Park Circus. This is a simple effort by us to arouse consciousness in the minds of people which are buzzing with numerous questions at this moment. This website is completely open source and the 
       source of the same can be accessed from our GitHub repository. <a href="https://github.com/thinking-tomorrow/Covid19" target="_blank" style="color: blue;">Click here</a> to view the source code.</p>
     </div>
-
+    
+    <script>
+      window.addEventListener("load", function () {
+        const loader = document.querySelector(".loader");
+        loader.className += " hidden"; // class "loader hidden"
+    });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

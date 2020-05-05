@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- My Style Sheets -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
     
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -115,6 +115,10 @@
       </div>
     </nav>
     
+    <div class="loader">
+      <img src="{% static 'preloader.svg' %}" alt="Loading..." />
+  </div>
+
     <center>
       <div style="background-color: rgba(255,255,255,0.7);" class="center">
         <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:40px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
@@ -126,6 +130,14 @@
         <p id='recovery'>{{world_recovery}}</p>
       </div>
     </center>      
+
+    <script>
+      window.addEventListener("load", function () {
+        const loader = document.querySelector(".loader");
+        loader.className += " hidden"; // class "loader hidden"
+    });
+    </script>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
