@@ -20,14 +20,17 @@ country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE"
                 "British Virgin Islands": "Virgin Islands British", "St. Barth": "Saint Barthelemy", "Caribbean Netherlands": "Netherlands",
                 "Saint Pierre Miquelon": "Saint Pierre and Miquelon"}
 
+
 def my_int(str):
     if str.strip().isnumeric():
         return int(str)
     else:
         return 0
 
+
 def tips(request):
     return render(request,'tips.html')
+
 
 def scrape():
     source = requests.get('https://www.worldometers.info/coronavirus/').text
@@ -65,7 +68,6 @@ def scrape():
         my_country.death_pop    = my_int(rows[9])
         my_country.test_pop     = my_int(rows[11])
         my_country.continent    = rows[12]
-
         my_country.flag         = f'media/flag/{name}.png'
 
         my_country.save()
@@ -131,7 +133,7 @@ def dailydatacountrywise(country):
     fil = df['date'] == date
     df = df[fil]
 
-    df.set_index('Country',inplace=True)
+    df.set_index('Country', inplace=True)
 
     daily.country = str(country)
     daily.totalcase = df.at[str(country),'total_cases']
@@ -144,14 +146,16 @@ def dailydatacountrywise(country):
 
 
 def daily_data():
-    url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+    print("here")
+    url = "owid-covid-data.csv"
     columns = {'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths'}
     df = pd.read_csv(url, usecols=columns, index_col='location')
     df.rename(columns={'location':'Country'},inplace=True)
+    print("here 1")
 
-    #world_df = df.loc['World']
+    world_df = df.loc['World']
 
-    for index, row in df.iterrows():
+    for index, row in world_df.iterrows():
         print(index)
         daily = DailyData()
         daily.country = str(index)
@@ -201,40 +205,51 @@ def scrape_country_news():
                     news.date = str(datetime.now())[:10]
                     news.save()
 
+
 def home(request):
     # scrape_country_news()
-    #daily_data()
+    # daily_data()
     news = News.objects.all()
     return render(request, 'home.html', {'latest_news': news})
+
+
+def graphs(request):
+    world_daily_data = DailyData.objects.filter(country='World')
+    
+    for data in world_daily_data:
+        data.date = str(data.date)
+        print(data.date)
+
+    return render(request,'graphs.html', {'world_daily_data' : world_daily_data[32:]})
+
 
 def news(request):
     #scrape_news()
     latest_news = News.objects.all()
     return render(request, 'news.html', {'latest_news': latest_news})
 
+
 def country(request):
     # scrape()
     countries = CountryData.objects.order_by('-totalcase')
     return render(request, 'country.html', {'countries': countries})
     
+
 def country_detail(request, country_name):
     news = CountryNews.objects.filter(country=country_name)
-
     dailydatacountrywise(country_name)
 
-    print(country_name)
-
-    dailydata = DailyData.objects.filter(country=country_name)
+    # dailydata = DailyData.objects.filter(country=country_name)
 
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
     return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news})
 
+
 def world(request):
     world_data = scrape_world()
-
     worlddailydata = DailyData.objects.filter(country='World')
-
     return render(request, 'world.html', {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2], 'worlddailydata' : worlddailydata})
+
 
 def search(request):
 
@@ -260,12 +275,8 @@ def searchcountries(request):
         countries = CountryData.objects.filter(name__contains=country)
         return render(request,'country.html',{'countries':countries})
 
+
 def about(request):
     return render(request,'about.html')
 
 #DailyData.objects.filter(country='World').delete()
-
-def graphs(request):
-
-    worlddailydata = DailyData.objects.filter(country='World')
-    return render(request,'graphs.html',{'worlddailydata' : worlddailydata})

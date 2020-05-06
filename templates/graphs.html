@@ -19,64 +19,18 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
 
     <title>Covid Info</title>
 
     <style>
-      .center {
-        margin: auto;
-        width: 50%;
-        padding: 10px;
-        margin-top: 20px;
-      }
-
-      @media only screen and (max-width: 600px) {
-        .center{
-          box-sizing: border-box;
-          width:100%;
-          padding: 10px;
+        canvas{
+          width:800px !important;
+          height:500px !important;
         }
-      }
-      #recovery{
-        color: green;
-      }
     </style>
-
-    <script>
-      function animateValue(id, start, end, duration) {
-        var range = end - start;
-        var current = start;
-        var increment = end > start? 1 : -1;
-        var stepTime = Math.abs(Math.floor(duration / range));
-        var obj = document.getElementById(id);
-        var timer = setInterval(function() {
-            current += increment;
-            obj.innerHTML = current;
-            if (current == end) {
-                clearInterval(timer);
-            }
-        }, stepTime);
-      }
-
-      function count(){
-        var cases = document.getElementById('cases');
-        var deaths = document.getElementById('deaths');
-        var recovery = document.getElementById('recovery');
-
-        case_count = parseInt(cases.innerHTML.replace(/,/g, ''));
-        death_count = parseInt(deaths.innerHTML.replace(/,/g, ''));
-        recovery_count = parseInt(recovery.innerHTML.replace(/,/g, ''));
-
-        animateValue('cases', case_count-200, case_count, 5000);
-        animateValue('deaths', death_count-200, death_count, 5000);
-        animateValue('recovery', recovery_count-200, recovery_count, 5000);
-      }
-    </script>
-
   </head>
-  <body style="background-image: url('{% static 'images/countryflags.jpg' %}'); background-size: cover"  onload='count()'>
+  <body>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#">COVID INFO</a>
@@ -119,16 +73,7 @@
     
     <div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-  </div>
-
-   
-
-  <script>
-    {% for data in worlddailydata %}
-    console.log({{data.newdeath}});
-    {% endfor %}
-    console.log("Hello World");
-  </script>
+    </div>
 
     <script>
       window.addEventListener("load", function () {
@@ -136,262 +81,102 @@
         loader.className += " hidden"; // class "loader hidden"
     });
     </script>
-    <canvas id="myChart" width="40000" height="40000" style="background-color: white;"></canvas>
-<script>
-var da = [];
-var neew = [];
-{% for d in worlddailydata %}
-              da.push({{d.newdeath}});
-              /*var deathdate = new Date({{d.date}});
-              console.log(deathdate);
-              new.push(String(deathdate));*/
-{% endfor %}
 
-console.log(da);
-console.log(neew);
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1',
-        'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange','1'
-        ],
-        datasets: [{
-            label: '# of Votes',
-            data: da,
-            
-            backgroundColor: [
-            
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
+    <canvas id="myChart" width="200px" style="background-color: white;"></canvas>
+    
+    <script>
+      bg_colors = [   'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)']
+      
+      border_colors = ['rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)']
 
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
+      function fill_array(arr, length){
+        c = 0;
+        final = []
+        for (i=0; i<length; i++){
 
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+          if(arr=='bg')
+            final[i] = bg_colors[c];
+          else
+            final[i] = border_colors[c];
+
+          if (c==5)
+            c=0;
+          else
+            c++;
         }
-    }
-});
-</script>
+        return final;
+      }
+    
+      var new_death = [];
+      var labels = [];
+      {% for data in world_daily_data %}
+          new_death.push({{data.newdeath}});
+          labels.push('{{data.date}}');     
+      {% endfor %}
+
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: '# of Deaths',
+                  data: new_death,
+                  
+                  backgroundColor: fill_array('bg', labels.length),
+                  borderColor: fill_array('br', labels.length),
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              title: {
+                display: true,
+                text: 'Coronavirus Daily Deaths (World Wide)',
+                fontSize: 20
+              },
+              responsive: true,
+              maintainAspectRatio: false,
+              legend: {
+                display: false                  
+              },
+              tooltips: {
+                titleFontSize: 30,
+                bodyFontSize: 30
+              },
+              scales: {
+                  yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        autoSkip: true,
+                        maxTicksLimit: 9,
+                        stepSize: 2500,
+                        fontSize: 20
+                    },
+                  }],
+                  xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 20,
+                        fontSize: 20
+                    },
+                    gridLines: {
+                      display:false
+                    }
+                  }]
+              }
+          }
+      });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
