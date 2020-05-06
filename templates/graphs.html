@@ -84,7 +84,7 @@
     </script>
 
     <canvas id="myChart" width="200px" style="background-color: white;"></canvas>
-    
+    <canvas id="newChart" width="200px" style="background-color: white; padding-top:50px;"></canvas>
     <script>
       bg_colors = [   'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',
@@ -128,8 +128,10 @@
       }
     
       var new_death = [];
+      var new_cases = [];
       var labels = [];
       {% for data in world_daily_data %}
+          new_cases.push({{data.newcase}})
           new_death.push({{data.newdeath}});
           labels.push('{{data.date}}');     
       {% endfor %}
@@ -204,9 +206,134 @@
                   }]
               }
           }
-      });
+      },
+      );
     </script>
-
+    <script>
+        bg_colors = [   'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)']
+        
+        border_colors = ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)']
+  
+        hover_colors = ['rgba(255, 99, 132)',
+                        'rgba(54, 162, 235)',
+                        'rgba(255, 206, 86)',
+                        'rgba(75, 192, 192)',
+                        'rgba(153, 102, 255)',
+                        'rgba(255, 159, 64)']  
+  
+        function fill_array(arr, length){
+          c = 0;
+          final = []
+          for (i=0; i<length; i++){
+  
+            if(arr=='bg')
+              final[i] = bg_colors[c];
+            else if(arr=='hv')
+              final[i] = hover_colors[c];
+            else
+              final[i] = border_colors[c];
+  
+            if (c==5)
+              c=0;
+            else
+              c++;
+          }
+          return final;
+        }
+      
+        var new_death = [];
+        var new_cases = [];
+        var labels = [];
+        {% for data in world_daily_data %}
+            new_cases.push({{data.newcase}})
+            new_death.push({{data.newdeath}});
+            labels.push('{{data.date}}');     
+        {% endfor %}
+  
+        var ctx = document.getElementById('newChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'No. of Deaths',
+                    data: new_cases,
+                    order: 1,
+                    
+                    backgroundColor: fill_array('bg', labels.length),
+                    borderColor: fill_array('br', labels.length),
+                    borderWidth: 1,
+  
+                    hoverBackgroundColor: fill_array('hv', labels.length)
+                }, {
+                    label: 'No. of New Cases',
+                    data: new_cases,
+                    type: 'line',
+                    // this dataset is drawn on top
+                    fill: false,
+                    borderColor: "rgb(0, 0, 0)",
+                    backgroundColor: "rgb(0, 0, 0)",
+                    pointBackgroundColor: "rgb(0, 0, 0)",
+                    pointBorderColor: "rgb(0, 0, 0)",
+                    pointHoverBackgroundColor: "rgb(0, 0, 0)",
+                    pointHoverBorderColor: "rgb(0, 0, 0)",
+  
+                    options: {
+                      backgroundColor: 'rgb(255, 255, 255)'
+                    }
+                }]
+            },
+            options: {
+                title: {
+                  display: true,
+                  text: 'Coronavirus Daily New Cases (World Wide)',
+                  fontSize: 20
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                  display: false                  
+                },
+                tooltips: {
+                  titleFontSize: 30,
+                  bodyFontSize: 30
+                },
+                scales: {
+                    yAxes: [{
+                      ticks: {
+                          beginAtZero: true,
+                          autoSkip: true,
+                          maxTicksLimit: 9,
+                          stepSize: 2500,
+                          fontSize: 20
+                      },
+                    }],
+                    xAxes: [{
+                      ticks: {
+                          autoSkip: true,
+                          maxTicksLimit: 20,
+                          fontSize: 20
+                      },
+                      gridLines: {
+                        display:false
+                      }
+                    }]
+                }
+            }
+        },
+        );
+      </script>
+    
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
