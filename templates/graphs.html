@@ -25,8 +25,8 @@
 
     <style>
         canvas{
-          width:800px !important;
-          height:500px !important;
+          width:700px !important;
+          height:450px !important;
         }
     </style>
   </head>
@@ -130,12 +130,29 @@
           data: {
               labels: labels,
               datasets: [{
-                  label: '# of Deaths',
+                  label: 'No. of Deaths',
                   data: new_death,
+                  order: 1,
                   
                   backgroundColor: fill_array('bg', labels.length),
                   borderColor: fill_array('br', labels.length),
                   borderWidth: 1
+              }, {
+                  label: 'No. of Deaths',
+                  data: new_death,
+                  type: 'line',
+                  // this dataset is drawn on top
+                  fill: false,
+                  borderColor: "rgb(0, 0, 0)",
+                  backgroundColor: "rgb(0, 0, 0)",
+                  pointBackgroundColor: "rgb(0, 0, 0)",
+                  pointBorderColor: "rgb(0, 0, 0)",
+                  pointHoverBackgroundColor: "rgb(0, 0, 0)",
+                  pointHoverBorderColor: "rgb(0, 0, 0)",
+
+                  options: {
+                    backgroundColor: 'rgb(255, 255, 255)'
+                  }
               }]
           },
           options: {
