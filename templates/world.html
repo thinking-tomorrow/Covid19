@@ -20,6 +20,8 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
+
     <title>Covid Info</title>
 
     <style>
@@ -130,6 +132,27 @@
         <p id='recovery'>{{world_recovery}}</p>
       </div>
     </center>      
+    <!--<table class="table sticky" id="myTable">
+      <thead>
+        <tr name="head"><th>Deaths</th></tr>
+      </thead>
+      <tbody>
+        
+    {% for data in worlddailydata %}
+        <tr>
+          <td>{{data.newdeath}}
+        </tr>
+      
+    {% endfor %}
+  </tbody>
+</table>-->
+
+  <script>
+    {% for data in worlddailydata %}
+    console.log({{data.newdeath}});
+    {% endfor %}
+    console.log("Hello World");
+  </script>
 
     <script>
       window.addEventListener("load", function () {

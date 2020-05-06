@@ -149,14 +149,16 @@ def daily_data():
     df = pd.read_csv(url, usecols=columns, index_col='location')
     df.rename(columns={'location':'Country'},inplace=True)
 
+    #world_df = df.loc['World']
+
     for index, row in df.iterrows():
         print(index)
         daily = DailyData()
         daily.country = str(index)
-        daily.totalcase = row['total_cases']
+        daily.totalcase = row['total_cases'] 
         daily.newcase = row['new_cases']
         daily.deaths = row['total_deaths']
-        daily.newdeath = row['total_deaths']
+        daily.newdeath = row['new_deaths']
         daily.date = row['date']
         daily.save()
 
@@ -201,7 +203,7 @@ def scrape_country_news():
 
 def home(request):
     # scrape_country_news()
-    # daily_data()
+    #daily_data()
     news = News.objects.all()
     return render(request, 'home.html', {'latest_news': news})
 
@@ -229,7 +231,10 @@ def country_detail(request, country_name):
 
 def world(request):
     world_data = scrape_world()
-    return render(request, 'world.html', {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2]})
+
+    worlddailydata = DailyData.objects.filter(country='World')
+
+    return render(request, 'world.html', {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2], 'worlddailydata' : worlddailydata})
 
 def search(request):
 
@@ -257,3 +262,10 @@ def searchcountries(request):
 
 def about(request):
     return render(request,'about.html')
+
+#DailyData.objects.filter(country='World').delete()
+
+def graphs(request):
+
+    worlddailydata = DailyData.objects.filter(country='World')
+    return render(request,'graphs.html',{'worlddailydata' : worlddailydata})

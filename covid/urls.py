@@ -12,5 +12,6 @@ urlpatterns = [
     path('tips', views.tips,name='tips'),
     path('search', views.search,name='search'),
     path('searchcountries',views.searchcountries, name='searchcountries'),
-    path('about',views.about,name='about')
+    path('about',views.about,name='about'),
+    path('graphs',views.graphs,name='graphs')
 ]
