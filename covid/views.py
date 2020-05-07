@@ -259,7 +259,7 @@ def country(request):
 
 def country_detail(request, country_name):
     news = CountryNews.objects.filter(country=country_name)
-    country_daily_data(country_name)
+    #country_daily_data(country_name)
 
     dailydata = DailyData.objects.filter(country=country_name)
 
