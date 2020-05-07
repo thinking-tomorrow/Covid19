@@ -24,11 +24,19 @@
     <title>Covid Info</title>
 
     <style>
-        canvas{
-          width:1000px !important;
+      .graphs{
+        width:10000px !important;
+        height:6500px !important;
+        margin-left: 100px;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .graphs{
+          width:400px !important;
           height:650px !important;
-          margin-left: 100px;
+          margin-left: 0px;
         }
+      }
     </style>
   </head>
   <body>
@@ -107,9 +115,10 @@
     {% endif %}
 
 
-    
-    <canvas id="myChart" style="background-color: white;"></canvas>
-    <canvas id="newChart" style="background-color: white;"></canvas>
+    <div class="graphs">
+      <canvas id="myChart"  style="background-color: white;"></canvas>
+      <canvas id="newChart" style="background-color: white; padding-top:50px;"></canvas>
+    </div>
     <script>
       bg_colors = [   'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',

@@ -267,7 +267,7 @@ def country_detail(request, country_name):
         print(data.country)
 
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
-    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'countrydailydata':dailydata})
+    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'countrydailydata':dailydata[32:]})
 
 
 def world(request):

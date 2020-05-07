@@ -24,10 +24,19 @@
     <title>Covid Info</title>
 
     <style>
-        canvas{
+
+        .graphs{
           width:1000px !important;
           height:650px !important;
           margin-left: 100px;
+        }
+
+        @media only screen and (max-width: 600px) {
+          .graphs{
+            width:400px !important;
+            height:650px !important;
+            margin-left: 0px;
+          }
         }
     </style>
   </head>
@@ -82,10 +91,11 @@
         loader.className += " hidden"; // class "loader hidden"
     });
     </script>
-
-    <canvas id="myChart" width="200px" style="background-color: white;"></canvas>
-    <canvas id="newChart" width="200px" style="background-color: white; padding-top:50px;"></canvas>
-    <script>
+    <div class="graphs">
+      <canvas id="myChart"  style="background-color: white;"></canvas>
+      <canvas id="newChart" width="200px" style="background-color: white; padding-top:50px;"></canvas>
+    </div>
+      <script>
       bg_colors = [   'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',
                       'rgba(255, 206, 86, 0.2)',
