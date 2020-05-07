@@ -235,6 +235,7 @@ def home(request):
 
 
 def graphs(request):
+    #daily_data()
     world_daily_data = DailyData.objects.filter(country='World')
     
     for data in world_daily_data:
