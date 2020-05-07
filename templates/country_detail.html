@@ -155,10 +155,12 @@
       var new_death = [];
       var new_cases = [];
       var labels = [];
+      var countri ; 
       {% for data in countrydailydata %}
           new_cases.push({{data.newcase}})
           new_death.push({{data.newdeath}});
-          labels.push('{{data.date}}');     
+          labels.push('{{data.date}}');
+          countri = 'Daily Coronavirus Deaths In '.concat('{{data.country}}')     
       {% endfor %}
 
       var ctx = document.getElementById('myChart').getContext('2d');
@@ -197,7 +199,7 @@
           options: {
               title: {
                 display: true,
-                text: 'Coronavirus Daily Deaths (World Wide)',
+                text: countri,
                 fontSize: 20
               },
               responsive: false,
