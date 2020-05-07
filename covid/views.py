@@ -147,7 +147,7 @@ def dailydatacountrywise(country):
 
 def daily_data():
     print("here")
-    url = "owid-covid-data.csv"
+    url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
     columns = {'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths'}
     df = pd.read_csv(url, usecols=columns, index_col='location')
     df.rename(columns={'location':'Country'},inplace=True)
@@ -166,6 +166,27 @@ def daily_data():
         daily.date = row['date']
         daily.save()
 
+
+def country_daily_data(country):
+    print("here")
+    url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+    columns = {'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths'}
+    df = pd.read_csv(url, usecols=columns, index_col='location')
+    df.rename(columns={'location':'Country'},inplace=True)
+    print("here 1")
+
+    world_df = df.loc[str(country)]
+
+    for index, row in world_df.iterrows():
+        print(index)
+        daily = DailyData()
+        daily.country = str(index)
+        daily.totalcase = row['total_cases'] 
+        daily.newcase = row['new_cases']
+        daily.deaths = row['total_deaths']
+        daily.newdeath = row['new_deaths']
+        daily.date = row['date']
+        daily.save()
 
 def scrape_country_news():
 
@@ -237,12 +258,14 @@ def country(request):
 
 def country_detail(request, country_name):
     news = CountryNews.objects.filter(country=country_name)
-    dailydatacountrywise(country_name)
+    #country_daily_data(country_name)
 
-    # dailydata = DailyData.objects.filter(country=country_name)
+    dailydata = DailyData.objects.filter(country=country_name)
+
+    print(dailydata)
 
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
-    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news})
+    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'countrydailydata':dailydata})
 
 
 def world(request):
@@ -279,4 +302,4 @@ def searchcountries(request):
 def about(request):
     return render(request,'about.html')
 
-#DailyData.objects.filter(country='World').delete()
+#DailyData.objects.all().delete()

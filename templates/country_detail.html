@@ -5,28 +5,34 @@
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- My Style Sheets -->
     <link rel="stylesheet" href="{% static 'main.css' %}">
-
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-
-    <!-- My Script -->
-    <script src="{% static 'js/background.js' %}"></script>
-    
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
+
     <title>Covid Info</title>
+
+    <style>
+        canvas{
+          width:1000px !important;
+          height:650px !important;
+          margin-left: 100px;
+        }
+    </style>
   </head>
   <body>
+    
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#">COVID INFO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,19 +47,23 @@
           <li class="nav-item">
             <a class="nav-link" href="/news"><i class="far fa-newspaper"></i>News</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/tips"><i class="fas fa-question"></i> Tips and Tricks</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
+          </li>
         </ul>
 
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
@@ -61,6 +71,7 @@
         </form>
       </div>
     </nav>
+    
     <div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
   </div>
@@ -95,16 +106,141 @@
     </div>
     {% endif %}
 
-    {% for dat in data %}
-    <h1>{{dat.totalcase}}</h1>
-    {% endfor %}
 
+    
+    <canvas id="myChart" width="200px" style="background-color: white;"></canvas>
+    
+    <script>
+      bg_colors = [   'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(153, 102, 255, 0.2)',
+                      'rgba(255, 159, 64, 0.2)']
+      
+      border_colors = ['rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)']
+
+      hover_colors = ['rgba(255, 99, 132)',
+                      'rgba(54, 162, 235)',
+                      'rgba(255, 206, 86)',
+                      'rgba(75, 192, 192)',
+                      'rgba(153, 102, 255)',
+                      'rgba(255, 159, 64)']  
+
+      function fill_array(arr, length){
+        c = 0;
+        final = []
+        for (i=0; i<length; i++){
+
+          if(arr=='bg')
+            final[i] = bg_colors[c];
+          else if(arr=='hv')
+            final[i] = hover_colors[c];
+          else
+            final[i] = border_colors[c];
+
+          if (c==5)
+            c=0;
+          else
+            c++;
+        }
+        return final;
+      }
+    
+      var new_death = [];
+      var new_cases = [];
+      var labels = [];
+      {% for data in countrydailydata %}
+          new_cases.push({{data.newcase}})
+          new_death.push({{data.newdeath}});
+          labels.push('{{data.date}}');     
+      {% endfor %}
+
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'No. of Deaths',
+                  data: new_death,
+                  order: 1,
+                  
+                  backgroundColor: fill_array('bg', labels.length),
+                  borderColor: fill_array('br', labels.length),
+                  borderWidth: 1,
+
+                  hoverBackgroundColor: fill_array('hv', labels.length)
+              }, {
+                  label: 'No. of Deaths',
+                  data: new_death,
+                  type: 'line',
+                  // this dataset is drawn on top
+                  fill: false,
+                  borderColor: "rgb(0, 0, 0)",
+                  backgroundColor: "rgb(0, 0, 0)",
+                  pointBackgroundColor: "rgb(0, 0, 0)",
+                  pointBorderColor: "rgb(0, 0, 0)",
+                  pointHoverBackgroundColor: "rgb(0, 0, 0)",
+                  pointHoverBorderColor: "rgb(0, 0, 0)",
+
+                  options: {
+                    backgroundColor: 'rgb(255, 255, 255)'
+                  }
+              }]
+          },
+          options: {
+              title: {
+                display: true,
+                text: 'Coronavirus Daily Deaths (World Wide)',
+                fontSize: 20
+              },
+              responsive: true,
+              maintainAspectRatio: false,
+              legend: {
+                display: false                  
+              },
+              tooltips: {
+                titleFontSize: 30,
+                bodyFontSize: 30
+              },
+              scales: {
+                  yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        autoSkip: true,
+                        maxTicksLimit: 9,
+                        stepSize: 2500,
+                        fontSize: 20
+                    },
+                  }],
+                  xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 20,
+                        fontSize: 20
+                    },
+                    gridLines: {
+                      display:false
+                    }
+                  }]
+              }
+          }
+      },
+      );
+    </script>
     <script>
       window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
         loader.className += " hidden"; // class "loader hidden"
     });
     </script>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
