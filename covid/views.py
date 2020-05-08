@@ -175,9 +175,9 @@ def country_daily_data(country):
     df.rename(columns={'location':'Country'},inplace=True)
     print("here 1")
 
-    world_df = df.loc[str(country)]
+    # world_df = df.loc[str(country)]
 
-    for index, row in world_df.iterrows():
+    for index, row in df.iterrows():
         print(index)
         daily = DailyData()
         daily.country = str(index)
@@ -240,7 +240,6 @@ def graphs(request):
     
     for data in world_daily_data:
         data.date = str(data.date)
-        print(data.date)
 
     return render(request,'graphs.html', {'world_daily_data' : world_daily_data[32:]})
 
@@ -262,9 +261,6 @@ def country_detail(request, country_name):
     #country_daily_data(country_name)
 
     dailydata = DailyData.objects.filter(country=country_name)
-
-    for data in dailydata:
-        print(data.country)
 
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
     return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'countrydailydata':dailydata[32:]})
