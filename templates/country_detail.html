@@ -66,12 +66,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/graphs"><i class="fas fa-signal"></i>  Graphs</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/graphs"><i class="fas fa-signal"></i>  Graphs</a>
-          </li>
         </ul>
 
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
@@ -120,10 +114,10 @@
     {% endif %}
 
 
-    
+    <div class="graphs">
       <canvas id="myChart"  style="background-color: white;"></canvas>
       <canvas id="newChart" style="background-color: white; padding-top:50px;"></canvas>
-    
+    </div>
     <script>
       bg_colors = [   'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',
@@ -169,10 +163,12 @@
       var new_death = [];
       var new_cases = [];
       var labels = [];
+      var countri ; 
       {% for data in countrydailydata %}
           new_cases.push({{data.newcase}})
           new_death.push({{data.newdeath}});
-          labels.push('{{data.date}}');     
+          labels.push('{{data.date}}'); 
+          countri = 'Daily Coronavirus Deaths In '.concat('{{data.country}}')       
       {% endfor %}
 
       var ctx = document.getElementById('myChart').getContext('2d');
@@ -211,7 +207,7 @@
           options: {
               title: {
                 display: true,
-                text: 'Coronavirus Daily Deaths (World Wide)',
+                text: countri,
                 fontSize: 20
               },
               responsive: true,
@@ -248,13 +244,23 @@
       );
     </script>
     <script>
+      var new_death = [];
+      var new_cases = [];
+      var labels = [];
+      var countri ; 
+      {% for data in countrydailydata %}
+          new_cases.push({{data.newcase}})
+          new_death.push({{data.newdeath}});
+          labels.push('{{data.date}}'); 
+          countri = 'Daily New Coronavirus Cases In '.concat('{{data.country}}')       
+      {% endfor %}
         var ctx = document.getElementById('newChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'No. of Deaths',
+                    label: 'No. of New Cases',
                     data: new_cases,
                     order: 1,
                     
@@ -284,7 +290,7 @@
             options: {
                 title: {
                   display: true,
-                  text: 'Coronavirus Daily New Cases (World Wide)',
+                  text: countri,
                   fontSize: 20
                 },
                 responsive: true,
