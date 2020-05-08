@@ -13,5 +13,6 @@ urlpatterns = [
     path('search', views.search,name='search'),
     path('searchcountries',views.searchcountries, name='searchcountries'),
     path('about',views.about,name='about'),
-    path('graphs',views.graphs,name='graphs')
+    path('graphs',views.graphs,name='graphs'),
+    path('search_date/<str:country>',views.search_date,name='search_date')
 ]

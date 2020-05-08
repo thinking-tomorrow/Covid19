@@ -113,165 +113,100 @@
     </div>
     {% endif %}
 
+    <form class="form-inline my-2 my-lg-0" style= "padding-top:50px;padding-left:80px;"  action="{% url 'search_date' country.name %}" method='post'>
+      {% csrf_token %}
+      <input class="form-control mr-sm-2" style="width: 1000px;" type="search" name='date' placeholder="Search Cases or Deaths according to the date in YYYY-MM-DD format" aria-label="Search" autocomplete="off">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    {% if search == val %}
+      <h1 style='padding-top:30px;padding-left:20px;'>Search Results</h1>
+     
+        {% for x in data %}
+          <h1 style="padding-top:15px;display:inline;">On {{x.date}}, Total Cases Were : </h1>
+          <h1 style='padding-top:15px;display:inline;'>{{x.totalcase}}</h1><br>
+          <h1 style="padding-top:15px;display:inline;">On {{x.date}}, New Cases Were : </h1>
+          <h1 style='padding-top:15px;display:inline;'>{{x.newcase}}</h1><br>
+          <h1 style="padding-top:15px;display:inline;">On {{x.date}}, Total Deaths Were : </h1>
+          <h1 style='padding-top:15px;display:inline;'>{{x.deaths}}</h1><br>
+          <h1 style="padding-top:15px;display:inline;">On {{x.date}}, New Deaths Were : </h1>
+          <h1 style='padding-top:15px;display:inline;'>{{x.newdeath}}</h1><br>
+        {% endfor %}
+    {% else %}
+      <div class="graphs">
+        <canvas id="myChart"  style="background-color: white;"></canvas>
+        <canvas id="newChart" style="background-color: white; padding-top:50px;"></canvas>
+      </div>
+      <script>
+        bg_colors = [   'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)']
+        
+        border_colors = ['rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)']
 
-    <div class="graphs">
-      <canvas id="myChart"  style="background-color: white;"></canvas>
-      <canvas id="newChart" style="background-color: white; padding-top:50px;"></canvas>
-    </div>
-    <script>
-      bg_colors = [   'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)']
-      
-      border_colors = ['rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)']
+        hover_colors = ['rgba(255, 99, 132)',
+                        'rgba(54, 162, 235)',
+                        'rgba(255, 206, 86)',
+                        'rgba(75, 192, 192)',
+                        'rgba(153, 102, 255)',
+                        'rgba(255, 159, 64)']  
 
-      hover_colors = ['rgba(255, 99, 132)',
-                      'rgba(54, 162, 235)',
-                      'rgba(255, 206, 86)',
-                      'rgba(75, 192, 192)',
-                      'rgba(153, 102, 255)',
-                      'rgba(255, 159, 64)']  
+        function fill_array(arr, length){
+          c = 0;
+          final = []
+          for (i=0; i<length; i++){
 
-      function fill_array(arr, length){
-        c = 0;
-        final = []
-        for (i=0; i<length; i++){
+            if(arr=='bg')
+              final[i] = bg_colors[c];
+            else if(arr=='hv')
+              final[i] = hover_colors[c];
+            else
+              final[i] = border_colors[c];
 
-          if(arr=='bg')
-            final[i] = bg_colors[c];
-          else if(arr=='hv')
-            final[i] = hover_colors[c];
-          else
-            final[i] = border_colors[c];
-
-          if (c==5)
-            c=0;
-          else
-            c++;
-        }
-        return final;
-      }
-    
-      var new_death = [];
-      var new_cases = [];
-      var labels = [];
-      var countri ; 
-      {% for data in countrydailydata %}
-          new_cases.push({{data.newcase}})
-          new_death.push({{data.newdeath}});
-          labels.push('{{data.date}}'); 
-          countri = 'Daily Coronavirus Deaths In '.concat('{{data.country}}')       
-      {% endfor %}
-
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: labels,
-              datasets: [{
-                  label: 'No. of Deaths',
-                  data: new_death,
-                  order: 1,
-                  
-                  backgroundColor: fill_array('bg', labels.length),
-                  borderColor: fill_array('br', labels.length),
-                  borderWidth: 1,
-
-                  hoverBackgroundColor: fill_array('hv', labels.length)
-              }, {
-                  label: 'No. of Deaths',
-                  data: new_death,
-                  type: 'line',
-                  // this dataset is drawn on top
-                  fill: false,
-                  borderColor: "rgb(0, 0, 0)",
-                  backgroundColor: "rgb(0, 0, 0)",
-                  pointBackgroundColor: "rgb(0, 0, 0)",
-                  pointBorderColor: "rgb(0, 0, 0)",
-                  pointHoverBackgroundColor: "rgb(0, 0, 0)",
-                  pointHoverBorderColor: "rgb(0, 0, 0)",
-
-                  options: {
-                    backgroundColor: 'rgb(255, 255, 255)'
-                  }
-              }]
-          },
-          options: {
-              title: {
-                display: true,
-                text: countri,
-                fontSize: 20
-              },
-              responsive: true,
-              maintainAspectRatio: false,
-              legend: {
-                display: false                  
-              },
-              tooltips: {
-                titleFontSize: 30,
-                bodyFontSize: 30
-              },
-              scales: {
-                  yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        autoSkip: true,
-                        maxTicksLimit: 9,
-                        stepSize: 2500,
-                        fontSize: 20
-                    },
-                  }],
-                  xAxes: [{
-                    ticks: {
-                        autoSkip: true,
-                        fontSize: 20
-                    },
-                    gridLines: {
-                      display:false
-                    }
-                  }]
-              }
+            if (c==5)
+              c=0;
+            else
+              c++;
           }
-      },
-      );
-    </script>
-    <script>
-      var new_death = [];
-      var new_cases = [];
-      var labels = [];
-      var countri ; 
-      {% for data in countrydailydata %}
-          new_cases.push({{data.newcase}})
-          new_death.push({{data.newdeath}});
-          labels.push('{{data.date}}'); 
-          countri = 'Daily New Coronavirus Cases In '.concat('{{data.country}}')       
-      {% endfor %}
-        var ctx = document.getElementById('newChart').getContext('2d');
+          return final;
+        }
+      
+        var new_death = [];
+        var new_cases = [];
+        var labels = [];
+        var countri ; 
+        {% for data in countrydailydata %}
+            new_cases.push({{data.newcase}})
+            new_death.push({{data.newdeath}});
+            labels.push('{{data.date}}'); 
+            countri = 'Daily Coronavirus Deaths In '.concat('{{data.country}}')       
+        {% endfor %}
+
+        var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'No. of New Cases',
-                    data: new_cases,
+                    label: 'No. of Deaths',
+                    data: new_death,
                     order: 1,
                     
                     backgroundColor: fill_array('bg', labels.length),
                     borderColor: fill_array('br', labels.length),
                     borderWidth: 1,
-  
+
                     hoverBackgroundColor: fill_array('hv', labels.length)
                 }, {
-                    label: 'No. of New Cases',
-                    data: new_cases,
+                    label: 'No. of Deaths',
+                    data: new_death,
                     type: 'line',
                     // this dataset is drawn on top
                     fill: false,
@@ -281,7 +216,7 @@
                     pointBorderColor: "rgb(0, 0, 0)",
                     pointHoverBackgroundColor: "rgb(0, 0, 0)",
                     pointHoverBorderColor: "rgb(0, 0, 0)",
-  
+
                     options: {
                       backgroundColor: 'rgb(255, 255, 255)'
                     }
@@ -326,6 +261,91 @@
         },
         );
       </script>
+      <script>
+        var new_death = [];
+        var new_cases = [];
+        var labels = [];
+        var countri ; 
+        {% for data in countrydailydata %}
+            new_cases.push({{data.newcase}})
+            new_death.push({{data.newdeath}});
+            labels.push('{{data.date}}'); 
+            countri = 'Daily New Coronavirus Cases In '.concat('{{data.country}}')       
+        {% endfor %}
+          var ctx = document.getElementById('newChart').getContext('2d');
+          var myChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: labels,
+                  datasets: [{
+                      label: 'No. of New Cases',
+                      data: new_cases,
+                      order: 1,
+                      
+                      backgroundColor: fill_array('bg', labels.length),
+                      borderColor: fill_array('br', labels.length),
+                      borderWidth: 1,
+    
+                      hoverBackgroundColor: fill_array('hv', labels.length)
+                  }, {
+                      label: 'No. of New Cases',
+                      data: new_cases,
+                      type: 'line',
+                      // this dataset is drawn on top
+                      fill: false,
+                      borderColor: "rgb(0, 0, 0)",
+                      backgroundColor: "rgb(0, 0, 0)",
+                      pointBackgroundColor: "rgb(0, 0, 0)",
+                      pointBorderColor: "rgb(0, 0, 0)",
+                      pointHoverBackgroundColor: "rgb(0, 0, 0)",
+                      pointHoverBorderColor: "rgb(0, 0, 0)",
+    
+                      options: {
+                        backgroundColor: 'rgb(255, 255, 255)'
+                      }
+                  }]
+              },
+              options: {
+                  title: {
+                    display: true,
+                    text: countri,
+                    fontSize: 20
+                  },
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  legend: {
+                    display: false                  
+                  },
+                  tooltips: {
+                    titleFontSize: 30,
+                    bodyFontSize: 30
+                  },
+                  scales: {
+                      yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            autoSkip: true,
+                            maxTicksLimit: 9,
+                            stepSize: 2500,
+                            fontSize: 20
+                        },
+                      }],
+                      xAxes: [{
+                        ticks: {
+                            autoSkip: true,
+                            fontSize: 20
+                        },
+                        gridLines: {
+                          display:false
+                        }
+                      }]
+                  }
+              }
+          },
+          );
+    
+      </script>
+    {% endif %}
     <script>
       window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
