@@ -9,6 +9,7 @@ import requests
 import urllib
 import sys
 import pandas as pd
+from django.db.models import Max
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
                 "S. Korea": "Korea South", "Czechia": "Czech Republic", "North Macedonia": "Macedonia", 
@@ -237,11 +238,15 @@ def home(request):
 def graphs(request):
     #daily_data()
     world_daily_data = DailyData.objects.filter(country='World')
-    
+
+    countries_to_exclude = ['International']
+    max_date = DailyData.objects.aggregate(Max('date'))['date__max']
+    percentage_data = DailyData.objects.exclude(country__in=countries_to_exclude).filter(date__exact=str(max_date)).order_by('-totalcase')
+
     for data in world_daily_data:
         data.date = str(data.date)
 
-    return render(request,'graphs.html', {'world_daily_data' : world_daily_data[32:]})
+    return render(request,'graphs.html', {'world_daily_data' : world_daily_data[32:], 'percentage_data': percentage_data})
 
 
 def news(request):
@@ -300,4 +305,11 @@ def searchcountries(request):
 def about(request):
     return render(request,'about.html')
 
+def pie(request):
+    countries_to_exclude = ['International']
+
+    max_date = DailyData.objects.aggregate(Max('date'))['date__max']
+    percentage_data = DailyData.objects.exclude(country__in=countries_to_exclude).filter(date__exact=str(max_date)).order_by('-totalcase')
+
+    return render(request, 'pie.html', {'percentage_data': percentage_data})
 #DailyData.objects.all().delete()

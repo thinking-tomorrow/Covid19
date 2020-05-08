@@ -81,7 +81,7 @@
     
     <div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-  </div>
+    </div>
     <center id="data">
       <img src="../{{country.flag}}" style="height:100px;width:200px;margin-top:40px;">
       <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
@@ -113,11 +113,12 @@
     </div>
     {% endif %}
 
-
-    <div class="graphs">
-      <canvas id="myChart"  style="background-color: white;"></canvas>
-      <canvas id="newChart" style="background-color: white; padding-top:50px;"></canvas>
-    </div>
+    <center>
+      <div class="graphs">
+        <canvas id="myChart"  style="background-color: white;"></canvas>
+        <canvas id="newChart" style="background-color: white; padding-top:50px;"></canvas>
+      </div>
+    </center>
     <script>
       bg_colors = [   'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',

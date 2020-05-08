@@ -30,6 +30,10 @@
           height:650px !important;
         }
 
+        canvas{
+          margin-bottom: 100px;
+        }
+
         @media only screen and (max-width: 600px) {
           .graphs{
             width:100vw !important;
@@ -92,8 +96,9 @@
 
     <center>
       <div class="graphs">
-        <canvas id="myChart"  style="background-color: white;"></canvas>
-        <canvas id="newChart" width="200px" style="background-color: white; padding-top:50px;"></canvas>
+        <canvas id="myChart" ></canvas>
+        <canvas id="newChart"></canvas>
+        <canvas id="pieChart"></canvas>
       </div>
     </center>
 
@@ -138,6 +143,13 @@
         }
         return final;
       }
+
+      var dynamicColors = function() {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return "rgb(" + r + "," + g + "," + b + ")";
+      };
     
       var new_death = [];
       var new_cases = [];
@@ -292,6 +304,43 @@
             }
         },
         );
+      </script>
+
+      <script>
+        share = []
+        labels = []
+        bg_colors = []
+        {% for data in percentage_data %}
+            labels.push('{{data.country}}')
+            share.push({{data.totalcase}})
+            bg_colors.push(dynamicColors());
+        {% endfor %}
+
+        world = share.shift();
+        labels.shift();
+
+        var ctx = document.getElementById("pieChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Corona Virus Case Share",
+                    data: share,
+                    backgroundColor: bg_colors,
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Coronavirus Case Share (Country Wise)',
+                    fontSize: 20
+                },
+                legend: {
+                    display: false
+                },
+            }
+        });
       </script>
     
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

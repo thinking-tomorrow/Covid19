@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Pie Chart</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div id="canvas-holder">
+		<canvas id="myChart"></canvas>
+	</div>
+
+    <script>
+        var dynamicColors = function() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        };
+
+        share = []
+        labels = []
+        bg_colors = []
+        {% for data in percentage_data %}
+            labels.push('{{data.country}}')
+            share.push({{data.totalcase}})
+            bg_colors.push(dynamicColors());
+        {% endfor %}
+
+        world = share.shift();
+        labels.shift();
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Corona Virus Case Share",
+                    data: share,
+                    backgroundColor: bg_colors,
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+            }
+        });
+    </script>
+
+</body>
+</html>
