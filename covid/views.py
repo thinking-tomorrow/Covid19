@@ -267,8 +267,10 @@ def country_detail(request, country_name):
 
     dailydata = DailyData.objects.filter(country=country_name)
 
+    search = 'False'
+
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
-    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'countrydailydata':dailydata[32:]})
+    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'countrydailydata':dailydata[32:], 'search':search})
 
 
 def world(request):
@@ -305,11 +307,30 @@ def searchcountries(request):
 def about(request):
     return render(request,'about.html')
 
-def pie(request):
-    countries_to_exclude = ['International']
-
-    max_date = DailyData.objects.aggregate(Max('date'))['date__max']
-    percentage_data = DailyData.objects.exclude(country__in=countries_to_exclude).filter(date__exact=str(max_date)).order_by('-totalcase')
-
-    return render(request, 'pie.html', {'percentage_data': percentage_data})
 #DailyData.objects.all().delete()
+
+def search_date(request,country):
+
+
+    news = CountryNews.objects.filter(country=country)
+    #country_daily_data(country_name)
+
+    if request.method == 'POST':
+
+        date = request.POST['date']
+
+        dailydata = DailyData.objects.filter(country=country,date=date)
+
+    country_data = CountryData.objects.get(name__iexact=f'{country}')
+
+    search = 1
+    print(dailydata)
+
+    true = 1
+
+    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'data':dailydata, 'search':search, 'val':true})
+
+
+
+
+    

@@ -14,5 +14,5 @@ urlpatterns = [
     path('searchcountries',views.searchcountries, name='searchcountries'),
     path('about',views.about,name='about'),
     path('graphs',views.graphs,name='graphs'),
-    path('pie', views.pie, name='pie')
+    path('search_date/<str:country>',views.search_date,name='search_date')
 ]
