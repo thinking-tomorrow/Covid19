@@ -71,6 +71,9 @@ def scrape():
         my_country.continent    = rows[12]
         my_country.flag         = f'media/flag/{name}.png'
 
+        if name == 'United States of America':
+            my_country.name = 'United States'
+
         my_country.save()
 
 
@@ -231,8 +234,8 @@ def scrape_country_news():
 def home(request):
     # scrape_country_news()
     # daily_data()
-    news = News.objects.all()
-    return render(request, 'home.html', {'latest_news': news})
+    news = News.objects.all().order_by('-id')
+    return render(request, 'home.html', {'latest_news': news[:10]})
 
 
 def graphs(request):
@@ -251,7 +254,7 @@ def graphs(request):
 
 def news(request):
     #scrape_news()
-    latest_news = News.objects.all()
+    latest_news = News.objects.all().order_by('-id')
     return render(request, 'news.html', {'latest_news': latest_news})
 
 
@@ -262,15 +265,13 @@ def country(request):
     
 
 def country_detail(request, country_name):
-    news = CountryNews.objects.filter(country=country_name)
+    news = CountryNews.objects.filter(country=country_name).order_by('-id')
     #country_daily_data(country_name)
 
     dailydata = DailyData.objects.filter(country=country_name)
 
-    search = 'False'
-
     country_data = CountryData.objects.get(name__iexact=f'{country_name}')
-    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'countrydailydata':dailydata[32:], 'search':search})
+    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'countrydailydata':dailydata[32:]})
 
 
 def world(request):
@@ -283,7 +284,7 @@ def search(request):
 
     if request.method == "POST":
         data = request.POST['data']
-        news = News.objects.filter(heading__contains=data)
+        news = News.objects.filter(heading__contains=data).order_by('-id')
         return render(request,'news.html', {'latest_news':news})
     else:
         pass
@@ -305,32 +306,4 @@ def searchcountries(request):
 
 
 def about(request):
-    return render(request,'about.html')
-
-#DailyData.objects.all().delete()
-
-def search_date(request,country):
-
-
-    news = CountryNews.objects.filter(country=country)
-    #country_daily_data(country_name)
-
-    if request.method == 'POST':
-
-        date = request.POST['date']
-
-        dailydata = DailyData.objects.filter(country=country,date=date)
-
-    country_data = CountryData.objects.get(name__iexact=f'{country}')
-
-    search = 1
-    print(dailydata)
-
-    true = 1
-
-    return render(request, 'country_detail.html', {'country': country_data, 'latest_news': news, 'data':dailydata, 'search':search, 'val':true})
-
-
-
-
-    
+    return render(request,'about.html')    

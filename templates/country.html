@@ -34,14 +34,18 @@
         top: 60px;
         background-color: white;
       }
-      
+
+      @media only screen and (max-width: 600px) {
+        #search-country{
+          display: none;
+        }
     </style>
 
     <title>Covid Info</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
-      <a class="navbar-brand" href="#">COVID INFO</a>
+      <a class="navbar-brand" href="">COVID INFO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -71,8 +75,8 @@
           </li>
         </ul>
 
-        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
-        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
@@ -91,30 +95,30 @@
 
     <form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
       <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
-      <button class="btn btn-outline-success my-2 my-sm-0">Search</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" id="search-country">Search</button>
     </form>
     
     <ul class="nav nav-tabs" style="margin-top:20px;">
       <li class="nav-item">
-        <a class="nav-link active" href="#">World</a>
+        <a class="nav-link active" href="">World</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Asia</a>
+        <a class="nav-link" href="">Asia</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Africa</a>
+        <a class="nav-link" href="">Africa</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Europe</a>
+        <a class="nav-link" href="">Europe</a>
       </li>
         <li class="nav-item">
-        <a class="nav-link" href="#">North America</a>
+        <a class="nav-link" href="">North America</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">South America</a>
+        <a class="nav-link" href="">South America</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Australia/Oceania</a>
+        <a class="nav-link" href="">Australia/Oceania</a>
       </li>
     </ul>
 
@@ -160,6 +164,11 @@
         loader.className += " hidden"; // class "loader hidden"
     });
     </script>
+
+    <footer style="background-color:#343a40;color:white;">
+      <p style="text-align:center;font-size:50px;">COVID INFO 2020</p>
+      <a href="/about"></a>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

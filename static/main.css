@@ -85,7 +85,7 @@
     text-align:center;
     padding-top: 15px;
     font-weight:bold;
-    color:lightgreen;
+    color:green;
 }
 
 .fas{
@@ -138,3 +138,13 @@ tr:first-child:hover{
     border: 1px solid black;
     margin: 10px;
 }
+
+footer {
+    margin: 0;
+    padding: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+  }

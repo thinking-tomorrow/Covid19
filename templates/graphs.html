@@ -24,10 +24,12 @@
     <title>Covid Info</title>
 
     <style>
-
+        *{
+          box-sizing: border-box;
+        }
         .graphs{
-          width:80vw !important;
-          height:650px !important;
+          width: 90vw;
+          height:450px !important;
         }
 
         canvas{
@@ -36,8 +38,13 @@
 
         @media only screen and (max-width: 600px) {
           .graphs{
-            width:100vw !important;
-            height:500px !important;
+            box-sizing: border-box;
+            width: 100vw !important;
+            height: 350px !important;
+          }
+
+          #pieChart{
+            height: 500px;
           }
         }
     </style>
@@ -58,7 +65,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/news"><i class="far fa-newspaper"></i>News</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
           </li>
           <li class="nav-item">
@@ -70,13 +77,13 @@
           <li class="nav-item">
             <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/graphs"><i class="fas fa-signal"></i>  Graphs</a>
           </li>
         </ul>
 
-        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
-        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
@@ -200,7 +207,7 @@
               title: {
                 display: true,
                 text: 'Coronavirus Daily Deaths (World Wide)',
-                fontSize: 20
+                fontSize: 30
               },
               responsive: true,
               maintainAspectRatio: false,
@@ -208,8 +215,8 @@
                 display: false                  
               },
               tooltips: {
-                titleFontSize: 30,
-                bodyFontSize: 30
+                titleFontSize: 20,
+                bodyFontSize: 20
               },
               scales: {
                   yAxes: [{
@@ -273,7 +280,7 @@
                 title: {
                   display: true,
                   text: 'Coronavirus Daily New Cases (World Wide)',
-                  fontSize: 20
+                  fontSize: 30
                 },
                 responsive: true,
                 maintainAspectRatio: false,
@@ -281,8 +288,8 @@
                   display: false                  
                 },
                 tooltips: {
-                  titleFontSize: 30,
-                  bodyFontSize: 30
+                  titleFontSize: 20,
+                  bodyFontSize: 20
                 },
                 scales: {
                     yAxes: [{
@@ -313,6 +320,7 @@
         share = []
         labels = []
         bg_colors = []
+        
         {% for data in percentage_data %}
             labels.push('{{data.country}}')
             share.push({{data.totalcase}})
@@ -337,7 +345,7 @@
                 title: {
                     display: true,
                     text: 'Coronavirus Case Share (Country Wise)',
-                    fontSize: 20
+                    fontSize: 30
                 },
                 legend: {
                     display: false
@@ -345,7 +353,7 @@
             }
         });
       </script>
-    
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

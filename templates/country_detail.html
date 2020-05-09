@@ -21,24 +21,70 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
 
+    <!-- My Scripts -->
+    <script src="{% static 'js/background.js' %}"></script>
+
     <title>Covid Info</title>
 
     <style>
-
+        canvas{
+          margin-bottom: 150px;
+          margin-top: 150px;
+        }
         .graphs{
-          width:80vw !important;
-          height:650px !important;
+          width:70vw !important;
+          height:450px !important;
+        }
+
+        #datePickerId{
+          width: 300px;
         }
 
         @media only screen and (max-width: 600px) {
           .graphs{
-            width:100vw !important;
-            height:500px !important;
+            width: 100vw !important;
+            height: 350px !important;
+          }
+
+          #datePickerId{
+            width: 80vw;
           }
         }
     </style>
+
+    <script>
+      function load(){
+        datePickerId.max = new Date().toISOString().split("T")[0];
+        datePickerId.value = new Date().toISOString().split("T")[0];
+      }
+
+      function getDetail(){
+        input = document.getElementById('datePickerId');
+        input_date = new Date(input.value);
+        input_date.setHours(0, 0);
+
+        modal_body = document.getElementById("modal-body");
+        modal = document.getElementById("myModal");
+
+        for (i=0; i<labels.length; i++){
+          compa_date = new Date(labels[i]);
+
+          if (input_date.getTime() == compa_date.getTime()){
+            date = labels[i];
+            deaths = new_death[i];
+            cases = new_cases[i];
+            t_cases = total_cases[i];
+            t_death = total_deaths[i];
+          }
+        }
+
+        modal_body.innerHTML = 'Date : ' + date + '<br>' + 'New Cases : ' + cases + "<br>" + "New Deaths : " + deaths + '<br>' + 'Total Cases : ' + t_cases + "<br>" + "Total Deaths : " + t_death;
+        $("#myModal").modal();
+
+      }
+    </script>
   </head>
-  <body>
+  <body onload="load()">
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#">COVID INFO</a>
@@ -54,10 +100,10 @@
           <li class="nav-item">
             <a class="nav-link" href="/news"><i class="far fa-newspaper"></i>News</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
           </li>
           <li class="nav-item">
@@ -66,10 +112,13 @@
           <li class="nav-item">
             <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/graphs"><i class="fas fa-signal"></i>  Graphs</a>
+          </li>
         </ul>
 
-        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
-        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://hrishipotter123@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
@@ -78,10 +127,40 @@
         </form>
       </div>
     </nav>
+
+    <div class="container">
+      <!-- The Modal -->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Daily Detail</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body" id="modal-body">
+              <p>Detail...</p>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
     
     <div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
     </div>
+
     <center id="data">
       <img src="../{{country.flag}}" style="height:100px;width:200px;margin-top:40px;">
       <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
@@ -90,12 +169,18 @@
       <p id='cases'>{{country.totalcase}}</p>
       <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
       <p id='deaths'>{{country.deaths}}</p>
-      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:lightgreen;'>Coronavirus Winners:</h2>
+      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Coronavirus Winners:</h2>
       <p id='recovery' style="margin-bottom: 0px">{{country.recovered}}</p>
+
+      <br><br>
+
+      <p>Daily Case Search</p>
+      <input class="form-control mr-sm-2" type="date" id='datePickerId' placeholder="Search Cases or Deaths according to the date" aria-label="Search" autocomplete="off" min="2019-12-31">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getDetail()">Get Detail</button>
     </center>
 
     {% if latest_news %}
-    <div style="padding: 20px; background-image: url('../static/images/bg_news.jpg'); background-size: cover;">
+      <div style="padding: 20px; background-image: url('../static/images/bg_news.jpg'); background-size: cover;">
       <!--<h1 style="padding-top:30px;">News</h1> -->
 
       {% for news in latest_news %}
@@ -110,36 +195,17 @@
         </div>
       </a>
       {% endfor %}
-    </div>
+      </div>
     {% endif %}
-
-    <form class="form-inline my-2 my-lg-0" style= "padding-top:50px;padding-left:80px;"  action="{% url 'search_date' country.name %}" method='post'>
-      {% csrf_token %}
-      <input class="form-control mr-sm-2" style="width: 1000px;" type="search" name='date' placeholder="Search Cases or Deaths according to the date in YYYY-MM-DD format" aria-label="Search" autocomplete="off">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    {% if search == val %}
-      <h1 style='padding-top:30px;padding-left:20px;'>Search Results</h1>
-     
-        {% for x in data %}
-          <h1 style="padding-top:15px;display:inline;">On {{x.date}}, Total Cases Were : </h1>
-          <h1 style='padding-top:15px;display:inline;'>{{x.totalcase}}</h1><br>
-          <h1 style="padding-top:15px;display:inline;">On {{x.date}}, New Cases Were : </h1>
-          <h1 style='padding-top:15px;display:inline;'>{{x.newcase}}</h1><br>
-          <h1 style="padding-top:15px;display:inline;">On {{x.date}}, Total Deaths Were : </h1>
-          <h1 style='padding-top:15px;display:inline;'>{{x.deaths}}</h1><br>
-          <h1 style="padding-top:15px;display:inline;">On {{x.date}}, New Deaths Were : </h1>
-          <h1 style='padding-top:15px;display:inline;'>{{x.newdeath}}</h1><br>
-        {% endfor %}
-    {% else %}
 
     <center>
       <div class="graphs">
-        <canvas id="myChart"  style="background-color: white;"></canvas>
-        <canvas id="newChart" style="background-color: white; padding-top:50px;"></canvas>
+        <canvas id="myChart" style="background-color: white"></canvas>
+        <canvas id="newChart" style="background-color: white"></canvas>
       </div>
     </center>
     
+    {% if countrydailydata %}
     <script>
       bg_colors = [   'rgba(255, 99, 132, 0.2)',
                       'rgba(54, 162, 235, 0.2)',
@@ -181,7 +247,9 @@
           }
           return final;
         }
-      
+
+        var total_cases = [];
+        var total_deaths = [];
         var new_death = [];
         var new_cases = [];
         var labels = [];
@@ -189,7 +257,9 @@
         {% for data in countrydailydata %}
             new_cases.push({{data.newcase}})
             new_death.push({{data.newdeath}});
-            labels.push('{{data.date}}'); 
+            labels.push('{{data.date}}');
+            total_cases.push({{data.totalcase}});
+            total_deaths.push({{data.deaths}})
             countri = 'Daily Coronavirus Deaths In '.concat('{{data.country}}')       
         {% endfor %}
 
@@ -238,8 +308,8 @@
                   display: false                  
                 },
                 tooltips: {
-                  titleFontSize: 30,
-                  bodyFontSize: 30
+                  titleFontSize: 20,
+                  bodyFontSize: 20
                 },
                 scales: {
                     yAxes: [{
@@ -247,7 +317,6 @@
                           beginAtZero: true,
                           autoSkip: true,
                           maxTicksLimit: 9,
-                          stepSize: 2500,
                           fontSize: 20
                       },
                     }],
@@ -266,14 +335,8 @@
         );
       </script>
       <script>
-        var new_death = [];
-        var new_cases = [];
-        var labels = [];
         var countri ; 
         {% for data in countrydailydata %}
-            new_cases.push({{data.newcase}})
-            new_death.push({{data.newdeath}});
-            labels.push('{{data.date}}'); 
             countri = 'Daily New Coronavirus Cases In '.concat('{{data.country}}')       
         {% endfor %}
           var ctx = document.getElementById('newChart').getContext('2d');
@@ -321,8 +384,8 @@
                     display: false                  
                   },
                   tooltips: {
-                    titleFontSize: 30,
-                    bodyFontSize: 30
+                    titleFontSize: 20,
+                    bodyFontSize: 20
                   },
                   scales: {
                       yAxes: [{
@@ -356,7 +419,6 @@
         loader.className += " hidden"; // class "loader hidden"
     });
     </script>
-
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
