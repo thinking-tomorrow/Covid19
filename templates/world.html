@@ -32,11 +32,19 @@
         margin-top: 20px;
       }
 
+      #datePickerId{
+        width: 300px;
+      }
+
       @media only screen and (max-width: 600px) {
         .center{
           box-sizing: border-box;
           width:100%;
           padding: 10px;
+        }
+
+        #datePickerId{
+          width: 80vw;
         }
       }
       #recovery{
@@ -73,10 +81,66 @@
         animateValue('deaths', death_count-200, death_count, 5000);
         animateValue('recovery', recovery_count-200, recovery_count, 5000);
       }
+
+      function load(){
+        datePickerId.max = new Date().toISOString().split("T")[0];
+        datePickerId.value = new Date().toISOString().split("T")[0];
+      }
+
+      function getDetail(){
+        input = document.getElementById('datePickerId');
+        input_date = new Date(input.value);
+        input_date.setHours(0, 0);
+
+        modal_body = document.getElementById("modal-body");
+        modal = document.getElementById("myModal");
+        var date;
+
+        for (i=0; i<labels.length; i++){
+          compa_date = new Date(labels[i]);
+
+          if (input_date.getTime() == compa_date.getTime()){
+            date = labels[i];
+            deaths = new_death[i];
+            cases = new_cases[i];
+            t_cases = total_cases[i];
+            t_death = total_deaths[i];
+          }
+        }
+
+        if (date){
+          modal_body.innerHTML = '<center>Date : ' + date + '<br>' + 'New Cases : ' + cases + "<br>" + "New Deaths : " + deaths + '<br>' + 'Total Cases : ' + t_cases + "<br>" + "Total Deaths : " + t_death + "</center>";
+        }
+        else{
+          modal_body.innerHTML = '<center><p class="text text-danger">No results found. Please give a date between 31/12/2020 to today</p></center>';
+        }
+        $("#myModal").modal();
+
+      }
+
+      var total_cases = [];
+      var total_deaths = [];
+      var new_death = [];
+      var new_cases = [];
+      var labels = [];
+      var countri ; 
+      {% for data in worlddailydata %}
+          new_cases.push({{data.newcase}})
+          new_death.push({{data.newdeath}});
+          labels.push('{{data.date}}');
+          total_cases.push({{data.totalcase}});
+          total_deaths.push({{data.deaths}});
+      {% endfor %}
+
+      function load(){
+        datePickerId.max = new Date().toISOString().split("T")[0];
+        datePickerId.value = new Date().toISOString().split("T")[0];
+      }
+
     </script>
 
   </head>
-  <body style="background-image: url('{% static 'images/countryflags.jpg' %}'); background-size: cover"  onload='count()'>
+  <body style="background-image: url('{% static 'images/countryflags.jpg' %}'); background-size: cover"  onload='count();load()'>
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#">COVID INFO</a>
@@ -119,10 +183,38 @@
         </form>
       </div>
     </nav>
+
+    <div class="container">
+      <!-- The Modal -->
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title" style="text-align: center">Daily Detail</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body" id="modal-body">
+              <p>Detail...</p>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+    </div>
     
     <div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-  </div>
+    </div>
 
     <center>
       <div style="background-color: rgba(255,255,255,0.7);" class="center">
@@ -133,6 +225,10 @@
         <p id='deaths'>{{world_death}}</p>
         <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Coronavirus Winners:</h2>
         <p id='recovery'>{{world_recovery}}</p>
+
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Daily Case Search</h2>
+        <input class="form-control mr-sm-2" type="date" id='datePickerId' placeholder="Search Cases or Deaths according to the date" aria-label="Search" autocomplete="off" min="2019-12-31">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getDetail()">Get Detail</button>
       </div>
     </center>      
 
