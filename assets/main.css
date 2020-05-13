@@ -1,6 +1,5 @@
 .parallax {
     /* The image used */
-    background-image: url("{% static 'salute.jpg' %}");
   
     /* Set a specific height */
     /* min-height: 500px;  */
