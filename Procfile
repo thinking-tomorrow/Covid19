@@ -1,1 +1,0 @@
-web: gunicorn Covid19:Covid19 --log-file=-
