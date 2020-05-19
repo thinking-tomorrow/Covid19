@@ -134,7 +134,7 @@
 
       function load(){
         datePickerId.max = new Date().toISOString().split("T")[0];
-        datePickerId.value = new Date().toISOString().split("T")[0];
+        datePickerId.value = new Date(Date.now() - 864e5).toISOString().split("T")[0];
       }
 
     </script>
