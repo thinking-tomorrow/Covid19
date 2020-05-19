@@ -70,14 +70,13 @@ def scrape_all():
 
 
 def dailydatacountrywise():
-
+    print("here")
     daily = DailyData()
     url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
-
+    
     df = pd.read_csv(url)
-
     df.rename(columns={'location':'Country'},inplace=True)
-
+    print("here 1")
     date = str(datetime.now() - timedelta(days=1))[:10]
     fil = df['date'] == date
     df = df[fil]
@@ -87,14 +86,17 @@ def dailydatacountrywise():
     countries = CountryData.objects.all()
 
     for country in countries:
-        daily.country = str(country.name)
-        daily.totalcase = df.at[str(country.name),'total_cases']
-        daily.newcase = df.at[str(country.name),'new_cases']
-        daily.deaths = df.at[str(country.name),'total_cases']
-        daily.newdeath = df.at[str(country.name),'new_deaths']
-        daily.date = date
+        try:
+            daily.country = str(country.name)
+            daily.totalcase = df.at[str(country.name),'total_cases']
+            daily.newcase = df.at[str(country.name),'new_cases']
+            daily.deaths = df.at[str(country.name),'total_cases']
+            daily.newdeath = df.at[str(country.name),'new_deaths']
+            daily.date = date
+        except:
+            print(country.name)
 
-        daily.save()
+        # daily.save()
 
 
 def scrape_country_news():

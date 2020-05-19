@@ -64,8 +64,8 @@ function filterTable() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("search_country");
   filter = input.value.toUpperCase();
-  table = $("#myTable");
-  tr = table.$("tr:visible");
+  table = document.getElementById("myTable");
+  tr = table.rows;
   for (i = 1; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
