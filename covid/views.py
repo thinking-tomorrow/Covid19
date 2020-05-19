@@ -232,7 +232,7 @@ def scrape_country_news():
 
 
 def home(request):
-    scrape()
+    # scrape()
     # scrape_country_news()
     # daily_data()
     news = News.objects.all().order_by('-id')
