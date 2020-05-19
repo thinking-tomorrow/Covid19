@@ -74,9 +74,9 @@ COVID INFO
         </form>
       </div>
     </nav>
-    <div class="loader">
+    <!--<div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-  </div>
+    </div>-->
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         {% for news in latest_news %}
@@ -148,10 +148,10 @@ COVID INFO
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     
     <script>
-      window.addEventListener("load", function () {
+      /**window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
         loader.className += " hidden"; // class "loader hidden"
-    });
+      });**/
     </script>
 
     

@@ -68,9 +68,9 @@ COVID INFO
       </div>
     </nav>
 
-    <div class="loader">
+    <!--<div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-  </div>
+    </div>-->
 
     <center>
     {% for news in latest_news %}
@@ -86,10 +86,10 @@ COVID INFO
     </center>
     
     <script>
-      window.addEventListener("load", function () {
+      /**window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
         loader.className += " hidden"; // class "loader hidden"
-    });
+    });**/
     </script>
 
     <footer style="background-color:#343a40;color:white;">

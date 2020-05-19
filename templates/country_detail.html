@@ -171,9 +171,9 @@
     </div>
 
     
-    <div class="loader">
+    <!--<div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-    </div>
+    </div>-->
 
     <center id="data">
       <img src="../{{country.flag}}" style="height:100px;width:200px;margin-top:40px;">
@@ -439,10 +439,10 @@
       </script>
     {% endif %}
     <script>
-      window.addEventListener("load", function () {
+      /**window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
         loader.className += " hidden"; // class "loader hidden"
-    });
+    });**/
     </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

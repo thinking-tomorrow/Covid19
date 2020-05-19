@@ -90,9 +90,9 @@ COVID INFO
       </div>
     </nav>
     
-    <div class="loader">
+    <!--<div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-  </div>
+    </div>-->
 
     {% if countries %}
     <h1 style='padding-top:20px;text-align:center;'>COUNTRY PAGE</h1>
@@ -163,10 +163,10 @@ COVID INFO
     {% endif %}
 
     <script>
-      window.addEventListener("load", function () {
+      /**window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
         loader.className += " hidden"; // class "loader hidden"
-    });
+    });**/
     </script>
 
     <footer style="background-color:#343a40;color:white;">
