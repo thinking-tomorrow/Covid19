@@ -26,6 +26,7 @@ def my_int(str):
     else:
         return 0
 
+
 def scrape_all():
     source = requests.get('https://www.worldometers.info/coronavirus/').text
     soup = BeautifulSoup(source, 'lxml')
@@ -74,11 +75,14 @@ def dailydatacountrywise():
     print("here")
     daily = DailyData()
     url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+<<<<<<< HEAD
     print("here 1")
+=======
+    
+>>>>>>> aacb51109c5922e1649efe2dea69ac88e93c921a
     df = pd.read_csv(url)
-
     df.rename(columns={'location':'Country'},inplace=True)
-
+    print("here 1")
     date = str(datetime.now() - timedelta(days=1))[:10]
     fil = df['date'] == date
     df = df[fil]
@@ -95,12 +99,19 @@ def dailydatacountrywise():
             daily.deaths = df.at[str(country.name),'total_cases']
             daily.newdeath = df.at[str(country.name),'new_deaths']
             daily.date = date
+<<<<<<< HEAD
 
             print(date, country.name)
         except:
             continue
         #daily.save()
         # print(country.name, date)
+=======
+        except:
+            print(country.name)
+
+        # daily.save()
+>>>>>>> aacb51109c5922e1649efe2dea69ac88e93c921a
 
 
 def scrape_country_news():
@@ -142,6 +153,29 @@ def scrape_country_news():
                     news.save()
 
 
+def world_daily_data(country='World'):
+    url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+    columns = {'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths'}
+    df = pd.read_csv(url, usecols=columns, index_col='location')
+    df.rename(columns={'location':'Country'},inplace=True)
+    
+    world_df = df.loc[str(country)]
+
+    date = str(datetime.now() - timedelta(days=1))[:10]
+    fil = world_df['date'] == date
+    world_df = world_df[fil]
+
+    for index, row in df.iterrows():
+        print(index)
+        daily = DailyData()
+        daily.country = str(index)
+        daily.totalcase = row['total_cases'] 
+        daily.newcase = row['new_cases']
+        daily.deaths = row['total_deaths']
+        daily.newdeath = row['new_deaths']
+        daily.date = row['date']
+        daily.save()
+
 class Command(BaseCommand):
 
     def add_arguments(self, parser):
@@ -157,3 +191,7 @@ class Command(BaseCommand):
             scrape_country_news()
         elif id == 'daily':
             dailydatacountrywise()
+<<<<<<< HEAD
+=======
+            world_daily_data()
+>>>>>>> aacb51109c5922e1649efe2dea69ac88e93c921a
