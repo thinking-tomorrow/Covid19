@@ -60,7 +60,8 @@
     <script>
       function load(){
         datePickerId.max = new Date().toISOString().split("T")[0];
-        datePickerId.value = new Date().toISOString().split("T")[0];
+        datePickerId.value = new Date(Date.now() - 864e5).toISOString().split("T")[0];
+        //console.log(new Date(Date.now() - 864e5).toISOString().split("T")[0]);
       }
 
       function getDetail(){
@@ -97,9 +98,9 @@
   </head>
   <body onload="load()">
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;z-index: 1">
       <a class="navbar-brand" href="#">
-        <img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">COVID INFO
+        <img id="brand" src="../static/fav.png" width="40" height="40" alt="" style="margin: 0;">COVID INFO
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -23,7 +23,7 @@
       p::first-letter{
         font-size:200%;
       }
-      img{
+      .img{
         margin-left:50px;
         margin-top:30px;
         width:20%;
@@ -32,7 +32,7 @@
         margin-right:20px;
       }
       @media only screen and (max-width:600px){
-        img{
+        .img{
         margin-left:10px;
         margin-top:20px;
         display:block;
@@ -43,10 +43,10 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#">
-<img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">
+<img id="brand" src="../static/fav.png" width="40" height="40" alt="" style="margin: 0;">
 COVID INFO
 </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,7 @@ COVID INFO
 
         <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
-
+        
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
@@ -95,7 +95,7 @@ COVID INFO
 
     {% for new in news %}
     <h1 style='padding-top:20px;'>{{new.heading}}</h1><br>
-    <img src='{{new.img.url}}'><br>
+    <img class='img' src='{{new.img.url}}'><br>
     <h6 style='margin-left:20px;margin-top:25px;'>{{new.date}}</h6>
     <p style='margin-left:20px;margin-top:30px;'>{{new.body}}</p>
     {% endfor %}
