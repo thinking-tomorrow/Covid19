@@ -69,10 +69,9 @@ def scrape_all():
         my_country.save()
 
 
-def dailydatacountrywise(country):
+def dailydatacountrywise():
 
     daily = DailyData()
-
     url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
 
     df = pd.read_csv(url)
@@ -85,14 +84,17 @@ def dailydatacountrywise(country):
 
     df.set_index('Country', inplace=True)
 
-    daily.country = str(country)
-    daily.totalcase = df.at[str(country),'total_cases']
-    daily.newcase = df.at[str(country),'new_cases']
-    daily.deaths = df.at[str(country),'total_cases']
-    daily.newdeath = df.at[str(country),'new_deaths']
-    daily.date = date
+    countries = CountryData.objects.all()
 
-    daily.save()
+    for country in countries:
+        daily.country = str(country.name)
+        daily.totalcase = df.at[str(country.name),'total_cases']
+        daily.newcase = df.at[str(country.name),'new_cases']
+        daily.deaths = df.at[str(country.name),'total_cases']
+        daily.newdeath = df.at[str(country.name),'new_deaths']
+        daily.date = date
+
+        daily.save()
 
 
 def scrape_country_news():
@@ -133,8 +135,19 @@ def scrape_country_news():
                     news.date = str(datetime.now())[:10]
                     news.save()
 
+
 class Command(BaseCommand):
-    help = "collect jobs"
+
+    def add_arguments(self, parser):
+        parser.add_argument('scrape_id', nargs='+', type=str)
+
     # define logic of command
     def handle(self, *args, **options):
-        scrape_all()
+        id = options['scrape_id'][0]
+
+        if id == 'all':
+            scrape_all()
+        elif id == 'country_news':
+            scrape_country_news()
+        elif id == 'daily':
+            dailydatacountrywise()

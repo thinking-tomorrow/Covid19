@@ -50,6 +50,11 @@
             width: 80vw;
           }
         }
+
+        .my_list li{
+          list-style-type: none;
+          display: inline-block;
+        }
     </style>
 
     <script>
@@ -92,7 +97,7 @@
   </head>
   <body onload="load()">
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;z-index: 1">
       <a class="navbar-brand" href="#">COVID INFO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -170,7 +175,10 @@
     <center id="data">
       <img src="../{{country.flag}}" style="height:100px;width:200px;margin-top:40px;">
       <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
-        
+      <ul class="my_list">
+        <li><a href="#graphs">Graphs</a></li>
+        <li><a href="#news">News</a></li>
+      </ul>
       <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
       <p id='cases'>{{country.totalcase}}</p>
       <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
@@ -183,30 +191,38 @@
       <p>Daily Case Search</p>
       <input class="form-control mr-sm-2" type="date" id='datePickerId' placeholder="Search Cases or Deaths according to the date" aria-label="Search" autocomplete="off" min="2019-12-31">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getDetail()">Get Detail</button>
+      <br>
+      <br>
     </center>
 
     {% if latest_news %}
-      <div style="padding: 20px; background-image: url('../static/images/bg_news.jpg'); background-size: cover;">
-      <!--<h1 style="padding-top:30px;">News</h1> -->
+      <div style="padding: 20px; background-image: url('../static/images/bg_news.jpg'); background-size: cover;" id="news">
+        
+        <center>
+          <!-- <h1 style="padding-top:30px; color: yellow;">News</h1> -->
+          <img src="{% static 'images/news_header.png' %}">
+          <br>
 
-      {% for news in latest_news %}
-      <a href="{{news.link}}" target="_blank">
-        <div class="card" style="width: 18rem;height:15rem;padding-left:20px;margin-top:20px;display: inline-block;">
-          
-          <div class="card-body">
-            <h5 class="card-title" style="height: 100px">{{news.title}}</h5>
-            <p class="card-text">{{news.date}}</p>
-            <a href="{{news.link}}" target="_blank" class="btn btn-primary stretched-link">Know more</a>
-          </div>
-        </div>
-      </a>
-      {% endfor %}
+          {% for news in latest_news %}
+          <a href="{{news.link}}" target="_blank">
+            <div class="card" style="width: 18rem;height:15rem;padding-left:20px;margin-top:20px;display: inline-block;">
+              
+              <div class="card-body">
+                <h5 class="card-title" style="height: 100px">{{news.title}}</h5>
+                <p class="card-text">{{news.date}}</p>
+                <a href="{{news.link}}" target="_blank" class="btn btn-primary stretched-link">Know more</a>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </center>
       </div>
     {% endif %}
 
     <center>
-      <div class="graphs">
-        <canvas id="myChart" style="background-color: white"></canvas>
+      <div class="graphs" id="graphs">
+        <h1 style='margin-top: 20px'>GRAPHS </h1>
+        <canvas id="myChart" style="background-color: white; margin-top: 50px;"></canvas>
         <canvas id="newChart" style="background-color: white"></canvas>
       </div>
     </center>
