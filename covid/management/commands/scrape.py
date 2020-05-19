@@ -19,6 +19,7 @@ country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE"
                 "British Virgin Islands": "Virgin Islands British", "St. Barth": "Saint Barthelemy", "Caribbean Netherlands": "Netherlands",
                 "Saint Pierre Miquelon": "Saint Pierre and Miquelon"}
 
+
 def my_int(str):
     if str.strip().isnumeric():
         return int(str)
@@ -94,10 +95,9 @@ def dailydatacountrywise():
             daily.deaths = df.at[str(country.name),'total_cases']
             daily.newdeath = df.at[str(country.name),'new_deaths']
             daily.date = date
+            daily.save()
         except:
-            print(country.name)
-
-        # daily.save()
+            continue
 
 
 def scrape_country_news():
@@ -194,8 +194,7 @@ def country_news_specific(country):
                 news.link = link
                 news.title = title
                 news.date = str(datetime.now())[:10]
-                # news.save()
-                print(title)
+                news.save()
 
 
 class Command(BaseCommand):
