@@ -45,7 +45,7 @@ def scrape():
         rows = country.find_all('td')
         rows = list(map(lambda x:str(x.text).replace(',', ''), rows))
 
-        name = rows[0]
+        name = rows[1]
 
         if name in country_dict:
             name = country_dict[name]
@@ -58,17 +58,17 @@ def scrape():
 
         my_country              = CountryData()
         my_country.name         = name
-        my_country.totalcase    = my_int(rows[1])
-        my_country.activecase   = my_int(rows[6])
-        my_country.newcase      = my_int(rows[2].replace('+', ''))
-        my_country.deaths       = my_int(rows[3])
-        my_country.newdeath     = my_int(rows[4].replace('+', ''))
-        my_country.recovered    = my_int(rows[5])
-        my_country.tests        = my_int(rows[10])
-        my_country.total_pop    = my_int(rows[8])
-        my_country.death_pop    = my_int(rows[9])
-        my_country.test_pop     = my_int(rows[11])
-        my_country.continent    = rows[12]
+        my_country.totalcase    = my_int(rows[2])
+        my_country.activecase   = my_int(rows[7])
+        my_country.newcase      = my_int(rows[3].replace('+', ''))
+        my_country.deaths       = my_int(rows[4])
+        my_country.newdeath     = my_int(rows[5].replace('+', ''))
+        my_country.recovered    = my_int(rows[6])
+        my_country.tests        = my_int(rows[11])
+        my_country.total_pop    = my_int(rows[9])
+        my_country.death_pop    = my_int(rows[10])
+        my_country.test_pop     = my_int(rows[12])
+        my_country.continent    = rows[14]
         my_country.flag         = f'media/flag/{name}.png'
 
         if name == 'United States of America':
