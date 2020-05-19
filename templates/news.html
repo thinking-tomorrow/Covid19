@@ -68,6 +68,7 @@
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
   </div>
 
+    <center>
     {% for news in latest_news %}
     <div class="card" style="height:250px;width: 18rem;height:45rem;padding-left:20px;margin-top:20px;display: inline-block;">
       <img class="card-img-top" src="{{news.img.url}}" alt="{{news.title}}">
@@ -78,7 +79,8 @@
       </div>
     </div>
     {% endfor %}
-
+    </center>
+    
     <script>
       window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
