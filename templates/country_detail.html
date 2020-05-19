@@ -49,6 +49,11 @@
           #datePickerId{
             width: 80vw;
           }
+
+          .news-header{
+            width: 100%;
+            padding: 10px;    
+          }
         }
 
         .my_list li{
@@ -203,7 +208,7 @@
         
         <center>
           <!-- <h1 style="padding-top:30px; color: yellow;">News</h1> -->
-          <img src="{% static 'images/news_header.PNG' %}">
+          <img class='news-header' src="{% static 'images/news_header.PNG' %}">
           <br>
 
           {% for news in latest_news %}
