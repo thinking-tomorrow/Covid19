@@ -19,6 +19,7 @@ country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE"
                 "British Virgin Islands": "Virgin Islands British", "St. Barth": "Saint Barthelemy", "Caribbean Netherlands": "Netherlands",
                 "Saint Pierre Miquelon": "Saint Pierre and Miquelon"}
 
+
 def my_int(str):
     if str.strip().isnumeric():
         return int(str)
@@ -70,10 +71,10 @@ def scrape_all():
 
 
 def dailydatacountrywise():
-
+    print("here")
     daily = DailyData()
     url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
-
+    print("here 1")
     df = pd.read_csv(url)
 
     df.rename(columns={'location':'Country'},inplace=True)
@@ -87,14 +88,19 @@ def dailydatacountrywise():
     countries = CountryData.objects.all()
 
     for country in countries:
-        daily.country = str(country.name)
-        daily.totalcase = df.at[str(country.name),'total_cases']
-        daily.newcase = df.at[str(country.name),'new_cases']
-        daily.deaths = df.at[str(country.name),'total_cases']
-        daily.newdeath = df.at[str(country.name),'new_deaths']
-        daily.date = date
+        try:
+            daily.country = str(country.name)
+            daily.totalcase = df.at[str(country.name),'total_cases']
+            daily.newcase = df.at[str(country.name),'new_cases']
+            daily.deaths = df.at[str(country.name),'total_cases']
+            daily.newdeath = df.at[str(country.name),'new_deaths']
+            daily.date = date
 
-        daily.save()
+            print(date, country.name)
+        except:
+            continue
+        #daily.save()
+        # print(country.name, date)
 
 
 def scrape_country_news():
