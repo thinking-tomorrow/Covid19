@@ -238,11 +238,11 @@ def home(request):
     #news = News.objects.all().order_by('-id')
     #return render(request, 'home.html', {'latest_news': news[:10]})
     world_data = scrape_world()
-    country_data = CountryData.objects.get(name__iexact='India')
+
     worlddailydata = DailyData.objects.filter(country='World')
     return render(request, 'home.html',
                   {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2],
-                   'worlddailydata': worlddailydata, 'countrydata':country_data})
+                   'world_daily_data': worlddailydata})
 
 
 def graphs(request):
