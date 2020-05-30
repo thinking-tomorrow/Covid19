@@ -364,7 +364,7 @@ COVID INFO
     </script>
 
   </head>
-  <body style="background-image: url('{% static 'images/countryflags.jpg' %}'); background-size: cover"  onload='count();load()'>
+  <body  onload='count();load()'>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
       <a class="navbar-brand" href="#"></a>
@@ -449,15 +449,25 @@ COVID INFO
         <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:38px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
         <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
         <p id='cases'>{{world_total}}</p>
-        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Deaths:</h2>
         <p id='deaths'>{{world_death}}</p>
-        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Coronavirus Winners:</h2>
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Winners:</h2>
         <p id='recovery'>{{world_recovery}}</p>
 
-        <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Daily Case Search</h2>
-        <input class="form-control mr-sm-2" type="date" id='datePickerId' placeholder="Search Cases or Deaths according to the date" aria-label="Search" autocomplete="off" min="2019-12-31">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getDetail()">Get Detail</button>
-      </div>
+          <div>
+      <h1 class='begin'> India Statistics</h1>
+      <p class='update'>Last updated:  00.00 GMT</p>
+      <a href="/country/India"><p class='update'>Show More <i class="fas fa-arrow-alt-circle-down"></i></p></a>
+    </div>
+
+
+
+    <div>
+      <h1 class='begin'> Country Wise Statistics</h1>
+      <p class='update'>Last updated:  00.00 GMT</p>
+      <a href="/country"><p class='update'>Show More <i class="fas fa-arrow-alt-circle-down"></i></p></a>
+    </div>
+
     </center>
 
     <script>
