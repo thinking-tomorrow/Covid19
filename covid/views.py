@@ -235,8 +235,13 @@ def home(request):
     # scrape()
     # scrape_country_news()
     # daily_data()
-    news = News.objects.all().order_by('-id')
-    return render(request, 'home.html', {'latest_news': news[:10]})
+    #news = News.objects.all().order_by('-id')
+    #return render(request, 'home.html', {'latest_news': news[:10]})
+    world_data = scrape_world()
+    worlddailydata = DailyData.objects.filter(country='World')
+    return render(request, 'home.html',
+                  {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2],
+                   'worlddailydata': worlddailydata})
 
 
 def graphs(request):
