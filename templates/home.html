@@ -255,16 +255,21 @@ COVID INFO
 
     <div id="container" style="width:100%; height:400px;"></div>
     <div id="new" style="width:100%; height:400px;"></div>
+
+    <div id="new_deaths" style="width:100%; height:400px;"></div>
+    <div id="total_deaths" style="width:100%; height:400px;"></div>
     <script>
 
       var new_death = [];
       var new_cases = [];
       var labels = [];
       var total_cases = [];
+      var total_deaths = [];
       {% for data in world_daily_data %}
           new_cases.push({{data.newcase}});
           new_death.push({{data.newdeath}});
-          total_cases.push({{data.totalcase}})
+          total_cases.push({{data.totalcase}});
+          total_deaths.push({{data.deathhs}});
           labels.push('{{data.date}}');
       {% endfor %}
     document.addEventListener('DOMContentLoaded', function () {
@@ -306,7 +311,7 @@ COVID INFO
                 type: 'line'
             },
             title: {
-                text: 'Daily New Cases'
+                text: 'Total Cases'
             },
             xAxis: {
                 tickInterval: 1,
@@ -323,12 +328,45 @@ COVID INFO
 
             yAxis: {
                 title: {
-                    text: 'Daily New Cases'
+                    text: 'Total Cases'
                 }
             },
             series: [{
-                name: 'New Cases',
+                name: 'Total Cases',
                 data: total_cases
+            }]
+        });
+    });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('new_deaths', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Daily New Deaths'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Daily New Deaths'
+                }
+            },
+            series: [{
+                name: 'New Deaths',
+                data: new_death,
             }]
         });
     });
