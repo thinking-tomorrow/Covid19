@@ -269,7 +269,7 @@ COVID INFO
           new_cases.push({{data.newcase}});
           new_death.push({{data.newdeath}});
           total_cases.push({{data.totalcase}});
-          total_deaths.push({{data.deathhs}});
+          total_deaths.push({{data.deaths}});
           labels.push('{{data.date}}');
       {% endfor %}
     document.addEventListener('DOMContentLoaded', function () {
@@ -341,7 +341,7 @@ COVID INFO
       document.addEventListener('DOMContentLoaded', function () {
         var myChart = Highcharts.chart('new_deaths', {
             chart: {
-                type: 'bar'
+                type: 'column'
             },
             title: {
                 text: 'Daily New Deaths'
@@ -367,6 +367,39 @@ COVID INFO
             series: [{
                 name: 'New Deaths',
                 data: new_death,
+            }]
+        });
+    });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('total_deaths', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Total Deaths'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Total Deaths'
+                }
+            },
+            series: [{
+                name: 'Total Deaths',
+                data: total_deaths,
             }]
         });
     });
