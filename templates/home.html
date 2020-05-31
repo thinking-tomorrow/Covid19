@@ -81,9 +81,9 @@
         death_count = parseInt(deaths.innerHTML.replace(/,/g, ''));
         recovery_count = parseInt(recovery.innerHTML.replace(/,/g, ''));
 
-        animateValue('cases', case_count-200, case_count, 5000);
-        animateValue('deaths', death_count-200, death_count, 5000);
-        animateValue('recovery', recovery_count-200, recovery_count, 5000);
+        animateValue('cases', case_count-1000, case_count, 5000);
+        animateValue('deaths', death_count-1000, death_count, 5000);
+        animateValue('recovery', recovery_count-1000, recovery_count, 5000);
       }
 
       function load(){
@@ -149,9 +149,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#">
-<img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">
-COVID INFO
-</a>
+        <img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">
+        COVID INFO
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -227,15 +227,24 @@ COVID INFO
     <center>
       <div style="background-color: rgba(255,255,255,0.7);" class="center">
         <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:38px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
-          <a href="graphs.html" style="color:green;font-size:20px;">Graphs</a>
-
-          <a href="country.html" style="color:green;font-size: 20px;">  Countries</a>
+        
+        <a href="graphs.html" style="color:green;font-size:20px;">Graphs</a>
+        <a href="country.html" style="color:green;font-size: 20px;">  Countries</a>
+        
+        <div>
           <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
-        <p id='cases'>{{world_total}}</p>
-        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Deaths:</h2>
-        <p id='deaths'>{{world_death}}</p>
-        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Winners:</h2>
-        <p id='recovery'>{{world_recovery}}</p>
+          <p id='cases'>{{world_total}}</p>
+        </div>
+        
+        <div style="width: 40%; display: inline-block">
+          <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Deaths:</h2>
+          <p id='deaths'>{{world_death}}</p>
+        </div>
+        
+        <div style="width: 40%; display: inline-block">
+          <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Winners:</h2>
+          <p id='recovery'>{{world_recovery}}</p>
+        </div>
 
         <div style="border: 1px solid;
   padding: 50px;
