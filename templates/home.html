@@ -236,7 +236,23 @@ COVID INFO
         <p id='deaths'>{{world_death}}</p>
         <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Winners:</h2>
         <p id='recovery'>{{world_recovery}}</p>
+
+        <div style="border: 1px solid;
+  padding: 50px;
+  box-shadow: 5px 1px;"><p>CLOSED CASES</p>
+        <hr>
+          <p style="font-size: 30px;font-weight: bold;">{{closed_cases}}</p>
+          <br>
+          <p style="padding-top:0px;">Cases which had an outcome</p>
+          <p style="color:lightgreen;font-size: 30px; font-weight: bold;">{{world_recovery}}</p>
+          <p>({{recovery_percent}}%)</p>
+          <br>
+          <p style="color:red;font-size: 30px; font-weight: bold;">{{world_death}}</p>
+          <p>({{death_percent}}%)
+        </div>
+
     </center>
+
 
     <div class="container">
       <!-- Nav tabs -->
