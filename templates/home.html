@@ -23,7 +23,7 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
 
     <title>Covid Info</title>
@@ -146,7 +146,7 @@
   </head>
   <body  onload='count();load()'>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#">
 <img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">
@@ -158,13 +158,13 @@ COVID INFO
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href='/'><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/news"><i class="far fa-newspaper"></i>News</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
           </li>
           <li class="nav-item">
@@ -236,43 +236,54 @@ COVID INFO
         <p id='deaths'>{{world_death}}</p>
         <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Winners:</h2>
         <p id='recovery'>{{world_recovery}}</p>
-
-          <!--<div>
-      <h1 class='begin'> India Statistics</h1>
-      <p class='update'>Last updated:  00.00 GMT</p>
-      <a href="/country/India"><p class='update'>Show More <i class="fas fa-arrow-alt-circle-down"></i></p></a>
-    </div>
-
-
-
-    <div>
-      <h1 class='begin'> Country Wise Statistics</h1>
-      <p class='update'>Last updated:  00.00 GMT</p>
-      <a href="/country"><p class='update'>Show More <i class="fas fa-arrow-alt-circle-down"></i></p></a>
-    </div>-->
-
-
-
-        <div style="border: 1px solid;
-  padding: 50px;
-  box-shadow: 5px 1px;"><p>CLOSED CASES</p>
-        <hr>
-          <p style="font-size: 30px;font-weight: bold;">{{closed_cases}}</p>
-          <br>
-          <p style="padding-top:0px;">Cases which had an outcome</p>
-          <p style="color:lightgreen;font-size: 30px; font-weight: bold;">{{world_recovery}}</p>
-          <p>({{recovery_percent}}%)</p>
-          <br>
-          <p style="color:red;font-size: 30px; font-weight: bold;">{{world_death}}</p>
-          <p>({{death_percent}}%)
-        </div>
     </center>
 
-    <div id="container" style="width:100%; height:400px;"></div>
-    <div id="new" style="width:100%; height:400px;"></div>
+    <div class="container">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#daily">Daily</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#linear">Linear</a>
+        </li>
+      </ul>
 
-    <div id="new_deaths" style="width:100%; height:400px;"></div>
-    <div id="total_deaths" style="width:100%; height:400px;"></div>
+      <!-- Tab panes -->
+      <div class="tab-content" style="border: 10px solid black">
+        <div id="daily" class="container tab-pane active"><br>
+          <div id="container" style="height:400px;"></div>
+        </div>
+        <div id="linear" class="container tab-pane fade"><br>
+          <div id="new" style="height:400px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+
+    <div class="container">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#daily_death">Daily</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#linear_death">Linear</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content" style="border: 10px solid black">
+        <div id="daily_death" class="container tab-pane active"><br>
+          <div id="new_deaths" style="height:400px;"></div>
+        </div>
+        <div id="linear_death" class="container tab-pane fade"><br>
+          <div id="total_deaths" style="height:400px;"></div>
+        </div>
+      </div>
+    </div>
+
     <script>
 
       var new_death = [];
@@ -305,9 +316,6 @@ COVID INFO
     }
 
     },
-
-
-
             yAxis: {
                 title: {
                     text: 'Daily New Cases'
