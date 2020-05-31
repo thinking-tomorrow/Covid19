@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+     <script src="https://code.highcharts.com/highcharts.js"></script>
     <!-- My Style Sheets -->
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico">
@@ -109,217 +109,159 @@ COVID INFO
     </script>
 
     <center>
+        <div id="myChart" style="width:100%; height:400px;"></div>
+        <div id="newChart" style="width:100%; height:400px;"></div>
+        <div id="new_cases" style="width:100%; height:400px;"></div>
+        <div id="total_deaths" style="width:100%; height:400px;"></div>
       <div class="graphs">
-        <canvas id="myChart" ></canvas>
-        <canvas id="newChart"></canvas>
+
         <canvas id="pieChart"></canvas>
       </div>
     </center>
 
     <script>
-      bg_colors = [   'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)']
-      
-      border_colors = ['rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)']
 
-      hover_colors = ['rgba(255, 99, 132)',
-                      'rgba(54, 162, 235)',
-                      'rgba(255, 206, 86)',
-                      'rgba(75, 192, 192)',
-                      'rgba(153, 102, 255)',
-                      'rgba(255, 159, 64)']  
-
-      function fill_array(arr, length){
-        c = 0;
-        final = []
-        for (i=0; i<length; i++){
-
-          if(arr=='bg')
-            final[i] = bg_colors[c];
-          else if(arr=='hv')
-            final[i] = hover_colors[c];
-          else
-            final[i] = border_colors[c];
-
-          if (c==5)
-            c=0;
-          else
-            c++;
-        }
-        return final;
-      }
-
-      var dynamicColors = function() {
-        var r = Math.floor(Math.random() * 255);
-        var g = Math.floor(Math.random() * 255);
-        var b = Math.floor(Math.random() * 255);
-        return "rgb(" + r + "," + g + "," + b + ")";
-      };
-    
       var new_death = [];
       var new_cases = [];
       var labels = [];
+      var total_cases = [];
+      var total_deaths = [];
       {% for data in world_daily_data %}
-          new_cases.push({{data.newcase}})
+          new_cases.push({{data.newcase}});
           new_death.push({{data.newdeath}});
-          labels.push('{{data.date}}');     
+          total_cases.push({{data.totalcase}});
+          total_deaths.push({{data.deaths}});
+          labels.push('{{data.date}}');
       {% endfor %}
-
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: labels,
-              datasets: [{
-                  label: 'No. of Deaths',
-                  data: new_death,
-                  order: 1,
-                  
-                  backgroundColor: fill_array('bg', labels.length),
-                  borderColor: fill_array('br', labels.length),
-                  borderWidth: 1,
-
-                  hoverBackgroundColor: fill_array('hv', labels.length)
-              }, {
-                  label: 'No. of Deaths',
-                  data: new_death,
-                  type: 'line',
-                  // this dataset is drawn on top
-                  fill: false,
-                  borderColor: "rgb(0, 0, 0)",
-                  backgroundColor: "rgb(0, 0, 0)",
-                  pointBackgroundColor: "rgb(0, 0, 0)",
-                  pointBorderColor: "rgb(0, 0, 0)",
-                  pointHoverBackgroundColor: "rgb(0, 0, 0)",
-                  pointHoverBorderColor: "rgb(0, 0, 0)",
-
-                  options: {
-                    backgroundColor: 'rgb(255, 255, 255)'
-                  }
-              }]
-          },
-          options: {
-              title: {
-                display: true,
-                text: 'Coronavirus Daily Deaths (World Wide)',
-                fontSize: 30
-              },
-              responsive: true,
-              maintainAspectRatio: false,
-              legend: {
-                display: false                  
-              },
-              tooltips: {
-                titleFontSize: 20,
-                bodyFontSize: 20
-              },
-              scales: {
-                  yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        autoSkip: true,
-                        maxTicksLimit: 9,
-                        stepSize: 2500,
-                        fontSize: 20
-                    },
-                  }],
-                  xAxes: [{
-                    ticks: {
-                        autoSkip: true,
-                        fontSize: 20
-                    },
-                    gridLines: {
-                      display:false
-                    }
-                  }]
-              }
-          }
-      },
-      );
-    </script>
-    <script>
-        var ctx = document.getElementById('newChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'No. of Deaths',
-                    data: new_cases,
-                    order: 1,
-                    
-                    backgroundColor: fill_array('bg', labels.length),
-                    borderColor: fill_array('br', labels.length),
-                    borderWidth: 1,
-  
-                    hoverBackgroundColor: fill_array('hv', labels.length)
-                }, {
-                    label: 'No. of New Cases',
-                    data: new_cases,
-                    type: 'line',
-                    // this dataset is drawn on top
-                    fill: false,
-                    borderColor: "rgb(0, 0, 0)",
-                    backgroundColor: "rgb(0, 0, 0)",
-                    pointBackgroundColor: "rgb(0, 0, 0)",
-                    pointBorderColor: "rgb(0, 0, 0)",
-                    pointHoverBackgroundColor: "rgb(0, 0, 0)",
-                    pointHoverBorderColor: "rgb(0, 0, 0)",
-  
-                    options: {
-                      backgroundColor: 'rgb(255, 255, 255)'
-                    }
-                }]
+    document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('myChart', {
+            chart: {
+                type: 'column'
             },
-            options: {
-                title: {
-                  display: true,
-                  text: 'Coronavirus Daily New Cases (World Wide)',
-                  fontSize: 30
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                  display: false                  
-                },
-                tooltips: {
-                  titleFontSize: 20,
-                  bodyFontSize: 20
-                },
-                scales: {
-                    yAxes: [{
-                      ticks: {
-                          beginAtZero: true,
-                          autoSkip: true,
-                          maxTicksLimit: 9,
-                          stepSize: 2500,
-                          fontSize: 20
-                      },
-                    }],
-                    xAxes: [{
-                      ticks: {
-                          autoSkip: true,
-                          fontSize: 20
-                      },
-                      gridLines: {
-                        display:false
-                      }
-                    }]
-                }
-            }
-        },
-        );
-      </script>
+            title: {
+                text: 'Daily New Cases'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
 
+    },
+            yAxis: {
+                title: {
+                    text: 'Daily New Cases'
+                }
+            },
+            series: [{
+                name: 'New Cases',
+                data: new_cases
+            }]
+        });
+    });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('new_cases', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Total Cases'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Total Cases'
+                }
+            },
+            series: [{
+                name: 'Total Cases',
+                data: total_cases
+            }]
+        });
+    });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('newChart', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Daily New Deaths'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Daily New Deaths'
+                }
+            },
+            series: [{
+                name: 'New Deaths',
+                data: new_death,
+            }]
+        });
+    });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('total_deaths', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Total Deaths'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Total Deaths'
+                }
+            },
+            series: [{
+                name: 'Total Deaths',
+                data: total_deaths,
+            }]
+        });
+    });
+    </script>
       <script>
         share = []
         labels = []
