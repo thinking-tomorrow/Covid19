@@ -267,21 +267,28 @@ COVID INFO
     document.addEventListener('DOMContentLoaded', function () {
         var myChart = Highcharts.chart('container', {
             chart: {
-                type: 'bar'
+                type: 'column'
             },
             title: {
-                text: 'Fruit Consumption'
+                text: 'Daily New Cases'
             },
             xAxis: {
-                categories: ['Cases']
-            },
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
             yAxis: {
                 title: {
-                    text: 'Fruit eaten'
+                    text: 'Daily New Cases'
                 }
             },
             series: [{
-                name: 'Jane',
+                name: 'New Cases',
                 data: new_cases
             }]
         });
