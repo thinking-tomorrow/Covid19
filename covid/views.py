@@ -257,10 +257,13 @@ def home(request):
 
     recovery_percent = (int(recoveries) / int(total_outcome)) * 100
 
+    death_percent = 100 - recovery_percent
+
     worlddailydata = DailyData.objects.filter(country='World')
     return render(request, 'home.html',
                   {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2],
-                   'world_daily_data': worlddailydata, 'closed_cases':total_outcome, 'recovery_percent':recovery_percent})
+                   'world_daily_data': worlddailydata, 'closed_cases':total_outcome, 'recovery_percent':recovery_percent,
+                   'death_percent':death_percent})
 
 
 def graphs(request):
