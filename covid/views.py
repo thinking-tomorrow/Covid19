@@ -239,12 +239,12 @@ def home(request):
     #return render(request, 'home.html', {'latest_news': news[:10]})
     world_data = scrape_world()
 
-    recoveries_list = world_data[1].split(',')
+    recoveries_list = world_data[2].split(',')
     recoveries = ''
     for recovery in recoveries_list:
         recoveries+=recovery
 
-    death_list = world_data[2].split(',')
+    death_list = world_data[1].split(',')
     deaths = ''
     for death in death_list:
         deaths+=death
@@ -255,12 +255,12 @@ def home(request):
 
     print(total_outcome)
 
-    recovery_percen
+    recovery_percent = (int(recoveries) / int(total_outcome)) * 100
 
     worlddailydata = DailyData.objects.filter(country='World')
     return render(request, 'home.html',
                   {'world_total': world_data[0], 'world_death': world_data[1], 'world_recovery': world_data[2],
-                   'world_daily_data': worlddailydata, 'closed_cases':total_outcome})
+                   'world_daily_data': worlddailydata, 'closed_cases':total_outcome, 'recovery_percent':recovery_percent})
 
 
 def graphs(request):
