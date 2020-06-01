@@ -51,7 +51,7 @@
   </head>
   <body>
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1;">
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#">
 <img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">
@@ -97,67 +97,52 @@ COVID INFO
       </div>
     </nav>
     
-    <!--<div class="loader">
-      <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-    </div>-->
-
-    <script>
-      /**window.addEventListener("load", function () {
-        const loader = document.querySelector(".loader");
-        loader.className += " hidden"; // class "loader hidden"
-    });**/
-    </script>
-
     <center>
+        <div class="container" style="margin-top: 20px;">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#daily">Daily</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#linear">Linear</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" style="border: 10px solid black">
+            <div id="daily" class="tab-pane active">
+            <div id="container" style="height:400px;"></div>
+            </div>
+            <div id="linear" class="tab-pane fade">
+            <div id="new" style="height:400px;"></div>
+            </div>
+        </div>
+        </div>
+
+        <br><br>
+
         <div class="container">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#daily">Daily</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#linear">Linear</a>
-        </li>
-      </ul>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#daily_death">Daily</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#linear_death">Linear</a>
+            </li>
+        </ul>
 
-      <!-- Tab panes -->
-      <div class="tab-content" style="border: 10px solid black">
-        <div id="daily" class="container tab-pane active"><br>
-          <div id="container" style="height:400px;"></div>
+        <!-- Tab panes -->
+        <div class="tab-content" style="border: 10px solid black">
+            <div id="daily_death" class="tab-pane active">
+            <div id="new_deaths" style="height:400px;"></div>
+            </div>
+            <div id="linear_death" class="tab-pane fade">
+            <div id="total_deaths" style="height:400px;"></div>
+            </div>
         </div>
-        <div id="linear" class="container tab-pane fade"><br>
-          <div id="new" style="height:400px;"></div>
         </div>
-      </div>
-    </div>
-
-    <br><br>
-
-    <div class="container">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#daily_death">Daily</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#linear_death">Linear</a>
-        </li>
-      </ul>
-
-      <!-- Tab panes -->
-      <div class="tab-content" style="border: 10px solid black">
-        <div id="daily_death" class="container tab-pane active"><br>
-          <div id="new_deaths" style="height:400px;"></div>
-        </div>
-        <div id="linear_death" class="container tab-pane fade"><br>
-          <div id="total_deaths" style="height:400px;"></div>
-        </div>
-      </div>
-    </div>
-      <div class="graphs">
-
-        <canvas id="pieChart"></canvas>
-      </div>
     </center>
 
     <script>
