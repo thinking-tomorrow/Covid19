@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script src="https://code.highcharts.com/highcharts.js"></script>
     <!-- My Style Sheets -->
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico">
@@ -227,221 +227,404 @@
       </div>
     {% endif %}
 
-    <center>
-      <div class="graphs" id="graphs">
-        <h1 style='margin-top: 20px'>GRAPHS </h1>
-        <canvas id="myChart" style="background-color: white; margin-top: 50px;"></canvas>
-        <canvas id="newChart" style="background-color: white"></canvas>
+    <div class="container">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#daily">Daily</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#linear">Linear</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content" style="border: 10px solid black">
+        <div id="daily" class="container tab-pane active"><br>
+          <div id="container" style="height:400px;"></div>
+        </div>
+        <div id="linear" class="container tab-pane fade"><br>
+          <div id="new" style="height:400px;"></div>
+        </div>
       </div>
-    </center>
-    
+    </div>
+
+    <br><br>
+
+    <div class="container">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#daily_death">Daily</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#linear_death">Linear</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content" style="border: 10px solid black">
+        <div id="daily_death" class="container tab-pane active"><br>
+          <div id="new_deaths" style="height:400px;"></div>
+        </div>
+        <div id="linear_death" class="container tab-pane fade"><br>
+          <div id="total_deaths" style="height:400px;"></div>
+        </div>
+      </div>
+    </div>
+
+
+
     {% if countrydailydata %}
+
     <script>
-      bg_colors = [   'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)']
-      
-      border_colors = ['rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)']
-
-      hover_colors = ['rgba(255, 99, 132)',
-                      'rgba(54, 162, 235)',
-                      'rgba(255, 206, 86)',
-                      'rgba(75, 192, 192)',
-                      'rgba(153, 102, 255)',
-                      'rgba(255, 159, 64)']  
-
-        function fill_array(arr, length){
-          c = 0;
-          final = []
-          for (i=0; i<length; i++){
-
-            if(arr=='bg')
-              final[i] = bg_colors[c];
-            else if(arr=='hv')
-              final[i] = hover_colors[c];
-            else
-              final[i] = border_colors[c];
-
-            if (c==5)
-              c=0;
-            else
-              c++;
-          }
-          return final;
+        Highcharts.createElement('link', {
+    href: 'https://fonts.googleapis.com/css?family=Unica+One',
+    rel: 'stylesheet',
+    type: 'text/css'
+}, null, document.getElementsByTagName('head')[0]);
+Highcharts.theme = {
+    colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+        '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+    chart: {
+        backgroundColor: {
+            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+            stops: [
+                [0, '#2a2a2b'],
+                [1, '#3e3e40']
+            ]
+        },
+        style: {
+            fontFamily: '\'Unica One\', sans-serif'
+        },
+        plotBorderColor: '#606063'
+    },
+    title: {
+        style: {
+            color: '#E0E0E3',
+            textTransform: 'uppercase',
+            fontSize: '20px'
         }
-
-        var total_cases = [];
-        var total_deaths = [];
-        var new_death = [];
-        var new_cases = [];
-        var labels = [];
-        var countri ; 
-        {% for data in countrydailydata %}
-            new_cases.push({{data.newcase}})
-            new_death.push({{data.newdeath}});
-            labels.push('{{data.date}}');
-            total_cases.push({{data.totalcase}});
-            total_deaths.push({{data.deaths}})
-            countri = 'Daily Coronavirus Deaths In '.concat('{{data.country}}')       
-        {% endfor %}
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'No. of Deaths',
-                    data: new_death,
-                    order: 1,
-                    
-                    backgroundColor: fill_array('bg', labels.length),
-                    borderColor: fill_array('br', labels.length),
-                    borderWidth: 1,
-
-                    hoverBackgroundColor: fill_array('hv', labels.length)
-                }, {
-                    label: 'No. of Deaths',
-                    data: new_death,
-                    type: 'line',
-                    // this dataset is drawn on top
-                    fill: false,
-                    borderColor: "rgb(0, 0, 0)",
-                    backgroundColor: "rgb(0, 0, 0)",
-                    pointBackgroundColor: "rgb(0, 0, 0)",
-                    pointBorderColor: "rgb(0, 0, 0)",
-                    pointHoverBackgroundColor: "rgb(0, 0, 0)",
-                    pointHoverBorderColor: "rgb(0, 0, 0)",
-
-                    options: {
-                      backgroundColor: 'rgb(255, 255, 255)'
-                    }
-                }]
+    },
+    subtitle: {
+        style: {
+            color: '#E0E0E3',
+            textTransform: 'uppercase'
+        }
+    },
+    xAxis: {
+        gridLineColor: '#707073',
+        labels: {
+            style: {
+                color: '#E0E0E3'
+            }
+        },
+        lineColor: '#707073',
+        minorGridLineColor: '#505053',
+        tickColor: '#707073',
+        title: {
+            style: {
+                color: '#A0A0A3'
+            }
+        }
+    },
+    yAxis: {
+        gridLineColor: '#707073',
+        labels: {
+            style: {
+                color: '#E0E0E3'
+            }
+        },
+        lineColor: '#707073',
+        minorGridLineColor: '#505053',
+        tickColor: '#707073',
+        tickWidth: 1,
+        title: {
+            style: {
+                color: '#A0A0A3'
+            }
+        }
+    },
+    tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        style: {
+            color: '#F0F0F0'
+        }
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                color: '#F0F0F3',
+                style: {
+                    fontSize: '13px'
+                }
             },
-            options: {
-                title: {
-                  display: true,
-                  text: countri,
-                  fontSize: 20
+            marker: {
+                lineColor: '#333'
+            }
+        },
+        boxplot: {
+            fillColor: '#505053'
+        },
+        candlestick: {
+            lineColor: 'white'
+        },
+        errorbar: {
+            color: 'white'
+        }
+    },
+    legend: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        itemStyle: {
+            color: '#E0E0E3'
+        },
+        itemHoverStyle: {
+            color: '#FFF'
+        },
+        itemHiddenStyle: {
+            color: '#606063'
+        },
+        title: {
+            style: {
+                color: '#C0C0C0'
+            }
+        }
+    },
+    credits: {
+        style: {
+            color: '#666'
+        }
+    },
+    labels: {
+        style: {
+            color: '#707073'
+        }
+    },
+    drilldown: {
+        activeAxisLabelStyle: {
+            color: '#F0F0F3'
+        },
+        activeDataLabelStyle: {
+            color: '#F0F0F3'
+        }
+    },
+    navigation: {
+        buttonOptions: {
+            symbolStroke: '#DDDDDD',
+            theme: {
+                fill: '#505053'
+            }
+        }
+    },
+    // scroll charts
+    rangeSelector: {
+        buttonTheme: {
+            fill: '#505053',
+            stroke: '#000000',
+            style: {
+                color: '#CCC'
+            },
+            states: {
+                hover: {
+                    fill: '#707073',
+                    stroke: '#000000',
+                    style: {
+                        color: 'white'
+                    }
                 },
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                  display: false                  
-                },
-                tooltips: {
-                  titleFontSize: 20,
-                  bodyFontSize: 20
-                },
-                scales: {
-                    yAxes: [{
-                      ticks: {
-                          beginAtZero: true,
-                          autoSkip: true,
-                          maxTicksLimit: 9,
-                          fontSize: 20
-                      },
-                    }],
-                    xAxes: [{
-                      ticks: {
-                          autoSkip: true,
-                          fontSize: 20
-                      },
-                      gridLines: {
-                        display:false
-                      }
-                    }]
+                select: {
+                    fill: '#000003',
+                    stroke: '#000000',
+                    style: {
+                        color: 'white'
+                    }
                 }
             }
         },
-        );
-      </script>
-      <script>
-        var countri ; 
-        {% for data in countrydailydata %}
-            countri = 'Daily New Coronavirus Cases In '.concat('{{data.country}}')       
-        {% endfor %}
-          var ctx = document.getElementById('newChart').getContext('2d');
-          var myChart = new Chart(ctx, {
-              type: 'bar',
-              data: {
-                  labels: labels,
-                  datasets: [{
-                      label: 'No. of New Cases',
-                      data: new_cases,
-                      order: 1,
-                      
-                      backgroundColor: fill_array('bg', labels.length),
-                      borderColor: fill_array('br', labels.length),
-                      borderWidth: 1,
-    
-                      hoverBackgroundColor: fill_array('hv', labels.length)
-                  }, {
-                      label: 'No. of New Cases',
-                      data: new_cases,
-                      type: 'line',
-                      // this dataset is drawn on top
-                      fill: false,
-                      borderColor: "rgb(0, 0, 0)",
-                      backgroundColor: "rgb(0, 0, 0)",
-                      pointBackgroundColor: "rgb(0, 0, 0)",
-                      pointBorderColor: "rgb(0, 0, 0)",
-                      pointHoverBackgroundColor: "rgb(0, 0, 0)",
-                      pointHoverBorderColor: "rgb(0, 0, 0)",
-    
-                      options: {
-                        backgroundColor: 'rgb(255, 255, 255)'
-                      }
-                  }]
-              },
-              options: {
-                  title: {
-                    display: true,
-                    text: countri,
-                    fontSize: 20
-                  },
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  legend: {
-                    display: false                  
-                  },
-                  tooltips: {
-                    titleFontSize: 20,
-                    bodyFontSize: 20
-                  },
-                  scales: {
-                      yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            autoSkip: true,
-                            maxTicksLimit: 9,
-                            stepSize: 2500,
-                            fontSize: 20
-                        },
-                      }],
-                      xAxes: [{
-                        ticks: {
-                            autoSkip: true,
-                            fontSize: 20
-                        },
-                        gridLines: {
-                          display:false
-                        }
-                      }]
-                  }
-              }
-          },
-          );
-    
-      </script>
+        inputBoxBorderColor: '#505053',
+        inputStyle: {
+            backgroundColor: '#333',
+            color: 'silver'
+        },
+        labelStyle: {
+            color: 'silver'
+        }
+    },
+    navigator: {
+        handles: {
+            backgroundColor: '#666',
+            borderColor: '#AAA'
+        },
+        outlineColor: '#CCC',
+        maskFill: 'rgba(255,255,255,0.1)',
+        series: {
+            color: '#7798BF',
+            lineColor: '#A6C7ED'
+        },
+        xAxis: {
+            gridLineColor: '#505053'
+        }
+    },
+    scrollbar: {
+        barBackgroundColor: '#808083',
+        barBorderColor: '#808083',
+        buttonArrowColor: '#CCC',
+        buttonBackgroundColor: '#606063',
+        buttonBorderColor: '#606063',
+        rifleColor: '#FFF',
+        trackBackgroundColor: '#404043',
+        trackBorderColor: '#404043'
+    }
+};
+Highcharts.setOptions(Highcharts.theme);
+    </script>
+    <script>
+
+      var new_death = [];
+      var new_cases = [];
+      var labels = [];
+      var total_cases = [];
+      var total_deaths = [];
+      {% for data in countrydailydata %}
+          new_cases.push({{data.newcase}});
+          new_death.push({{data.newdeath}});
+          total_cases.push({{data.totalcase}});
+          total_deaths.push({{data.deaths}});
+          labels.push('{{data.date}}');
+      {% endfor %}
+    document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Daily New Cases'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+            yAxis: {
+                title: {
+                    text: 'Daily New Cases'
+                }
+            },
+            series: [{
+                name: 'New Cases',
+                data: new_cases
+            }]
+        });
+    });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('new', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Total Cases'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Total Cases'
+                }
+            },
+            series: [{
+                name: 'Total Cases',
+                data: total_cases
+            }]
+        });
+    });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('new_deaths', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Daily New Deaths'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Daily New Deaths'
+                }
+            },
+            series: [{
+                name: 'New Deaths',
+                data: new_death,
+            }]
+        });
+    });
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('total_deaths', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Total Deaths'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+
+    }
+
+    },
+
+
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Total Deaths'
+                }
+            },
+            series: [{
+                name: 'Total Deaths',
+                data: total_deaths,
+            }]
+        });
+    });
+    </script>
+
     {% endif %}
     <script>
       /**window.addEventListener("load", function () {
