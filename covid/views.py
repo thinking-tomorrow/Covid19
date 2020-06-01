@@ -179,7 +179,7 @@ def country_daily_data(country):
     df.rename(columns={'location':'Country'},inplace=True)
     print("here 1")
 
-    # world_df = df.loc[str(country)]
+    #df = df.loc[str(country)]
 
     for index, row in df.iterrows():
         print(index)
@@ -232,7 +232,8 @@ def scrape_country_news():
 
 
 def home(request):
-    # scrape()
+    #scrape()
+    #country_daily_data('World')
     # scrape_country_news()
     # daily_data()
     #news = News.objects.all().order_by('-id')
