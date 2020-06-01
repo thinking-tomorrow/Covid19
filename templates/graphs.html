@@ -143,6 +143,26 @@ COVID INFO
             </div>
         </div>
         </div>
+
+      <br><br>
+
+      <div class="container">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="tab">Linear</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content" style="border: 10px solid black">
+            <div id="new_2" class="tab-pane active">
+            <div id="container_new" style="height:400px;"></div>
+            </div>
+
+        </div>
+        </div>
     </center>
 
     <script>
@@ -489,6 +509,44 @@ Highcharts.setOptions(Highcharts.theme);
             }]
         });
     });
+      document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('container_new', {
+
+            title: {
+                text: 'Daily New Deaths'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+
+
+
+            yAxis: {
+                title: {
+                    text: 'Daily New Deaths'
+                }
+            },
+            series: [{
+                type: 'line',
+                name: 'Cases',
+                data: total_cases,
+            },
+                {
+                    type:'line',
+                    name: 'Deaths',
+                    data: total_deaths
+                },]
+        });
+    });
+
+
     </script>
       <script>
         share = []
