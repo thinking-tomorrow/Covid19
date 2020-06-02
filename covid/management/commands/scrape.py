@@ -197,6 +197,28 @@ def country_news_specific(country):
                 news.save()
 
 
+def country_daily_data(country):
+    print("here")
+    url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
+    columns = {'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths'}
+    df = pd.read_csv(url, usecols=columns, index_col='location')
+    df.rename(columns={'location':'Country'},inplace=True)
+    print("here 1")
+
+    #df = df.loc[str(country)]
+
+    for index, row in df.iterrows():
+        print(index)
+        daily = DailyData()
+        daily.country = str(index)
+        daily.totalcase = row['total_cases'] 
+        daily.newcase = row['new_cases']
+        daily.deaths = row['total_deaths']
+        daily.newdeath = row['new_deaths']
+        daily.date = row['date']
+        daily.save()
+
+
 class Command(BaseCommand):
 
     def add_arguments(self, parser):
