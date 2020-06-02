@@ -37,11 +37,12 @@
             width: 100%;
         }
         .country {
+            margin-left:10px;
             display: inline-block;
             float: left;
-            margin: 10px;
+            height:450px;
             color: white;
-            width: 20%;
+            width: 320px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -50,6 +51,7 @@
             border-radius: 10px;
             transition: all 1s ease-in-out;
             cursor: pointer;
+            margin-top:10px;
         }
 
         .describe {
@@ -177,16 +179,18 @@ COVID INFO
           <div class="country-list">
           {% for country in countries %}
 
-        <div class="country" name="{{country.continent}}">
-            <img src="{{country.flag}}" style="height: 50px; width: 80px;">
-            <h2>{{country.name}}</h2>
+             <div class="country">
+            <img src="{{country.flag}}" style="width:80%;height:50%;">
+            <a href="country/{{country.name}}"><h2>{{country.name}}</h2></a>
             <div class="describe">
                 <p>Active : {{country.activecase}}</p>
-                <p>Confirmed  {{country.totalcase}}</p>
+                <p>Confirmed : {{country.totalcase}}</p>
                 <p>Deaths : {{country.deaths}}</p>
                 <p>Recovered : {{country.recovered}}</p>
             </div>
         </div>
+
+
           <!--<tr name="{{country.continent}}">
             <td><img src="{{country.flag}}" style="height: 50px; width: 80px;"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>

@@ -127,8 +127,10 @@ $(document).ready(function(){
 
     continent = $(this).html();
 
+    var x = document.getElementById("country_div")
+
     if (continent != 'World')
-      $("tr[name!='"+continent+"']").hide();
-      $("tr[name='head']").show()
+      $("x[name!='"+continent+"']").hide();
+      $("div[name='head']").show()
   });
 });
