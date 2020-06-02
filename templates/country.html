@@ -1,5 +1,3 @@
-
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -30,27 +28,27 @@
 
     <style>
         body{
-            background: #2c3e50;
-            background: linear-gradient(90deg,#fd746c,#2c3e50);
+          background: #2c3e50;
+          background: linear-gradient(90deg,#fd746c,#2c3e50);
         }
         .country-list {
-                display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
-    grid-gap: 1rem;
-    width: 100%;
+          display: grid;
+          grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+          grid-gap: 1rem;
+          width: 100%;
         }
+        
         .country {
-
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #141e30;
-    background: linear-gradient(90deg,#243b55,#141e30);
-    border-radius: 10px;
-    transition: all 1s ease-in-out;
-    cursor: pointer;
-    color:white;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: #141e30;
+          background: linear-gradient(90deg,#243b55,#141e30);
+          border-radius: 10px;
+          transition: all 1s ease-in-out;
+          cursor: pointer;
+          color:white;
         }
 
         .describe {
@@ -77,12 +75,12 @@
     <title>Covid Info</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
       <a class="navbar-brand" href=""></a>
       <a class="navbar-brand" href="#">
-<img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">
-COVID INFO
-</a>
+        <img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">COVID INFO
+      </a>
+      
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -122,18 +120,16 @@ COVID INFO
         </form>
       </div>
     </nav>
-    
-    <!--<div class="loader">
-      <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-    </div>-->
-
+  
     {% if countries %}
     <h1 style='padding-top:20px;text-align:center;'>COUNTRY PAGE</h1>
 
-    <form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
-      <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
-      <button class="btn btn-outline-success my-2 my-sm-0" id="search-country">Search</button>
-    </form>
+    <center>
+      <form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
+        <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
+        <button class="btn btn-outline-success my-2 my-sm-0" id="search-country">Search</button>
+      </form>
+    </center>
     
     <ul class="nav nav-tabs" style="margin-top:20px;">
       <li class="nav-item">
@@ -159,7 +155,9 @@ COVID INFO
       </li>
     </ul>
 
-    <!--<table class="table sticky" id="myTable">
+    <br>
+
+      <!--<table class="table sticky" id="myTable">
         <thead>
           <tr name="head">
             <th>Country</th>
@@ -179,15 +177,15 @@ COVID INFO
           {% for country in countries %}
 
              <div class="country">
-            <img src="{{country.flag}}" style="width:80%;height:50%;">
-            <a href="country/{{country.name}}"><h2>{{country.name}}</h2></a>
-            <div class="describe">
-                <p>Active : <br>{{country.activecase}}</p>
-                <p>Confirmed : <br>{{country.totalcase}}</p>
-                <p>Deaths : <br>{{country.deaths}}</p>
-                <p>Recovered : <br>{{country.recovered}}</p>
+              <img src="{{country.flag}}" style="width:80%;height:50%;">
+              <a href="country/{{country.name}}"><h2>{{country.name}}</h2></a>
+              <div class="describe">
+                  <p>Active : <br>{{country.activecase}}</p>
+                  <p>Confirmed : <br>{{country.totalcase}}</p>
+                  <p>Deaths : <br>{{country.deaths}}</p>
+                  <p>Recovered : <br>{{country.recovered}}</p>
+              </div>
             </div>
-        </div>
 
 
           <!--<tr name="{{country.continent}}">
