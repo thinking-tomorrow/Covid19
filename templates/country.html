@@ -40,6 +40,7 @@
         
         .country {
           width: 100%;
+          visibility: visible;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -70,7 +71,91 @@
                 float: none;
             }
         }
+        .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
     </style>
+
+    <script>
+
+      function toggle(){
+
+        const cb = document.getElementById('input_card');
+
+        if (cb.checked == true){
+
+          document.getElementById("card").style.display = "none";
+          document.getElementById("table_div").style.display = "block";
+
+        }
+
+        else{
+          document.getElementById("card").style.display = "grid";
+          document.getElementById("table_div").style.display = "none";
+
+        }
+
+      }
+
+    </script>
 
     <title>Covid Info</title>
   </head>
@@ -157,23 +242,12 @@
 
     <br>
 
-      <!--<table class="table sticky" id="myTable">
-        <thead>
-          <tr name="head">
-            <th>Country</th>
-            <th id="name">Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="total">Total Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="active">Active Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="new-case">New Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="death">Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="new-death">New Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="recovered">Recovered <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="test">Tests <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-          </tr>
-        </thead>-->
+     <label class="switch" id="input_card_div">
+  <input type="checkbox" id="input_card" onclick="toggle()">
+  <span class="slider round"></span>
+</label>
 
-        <!--<tbody>-->
-          <div class="country-list">
+    <div class="country-list"  id="card">
           {% for country in countries %}
 
              <div class="country">
@@ -186,9 +260,29 @@
                   <p>Recovered : <br>{{country.recovered}}</p>
               </div>
             </div>
+          {% endfor %}
+    </div>
+      <div id="table_div"  style="display:none;">
+      <table class="table sticky" id="myTable">
+        <thead>
+          <tr name="head">
+            <th>Country</th>
+            <th id="name">Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="total">Total Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="active">Active Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="new-case">New Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="death">Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="new-death">New Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="recovered">Recovered <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="test">Tests <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+          </tr>
+        </thead>
 
+        <tbody>
 
-          <!--<tr name="{{country.continent}}">
+        {% for country in countries %}
+
+          <tr name="{{country.continent}}">
             <td><img src="{{country.flag}}" style="height: 50px; width: 80px;"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>
             <td>{{country.totalcase}}</td>
@@ -198,13 +292,15 @@
             <td>{{country.newdeath}}</td>
             <td>{{country.recovered}}</td>
             <td>{{country.tests}}</td>
-          </tr>-->
+          </tr>
 
           {% endfor %}
-        <!--</tbody>
-      </table>-->
-    </div>
-    {% endif %}
+        </tbody>
+      </table>
+
+      </div>
+  {% endif %}
+
 
     <script>
       /**window.addEventListener("load", function () {
