@@ -33,25 +33,24 @@
             background: #2c3e50;
             background: linear-gradient(90deg,#fd746c,#2c3e50);
         }
-        countrylist {
-            width: 100%;
+        .country-list {
+                display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+    grid-gap: 1rem;
+    width: 100%;
         }
         .country {
-            margin-left:10px;
-            display: inline-block;
-            float: left;
-            height:450px;
-            color: white;
-            width: 320px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #141e30;
-            background: linear-gradient(90deg,#243b55,#141e30);
-            border-radius: 10px;
-            transition: all 1s ease-in-out;
-            cursor: pointer;
-            margin-top:10px;
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #141e30;
+    background: linear-gradient(90deg,#243b55,#141e30);
+    border-radius: 10px;
+    transition: all 1s ease-in-out;
+    cursor: pointer;
+    color:white;
         }
 
         .describe {
@@ -183,10 +182,10 @@ COVID INFO
             <img src="{{country.flag}}" style="width:80%;height:50%;">
             <a href="country/{{country.name}}"><h2>{{country.name}}</h2></a>
             <div class="describe">
-                <p>Active : {{country.activecase}}</p>
-                <p>Confirmed : {{country.totalcase}}</p>
-                <p>Deaths : {{country.deaths}}</p>
-                <p>Recovered : {{country.recovered}}</p>
+                <p>Active : <br>{{country.activecase}}</p>
+                <p>Confirmed : <br>{{country.totalcase}}</p>
+                <p>Deaths : <br>{{country.deaths}}</p>
+                <p>Recovered : <br>{{country.recovered}}</p>
             </div>
         </div>
 
