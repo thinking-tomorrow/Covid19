@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Max
 from .models import News, CountryData, CountryNews, DailyData
@@ -155,6 +155,11 @@ def country(request):
     
 
 def country_detail(request, country_name):
+
+    if country_name == 'India':
+
+        return redirect('india')
+
     news = CountryNews.objects.filter(country=country_name).order_by('-id')
     #country_daily_data(country_name)
 
@@ -193,3 +198,18 @@ def about(request):
 
 def tips(request):
     return render(request,'tips.html')
+
+def india(request):
+    news = CountryNews.objects.filter(country="India").order_by('-id')
+    # country_daily_data(country_name)
+
+    states = india_state_data()
+
+    dailydata = DailyData.objects.filter(country="India")
+
+    country_data = CountryData.objects.get(name__iexact="India")
+    return render(request, 'india.html',
+                  {'country': country_data, 'latest_news': news, 'countrydailydata': dailydata[32:], 'states':states})
+
+
+
