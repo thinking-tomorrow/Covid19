@@ -60,6 +60,7 @@
           list-style-type: none;
           display: inline-block;
         }
+
     </style>
 
     <script>
@@ -185,7 +186,7 @@
       <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
       <ul class="my_list">
         <li><a href="#graphs">Graphs</a></li>
-        <li><a href="#news">News</a></li>
+
       </ul>
       <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
       <p id='cases'>{{country.totalcase}}</p>
@@ -203,29 +204,37 @@
       <br>
     </center>
 
-    {% if latest_news %}
-      <div style="padding: 20px; background-image: url('../static/images/bg_news.jpg'); background-size: cover;" id="news">
-        
-        <center>
-          <!-- <h1 style="padding-top:30px; color: yellow;">News</h1> -->
-          <img class='news-header' src="{% static 'images/news_header.PNG' %}">
-          <br>
+<table class="table sticky" id="myTable" style="margin-left:20px;margin-right:40px;border-collapse:separate;
+    border:solid black 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;">
+        <thead>
+          <tr name="head">
 
-          {% for news in latest_news %}
-          <a href="{{news.link}}" target="_blank">
-            <div class="card" style="width: 18rem;height:15rem;padding-left:20px;margin-top:20px;display: inline-block;">
-              
-              <div class="card-body">
-                <h5 class="card-title" style="height: 100px">{{news.title}}</h5>
-                <p class="card-text">{{news.date}}</p>
-                <a href="{{news.link}}" target="_blank" class="btn btn-primary stretched-link">Know more</a>
-              </div>
-            </div>
-          </a>
+            <th id="name">State Name <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="total">Total Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="active">Active Cases <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="death">Deaths <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="recovered">Recovered <i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+        {% for state in states %}
+        <tr>
+        <td>{{state.state}}</td>
+            <td>{{state.confirmed}}</td>
+            <td>{{state.active}}</td>
+            <td>{{state.deaths}}</td>
+            <td>{{state.recovered}}</td>
+
+          </tr>
+
           {% endfor %}
-        </center>
-      </div>
-    {% endif %}
+        </tbody>
+      </table>
+
 
     <br><br>
 
