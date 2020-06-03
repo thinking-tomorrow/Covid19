@@ -211,5 +211,7 @@ def india(request):
     return render(request, 'india.html',
                   {'country': country_data, 'latest_news': news, 'countrydailydata': dailydata[32:], 'states':states})
 
+def state(request, state_name):
 
+    return render(request,'state.html',{'state':state_name})
 

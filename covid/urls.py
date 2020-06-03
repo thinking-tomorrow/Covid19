@@ -14,5 +14,6 @@ urlpatterns = [
     #path('searchcountries',views.searchcountries, name='searchcountries'),
     path('about',views.about,name='about'),
     path('graphs',views.graphs,name='graphs'),
-    path('india',views.india, name="india")
+    path('india',views.india, name="india"),
+    path('india/<str:state_name>',views.state,name="india")
 ]
