@@ -60,6 +60,7 @@
           list-style-type: none;
           display: inline-block;
         }
+
     </style>
 
     <script>
@@ -185,7 +186,7 @@
       <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
       <ul class="my_list">
         <li><a href="#graphs">Graphs</a></li>
-        <li><a href="#news">News</a></li>
+
       </ul>
       <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
       <p id='cases'>{{country.totalcase}}</p>
@@ -203,7 +204,10 @@
       <br>
     </center>
 
-<table class="table sticky" id="myTable">
+<table class="table sticky" id="myTable" style="margin-left:20px;margin-right:40px;border-collapse:separate;
+    border:solid black 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;">
         <thead>
           <tr name="head">
 
@@ -218,11 +222,12 @@
         <tbody>
 
         {% for state in states %}
+        <tr>
         <td>{{state.state}}</td>
             <td>{{state.confirmed}}</td>
             <td>{{state.active}}</td>
-            <td>{{country.deceased}}</td>
-            <td>{{country.recovered}}</td>
+            <td>{{state.deaths}}</td>
+            <td>{{state.recovered}}</td>
 
           </tr>
 
