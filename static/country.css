@@ -7,6 +7,18 @@ body{
     width: 20%;
 }
 
+.table.sticky th{
+    position: sticky;
+    top: 60px;
+    background-color: white;
+}
+
+@media only screen and (max-width: 600px) {
+    #search_country{
+        width: 60%;
+    }
+}
+
 .country-list {
   display: grid;
   grid-template-columns: repeat(auto-fill,minmax(250px,1fr));

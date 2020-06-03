@@ -79,7 +79,7 @@
     </nav>
   
     {% if countries %}
-    <h1 style='padding-top:20px;text-align:center;'>COUNTRY PAGE</h1>
+    <h1 style='padding-top:20px;text-align:center;color: white;'>COUNTRY PAGE</h1>
 
     <!--<form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
       <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
@@ -88,11 +88,18 @@
 
     <center>
       <input id="search_country" class="form-control mr-sm-2" type="search" name='country' placeholder="Search Country" aria-label="Search" autocomplete="off">
+      
+      <br>
+      
+      <label class="switch" id="input_card_div">
+        <input type="checkbox" id="input_card">
+        <span class="slider round"></span>
+      </label>
     </center>
 
     <ul class="nav nav-tabs" style="margin-top:20px;">
       <li class="nav-item">
-        <a class="nav-link active" href="#">World</a>
+        <a class="nav-link active" id='world' href="#">World</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Asia</a>
@@ -116,14 +123,9 @@
 
     <br>
 
-    <label class="switch" id="input_card_div">
-      <input type="checkbox" id="input_card" onclick="toggle()">
-      <span class="slider round"></span>
-    </label>
-
     <div class="country-list" id="card">
       {% for country in countries %}
-        <div class="country card" data-string="{{country.name}}">
+        <div class="country card" data-string="{{country.name}}" name="{{country.continent}}">
           <img src="{{country.flag}}" style="width:80%;height:50%;">
           <a href="country/{{country.name}}"><h2 align='center'>{{country.name}}</h2></a>
           <div class="describe">
