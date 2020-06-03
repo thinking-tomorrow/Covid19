@@ -1,7 +1,7 @@
-/*$(document).ready(function (){
-    cases = $("#cases").text()*/
+$(document).ready(function (){
+    cases = $("#cases").text()
 
-    /*if(cases > 100000)
+    if(cases > 100000)
         $("body").css("background-color", 'rgb(255,127,127)')
     else if(cases > 50000)
         $("body").css("background-color", 'rgb(245,198,203)')
@@ -12,7 +12,7 @@
     else if(cases > 1000)
         $("body").css("background-color", "rgba(255, 255, 0, 0.1)")
     else
-        $("body").css("background-color", 'rgb(195,230,203)')*/
+        $("body").css("background-color", 'rgb(195,230,203)')
     // if(cases > 100000){
     //     $('#data').css("background-size", "cover")
     //     $("#data").css("color", "white")
