@@ -2,11 +2,93 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- My Style Sheets -->
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <!-- My Script -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- Font Awesome Script -->
+    <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
+
+    <!-- Country CSS -->
+    <!--<link rel="stylesheet" href="{% static 'country.css' %}">-->
+
+    <title>Covid Info</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
+      <a class="navbar-brand" href=""></a>
+      <a class="navbar-brand" href="#">
+        <img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">COVID INFO
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href='/'><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/news"><i class="far fa-newspaper"></i>News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tips"><i class="fas fa-question"></i> Tips and Tricks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/graphs"><i class="fas fa-signal"></i>  Graphs</a>
+          </li>
+        </ul>
+
+        <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+
+        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
+          {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+
+
+    <!--<form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
+      <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
+      <button class="btn btn-outline-success my-2 my-sm-0" id="search-country">Search</button>
+    </form>-->
+
+
+
+
+
 <h1>{{state}}</h1>
 </body>
 </html>
