@@ -79,6 +79,21 @@ function filterTable() {
   }
 }
 
+function toggle(){
+
+  const cb = document.getElementById('input_card');
+  document.getElementById("search_country").value = '';
+
+  if (cb.checked == true){
+    document.getElementById("card").style.display = "none";
+    document.getElementById("table_div").style.display = "block";
+  }
+  else{
+    document.getElementById("card").style.display = "grid";
+    document.getElementById("table_div").style.display = "none";
+  }
+}
+
 $(document).ready(function(){
 
   var table = document.getElementById("myTable");
@@ -132,5 +147,23 @@ $(document).ready(function(){
     if (continent != 'World')
       $("x[name!='"+continent+"']").hide();
       $("div[name='head']").show()
+  });
+
+  $("#search_country").on("keyup", function() {
+
+    if ($("#input_card").is(":checked")){
+      filterTable();
+    }
+    else{
+      var input = $(this).val().toUpperCase();
+      
+      $(".card").each(function() {
+        if ($(this).data("string").toUpperCase().indexOf(input) < 0) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      })
+    }
   });
 });

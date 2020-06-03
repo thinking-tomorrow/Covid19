@@ -26,136 +26,8 @@
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
-    <style>
-        body{
-          background: #2c3e50;
-          background: linear-gradient(90deg,#fd746c,#2c3e50);
-        }
-        .country-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
-          grid-gap: 1rem;
-          width: 100%;
-        }
-        
-        .country {
-          width: 100%;
-          visibility: visible;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          background: #141e30;
-          background: linear-gradient(90deg,#243b55,#141e30);
-          border-radius: 10px;
-          transition: all 1s ease-in-out;
-          cursor: pointer;
-          color:white;
-        }
-
-        .describe {
-            display: grid;
-            grid-template-columns: repeat(2,1fr);
-            grid-gap: 1rem;
-            justify-items: center;
-            width: 95%;
-        }
-
-        .country:hover{
-            transform: scale(0.8);
-        }
-
-        @media only screen and (max-width: 600px) {
-            .country{
-                margin-left: 30px;
-                width: 80%;
-                float: none;
-            }
-        }
-        .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-    </style>
-
-    <script>
-
-      function toggle(){
-
-        const cb = document.getElementById('input_card');
-
-        if (cb.checked == true){
-
-          document.getElementById("card").style.display = "none";
-          document.getElementById("table_div").style.display = "block";
-
-        }
-
-        else{
-          document.getElementById("card").style.display = "grid";
-          document.getElementById("table_div").style.display = "none";
-
-        }
-
-      }
-
-    </script>
+    <!-- Country CSS -->
+    <link rel="stylesheet" href="{% static 'country.css' %}">
 
     <title>Covid Info</title>
   </head>
@@ -209,13 +81,15 @@ input:checked + .slider:before {
     {% if countries %}
     <h1 style='padding-top:20px;text-align:center;'>COUNTRY PAGE</h1>
 
+    <!--<form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
+      <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
+      <button class="btn btn-outline-success my-2 my-sm-0" id="search-country">Search</button>
+    </form>-->
+
     <center>
-      <form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
-        <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
-        <button class="btn btn-outline-success my-2 my-sm-0" id="search-country">Search</button>
-      </form>
+      <input id="search_country" class="form-control mr-sm-2" type="search" name='country' placeholder="Search Country" aria-label="Search" autocomplete="off">
     </center>
-    
+
     <ul class="nav nav-tabs" style="margin-top:20px;">
       <li class="nav-item">
         <a class="nav-link active" href="#">World</a>
@@ -242,27 +116,27 @@ input:checked + .slider:before {
 
     <br>
 
-     <label class="switch" id="input_card_div">
-  <input type="checkbox" id="input_card" onclick="toggle()">
-  <span class="slider round"></span>
-</label>
+    <label class="switch" id="input_card_div">
+      <input type="checkbox" id="input_card" onclick="toggle()">
+      <span class="slider round"></span>
+    </label>
 
-    <div class="country-list"  id="card">
-          {% for country in countries %}
-
-             <div class="country">
-              <img src="{{country.flag}}" style="width:80%;height:50%;">
-              <a href="country/{{country.name}}"><h2>{{country.name}}</h2></a>
-              <div class="describe">
-                  <p>Active : <br>{{country.activecase}}</p>
-                  <p>Confirmed : <br>{{country.totalcase}}</p>
-                  <p>Deaths : <br>{{country.deaths}}</p>
-                  <p>Recovered : <br>{{country.recovered}}</p>
-              </div>
-            </div>
-          {% endfor %}
+    <div class="country-list" id="card">
+      {% for country in countries %}
+        <div class="country card" data-string="{{country.name}}">
+          <img src="{{country.flag}}" style="width:80%;height:50%;">
+          <a href="country/{{country.name}}"><h2 align='center'>{{country.name}}</h2></a>
+          <div class="describe">
+              <p align='center'>Active : <br>{{country.activecase}}</p>
+              <p align='center'>Confirmed : <br>{{country.totalcase}}</p>
+              <p align='center'>Deaths : <br>{{country.deaths}}</p>
+              <p align='center'>Recovered : <br>{{country.recovered}}</p>
+          </div>
+        </div>
+      {% endfor %}
     </div>
-      <div id="table_div"  style="display:none;">
+
+    <div id="table_div"  style="display:none;">
       <table class="table sticky" id="myTable">
         <thead>
           <tr name="head">
@@ -282,7 +156,7 @@ input:checked + .slider:before {
 
         {% for country in countries %}
 
-          <tr name="{{country.continent}}">
+          <tr name="{{country.continent}}" class="table-row">
             <td><img src="{{country.flag}}" style="height: 50px; width: 80px;"></td>
             <td><a href="country/{{country.name}}">{{country.name}}</a></td>
             <td>{{country.totalcase}}</td>
@@ -298,7 +172,7 @@ input:checked + .slider:before {
         </tbody>
       </table>
 
-      </div>
+    </div>
   {% endif %}
 
 
