@@ -123,14 +123,49 @@ $(document).ready(function(){
   $('.nav-link').click(function (){
     $('.active').removeClass('active');
     $(this).addClass('active');
-    $("tr").show()
 
     continent = $(this).html();
 
-    var x = document.getElementById("country_div")
+    if ($("#input_card").is(":checked")){
+      $("tr").show()
+      if (continent != 'World'){
+        $("tr[name!='"+continent+"']").hide();
+        $("tr[name='head']").show()
+      }
+    }
+    else{
+      $(".card").show()
+      if (continent != 'World'){
+        $(".card[name!='"+continent+"']").hide();
+      }
+    }
+  });
 
-    if (continent != 'World')
-      $("x[name!='"+continent+"']").hide();
-      $("div[name='head']").show()
+  $("#search_country").on("keyup", function() {
+
+    if ($("#input_card").is(":checked")){
+      filterTable();
+    }
+    else{
+      var input = $(this).val().toUpperCase();
+      
+      $(".card").each(function() {
+        if ($(this).data("string").toUpperCase().indexOf(input) < 0) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      })
+    }
+  });
+
+  $("#input_card").click(function (){
+    $("#search_country").value = '';
+    $(".card").show();
+    $("tr").show();
+    $('.active').removeClass('active');
+    $("#world").addClass('active');
+    $("#card").toggle();
+    $("#table_div").toggle();
   });
 });
