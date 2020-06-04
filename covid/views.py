@@ -98,7 +98,29 @@ def india_state_data():
     return states
 
 
+def state_data(state):
+    url_state = 'https://api.covid19india.org/data.json'
+    request_state = requests.get(url_state)
+    data_state = request_state.json()
+
+    states = data_state['statewise'][1:]
+    x = [obj for obj in states if obj['state'] == state]
+    return x
+
+
+
 def district_data(state):
+    url_district = 'https://api.covid19india.org/v2/state_district_wise.json'
+    request_district = requests.get(url_district)
+    data_district = request_district.json()
+
+    district_raw = [obj for obj in data_district if obj['state'] == state]
+    districts = district_raw[0]['districtData']
+
+    return districts
+
+
+def state_data(state):
     url_district = 'https://api.covid19india.org/v2/state_district_wise.json'
     request_district = requests.get(url_district)
     data_district = request_district.json()
