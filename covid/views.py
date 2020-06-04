@@ -224,6 +224,6 @@ def india(request):
                   {'country': country_data, 'latest_news': news, 'countrydailydata': dailydata[32:], 'states':states})
 
 def state(request, state_name):
-
-    return render(request,'state.html',{'state':state_name})
+    districts = district_data(state_name)
+    return render(request,'state.html',{'state':state_name , 'districts' : districts})
 
