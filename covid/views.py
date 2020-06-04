@@ -103,7 +103,7 @@ def district_data(state):
     request_district = requests.get(url_district)
     data_district = request_district.json()
 
-    district_raw = [obj for obj in data_district if obj['state'] == 'West Bengal']
+    district_raw = [obj for obj in data_district if obj['state'] == state]
     districts = district_raw[0]['districtData']
 
     return districts
