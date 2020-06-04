@@ -98,6 +98,18 @@ def india_state_data():
     return states
 
 
+def district_data(state):
+    url_district = 'https://api.covid19india.org/v2/state_district_wise.json'
+    request_district = requests.get(url_district)
+    data_district = request_district.json()
+
+    district_raw = [obj for obj in data_district if obj['state'] == 'West Bengal']
+    districts = district_raw[0]['districtData']
+
+    return districts
+
+
+
 def home(request):
     world_data = scrape_world()
 
