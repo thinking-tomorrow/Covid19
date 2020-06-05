@@ -120,16 +120,6 @@ def district_data(state):
     return districts
 
 
-def state_data(state):
-    url_district = 'https://api.covid19india.org/v2/state_district_wise.json'
-    request_district = requests.get(url_district)
-    data_district = request_district.json()
-
-    district_raw = [obj for obj in data_district if obj['state'] == state]
-    districts = district_raw[0]['districtData']
-
-    return districts
-
 
 
 def home(request):
@@ -246,6 +236,9 @@ def india(request):
                   {'country': country_data, 'latest_news': news, 'countrydailydata': dailydata[32:], 'states':states})
 
 def state(request, state_name):
-
-    return render(request,'state.html',{'state':state_name})
+    states_data = state_data(state_name)
+    print(states_data)
+    districts = district_data(state_name)
+    print(districts)
+    return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data})
 
