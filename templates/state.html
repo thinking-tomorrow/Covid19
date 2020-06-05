@@ -173,7 +173,20 @@
 
 
 
-<h1 style="font-weight:bold;text-align:center; paddin">{{state}}</h1>
+<h1 style="font-weight:bold;text-align:center; padding-top: 50px;padding-bottom: 50px;">{{state}}</h1>
+
+    {% for data in states_data %}
+    <p style="margin-left:100px; color:red;font-weight: bold">Confirmed</p>
+    <p style="margin-left:100px;color:red;font-weight: bold">{{data.confirmed}}</p>
+    <p style="margin-left:100px;color:blue;font-weight: bold">Active</p>
+    <p style="margin-left:100px;color:blue;font-weight: bold">{{data.active}}</p>
+    <p style="margin-left:100px;color:green;font-weight: bold">Recovered</p>
+    <p style="margin-left:100px;color:green;font-weight: bold">{{data.recovered}}</p>
+    <p style="margin-left:100px;color:grey;font-weight: bold">Deaths</p>
+
+    <p style="margin-left:100px;color:grey;font-weight: bold">{{data.deaths}}</p>
+
+    {% endfor %}
 
      <center>
       <table class="table table-striped table-dark sticky" id="myTable" style="width: 20%;">
