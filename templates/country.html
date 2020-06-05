@@ -134,7 +134,7 @@
       {% for country in countries %}
         <div class="country card" data-string="{{country.name}}" name="{{country.continent}}">
           <img src="{{country.flag}}" style="width:80%;height:50%;">
-          <a href="country/{{country.name}}"><h2 align='center'>{{country.name}}</h2></a>
+          <a href="country/{{country.name}}" class="stretched-link"><h2 align='center'>{{country.name}}</h2></a>
           <div class="describe">
               <p align='center'>Active : <br>{{country.activecase}}</p>
               <p align='center'>Confirmed : <br>{{country.totalcase}}</p>
