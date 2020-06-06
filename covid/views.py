@@ -271,8 +271,26 @@ def state(request, state_name):
     state_data_confirmed = state_wise_data['confirmed']
     state_data_recovered = state_wise_data['recovered']
     state_data_deceased = state_wise_data['deceased']
-    print(state_wise_data)
+    #print(state_wise_data)
     districts = district_data(state_name)
+
+    '''df = pd.DataFrame(state_data_confirmed)
+    print(df)
+    df = df.cumsum()
+    print(df)'''
+
+    total_confirmed = []
+
+    counter = 0
+
+    for confirmed in state_data_confirmed:
+        if counter == 0:
+            total_confirmed.append(confirmed)
+        else:
+            day_total_confirmed = total_confirmed[counter] + confirmed
+            total_confirmed.append(day_total_confirmed)
+
+    print(total_confirmed)
 
     return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data , 'state_confirmed':state_data_confirmed, 'state_date':state_date, 'state_recovered':state_data_recovered})
 
