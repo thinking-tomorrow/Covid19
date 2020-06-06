@@ -130,7 +130,7 @@ def state_daily_data(state_code):
     recovered = [x[state_code] for x in data_daily if x['status'] == 'Recovered']
     deceased  = [x[state_code] for x in data_daily if x['status'] == 'Deceased']
 
-    return {'confirmed': confirmed, 'recovered': recovered, 'deceased': deceased}
+    return {'date': date, 'confirmed': confirmed, 'recovered': recovered, 'deceased': deceased}
 
 
 def district_daily_data(state, district):
