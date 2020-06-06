@@ -125,6 +125,7 @@ def state_daily_data(state_code):
     request_daily = requests.get(url_daily)
     data_daily = request_daily.json()['states_daily']
 
+    date      = [x["date"] for x in data_daily if x["status"] == 'Confirmed']
     confirmed = [x[state_code] for x in data_daily if x['status'] == 'Confirmed']
     recovered = [x[state_code] for x in data_daily if x['status'] == 'Recovered']
     deceased  = [x[state_code] for x in data_daily if x['status'] == 'Deceased']
