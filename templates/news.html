@@ -20,11 +20,42 @@
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
     <style>
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: black;
-                color: #ccc;
-            }
+        body {
+          background-color: #161625!important;
+          color: #e6e6e6;
         }
+      }
+      .switch {
+        align-self: flex-end;
+        margin: 0.9375rem;
+      }
+      .inner-switch {
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #555;
+        border-radius: 1.25rem;
+        width: 3.125rem;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.1875rem;
+        margin-left: 0.3125rem;
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .dark,
+      .dark * {
+        background-color: #161625!important;
+        color: #e6e6e6;
+        border-color: #161625!important;
+      }
+
     </style>
     <title>Covid Info</title>
   </head>
@@ -78,6 +109,10 @@ COVID INFO
     <!--<div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
     </div>-->
+
+        <div class="switch">Dark mode:
+        <span class="inner-switch">OFF</span>
+    </div>
 
     <center>
     {% for news in latest_news %}
