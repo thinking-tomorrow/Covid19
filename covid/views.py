@@ -284,12 +284,14 @@ def state(request, state_name):
     counter = 0
 
     for confirmed in state_data_confirmed:
+        confirmed = int(confirmed)
         if counter == 0:
             total_confirmed.append(confirmed)
         else:
-            day_total_confirmed = total_confirmed[counter] + confirmed
+            day_total_confirmed = total_confirmed[counter-1] + confirmed
             total_confirmed.append(day_total_confirmed)
-
+        print(counter)
+        counter+=1
     print(total_confirmed)
 
     return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data , 'state_confirmed':state_data_confirmed, 'state_date':state_date, 'state_recovered':state_data_recovered})
