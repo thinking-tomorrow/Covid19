@@ -41,11 +41,42 @@
         }
       }
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: black;
-                color: #ccc;
-            }
+        body {
+          background-color: #161625!important;
+          color: #e6e6e6;
         }
+      }
+      .switch {
+        align-self: flex-end;
+        margin: 0.9375rem;
+      }
+      .inner-switch {
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #555;
+        border-radius: 1.25rem;
+        width: 3.125rem;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.1875rem;
+        margin-left: 0.3125rem;
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .dark,
+      .dark * {
+        background-color: #161625!important;
+        color: #e6e6e6;
+        border-color: #161625!important;
+      }
+
     </style>
   </head>
   <body>
@@ -99,6 +130,10 @@ COVID INFO
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
     </div>-->
 
+        <div class="switch">Dark mode:
+        <span class="inner-switch">OFF</span>
+    </div>
+
     {% for new in news %}
     <h1 style='padding-top:20px;'>{{new.heading}}</h1><br>
     <img class='img' src='{{new.img.url}}'><br>
@@ -112,10 +147,24 @@ COVID INFO
         const loader = document.querySelector(".loader");
         loader.className += " hidden"; // class "loader hidden"
     });**/
+
     </script>
+
 
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-</body>
+    <script>
+      $( ".inner-switch" ).on("click", function() {
+        if( $( "body" ).hasClass( "dark" )) {
+          $( "body" ).removeClass( "dark" );
+          $( ".inner-switch" ).text( "OFF" );
+        } else {
+          $( "body" ).addClass( "dark" );
+          $( ".inner-switch" ).text( "ON" );
+        }
+      });
+    </script>
+
+  </body>
 </html>
