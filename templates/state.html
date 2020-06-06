@@ -423,6 +423,7 @@ Highcharts.setOptions(Highcharts.theme);
 
     <div id="container" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
     <div id="new" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
+    <div id="total_confirmed" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
 
 
     <script>
@@ -444,6 +445,10 @@ Highcharts.setOptions(Highcharts.theme);
 
       {% for recovered in state_recovered %}
       new_recovered.push({{recovered}});
+      {% endfor %}
+
+      {% for total in total_confirmed %}
+      total_cases.push({{total}})
       {% endfor %}
       console.log(labels);
     document.addEventListener('DOMContentLoaded', function () {
@@ -502,6 +507,35 @@ Highcharts.setOptions(Highcharts.theme);
             series: [{
                 name: 'New Cases',
                 data: new_recovered
+            }]
+        });
+    });
+          document.addEventListener('DOMContentLoaded', function () {
+        var myChart = Highcharts.chart('total_confirmed', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Total Confirmed'
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled:true,
+      formatter: function() {
+        return labels[this.pos - 1]
+      }
+    }
+
+    },
+            yAxis: {
+                title: {
+                    text: 'Total Confirmed'
+                }
+            },
+            series: [{
+                name: 'New Cases',
+                data: total_cases
             }]
         });
     });
