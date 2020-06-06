@@ -261,8 +261,16 @@ def india(request):
 
 def state(request, state_name):
     states_data = state_data(state_name)
-    print(states_data)
+
+    state_code = states_data[0]['statecode'].lower()
+
+
+    state_wise_data = state_daily_data(state_code)
+    print(state_wise_data)
     districts = district_data(state_name)
-    print(districts)
+
     return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data})
 
+
+'''x = state_daily_data("mh")
+print(x)'''
