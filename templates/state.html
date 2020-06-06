@@ -422,7 +422,7 @@ Highcharts.setOptions(Highcharts.theme);
     </script>
 
     <div id="container" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
-    <div id="new" style="width:100%; height:400px;"></div>
+    <div id="new" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
 
 
     <script>
@@ -433,7 +433,7 @@ Highcharts.setOptions(Highcharts.theme);
       var new_recovered = [];
       var total_cases = [];
       var total_deaths = [];
-      {% for confirmed in state_data_confirmed %}
+      {% for confirmed in state_confirmed %}
           new_cases.push({{confirmed}});
       {% endfor %}
 
@@ -442,7 +442,7 @@ Highcharts.setOptions(Highcharts.theme);
 
       {% endfor %}
 
-      {% for recovered in state_data_recovered %}
+      {% for recovered in state_recovered %}
       new_recovered.push({{recovered}});
       {% endfor %}
       console.log(labels);

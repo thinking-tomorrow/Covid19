@@ -274,7 +274,7 @@ def state(request, state_name):
     print(state_wise_data)
     districts = district_data(state_name)
 
-    return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data , 'state_confirmed':state_data_confirmed, 'state_date':state_date})
+    return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data , 'state_confirmed':state_data_confirmed, 'state_date':state_date, 'state_recovered':state_data_recovered})
 
 
 '''x = state_daily_data("mh")
