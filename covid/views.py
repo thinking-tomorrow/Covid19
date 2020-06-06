@@ -267,10 +267,14 @@ def state(request, state_name):
 
 
     state_wise_data = state_daily_data(state_code)
+    state_date = state_wise_data['date']
+    state_data_confirmed = state_wise_data['confirmed']
+    state_data_recovered = state_wise_data['recovered']
+    state_data_deceased = state_wise_data['deceased']
     print(state_wise_data)
     districts = district_data(state_name)
 
-    return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data})
+    return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data , 'state_confirmed':state_data_confirmed, 'state_date':state_date})
 
 
 '''x = state_daily_data("mh")
