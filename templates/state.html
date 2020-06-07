@@ -421,9 +421,29 @@ Highcharts.theme = {
 Highcharts.setOptions(Highcharts.theme);
     </script>
 
-    <div id="container" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
+<div class="container">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#daily">Daily</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#linear">Linear</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content" style="border: 10px solid black">
+        <div id="daily" class="tab-pane active" style="padding; 0;">
+          <div id="container" style="height:400px;"></div>
+        </div>
+        <div id="linear" class="tab-pane fade" style="padding; 0;">
+            <div id="total_confirmed" style="height:400px;"></div>
+
+        </div>
+      </div>
+    </div>
     <div id="new" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
-    <div id="total_confirmed" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
 
 
     <script>
