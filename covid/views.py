@@ -160,14 +160,8 @@ def home(request):
     for death in death_list:
         deaths+=death
 
-    print(recoveries)
-    print(deaths)
     total_outcome = int(recoveries) + int(deaths)
-
-    print(total_outcome)
-
     recovery_percent = (int(recoveries) / int(total_outcome)) * 100
-
     death_percent = 100 - recovery_percent
 
     worlddailydata = DailyData.objects.filter(country='World')
@@ -290,12 +284,6 @@ def state(request, state_name):
         else:
             day_total_confirmed = total_confirmed[counter-1] + confirmed
             total_confirmed.append(day_total_confirmed)
-        print(counter)
         counter+=1
-    print(total_confirmed)
 
     return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data , 'state_confirmed':state_data_confirmed, 'state_date':state_date, 'state_recovered':state_data_recovered, 'total_confirmed':total_confirmed})
-
-
-'''x = state_daily_data("mh")
-print(x)'''
