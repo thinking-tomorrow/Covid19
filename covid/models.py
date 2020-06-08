@@ -44,3 +44,12 @@ class DailyData(models.Model):
     deaths = models.IntegerField()
     newdeath = models.IntegerField()
     date = models.DateField()
+
+class Predictions(models.Model):
+
+    date = models.TextField()
+    t = models.IntegerField()
+    total_prediction = models.IntegerField()
+    active_prediction = models.IntegerField()
+    recoveries_predicition = models.IntegerField()
+    deaths_prediction = models.IntegerField()

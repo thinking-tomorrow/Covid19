@@ -36,8 +36,9 @@
           margin-top: 150px;
         }
         .graphs{
-          width:70vw !important;
+          width:80vw !important;
           height:450px !important;
+          margin: 100px;
         }
 
         #datePickerId{
@@ -58,28 +59,66 @@
           .graphs{
             width: 100vw !important;
             height: 350px !important;
+            margin: 20px;
           }
 
           #datePickerId{
             width: 80vw;
           }
-
-          .news-header{
-            width: 100%;
-            padding: 10px;
-          }
         }
 
-        .my_list li{
-          list-style-type: none;
+        .sidenav {
+          overflow-x: hidden;
+          padding: 8px 0;
+        }
+
+        .sidenav p{
+          font-weight: bold;
+          text-align: center;
+        }
+
+        .sidenav div{ 
           display: inline-block;
+          width: 100px; 
+          border-radius: 4px;
         }
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: black;
-                color: #ccc;
-            }
+
+              @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #161625!important;
+          color: #e6e6e6;
         }
+      }
+      .switch {
+        align-self: flex-end;
+        margin: 0.9375rem;
+      }
+      .inner-switch {
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #555;
+        border-radius: 1.25rem;
+        width: 3.125rem;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.1875rem;
+        margin-left: 0.3125rem;
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .dark,
+      .dark * {
+        background-color: #161625!important;
+        color: #e6e6e6;
+        border-color: #161625!important;
+      }
     </style>
 
     <script>
@@ -125,7 +164,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
       <a class="navbar-brand" href=""></a>
       <a class="navbar-brand" href="#">
-        <img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">COVID INFO
+        <img id="brand" src="../static/fav.png" width="40" height="40" alt="" style="margin: 0;">COVID INFO
       </a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -168,33 +207,40 @@
       </div>
     </nav>
 
+        <div class="switch">Dark mode:
+        <span class="inner-switch">OFF</span>
+    </div>
 
+    <h1 style="font-weight:bold;text-align:center; padding-top: 50px;padding-bottom: 50px;">{{state}}</h1>
 
-    <!--<form class="form-inline my-2 my-lg-0" style='margin-top:20px;margin-bottom:20px;'>
-      <input id="search_country" onkeyup="filterTable()" class="form-control mr-sm-2" type="search" name='country' placeholder="Search" aria-label="Search" autocomplete="off">
-      <button class="btn btn-outline-success my-2 my-sm-0" id="search-country">Search</button>
-    </form>-->
+    <center>
+      <div class="sidenav">
+        {% for data in states_data %}
 
+          <div style="background-color: rgba(255, 138, 138, 0.4);">
+              <p style="color:red;">Confirmed</p>
+              <p style="color:red;">{{data.confirmed}}</p>
+          </div>
 
+          <div style="background-color: rgba(146, 146, 247, 0.4);">
+              <p style="color:blue;">Active</p>
+              <p style="color:blue;">{{data.active}}</p>
+          </div>
 
+          <div style="background-color: rgba(143, 227, 143, 0.4);">
+              <p style="color:green;">Recovered</p>
+              <p style="color:green;">{{data.recovered}}</p>
+          </div>
 
+          <div style="background-color: rgba(213, 224, 213, 0.4);">
+              <p style="color:grey;">Deaths</p>
+              <p style="color:grey;">{{data.deaths}}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </center>
 
-<h1 style="font-weight:bold;text-align:center; padding-top: 50px;padding-bottom: 50px;">{{state}}</h1>
-
-    {% for data in states_data %}
-    <p style="margin-left:100px; color:red;font-weight: bold">Confirmed</p>
-    <p style="margin-left:100px;color:red;font-weight: bold">{{data.confirmed}}</p>
-    <p style="margin-left:100px;color:blue;font-weight: bold">Active</p>
-    <p style="margin-left:100px;color:blue;font-weight: bold">{{data.active}}</p>
-    <p style="margin-left:100px;color:green;font-weight: bold">Recovered</p>
-    <p style="margin-left:100px;color:green;font-weight: bold">{{data.recovered}}</p>
-    <p style="margin-left:100px;color:grey;font-weight: bold">Deaths</p>
-
-    <p style="margin-left:100px;color:grey;font-weight: bold">{{data.deaths}}</p>
-
-    {% endfor %}
-
-     <center>
+    <center>
       <table class="table table-striped table-dark sticky" id="myTable" style="width: 20%;">
         <thead class="thead-light">
           <tr name="head">
@@ -219,232 +265,233 @@
       </table>
     </center>
 
-   <script>
-        Highcharts.createElement('link', {
-    href: 'https://fonts.googleapis.com/css?family=Unica+One',
-    rel: 'stylesheet',
-    type: 'text/css'
-}, null, document.getElementsByTagName('head')[0]);
-Highcharts.theme = {
-    colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
-        '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-    chart: {
-        backgroundColor: {
-            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-            stops: [
-                [0, '#2a2a2b'],
-                [1, '#3e3e40']
-            ]
-        },
-        style: {
-            fontFamily: '\'Unica One\', sans-serif'
-        },
-        plotBorderColor: '#606063'
-    },
-    title: {
-        style: {
-            color: '#E0E0E3',
-            textTransform: 'uppercase',
-            fontSize: '20px'
-        }
-    },
-    subtitle: {
-        style: {
-            color: '#E0E0E3',
-            textTransform: 'uppercase'
-        }
-    },
-    xAxis: {
-        gridLineColor: '#707073',
-        labels: {
-            style: {
-                color: '#E0E0E3'
-            }
-        },
-        lineColor: '#707073',
-        minorGridLineColor: '#505053',
-        tickColor: '#707073',
-        title: {
-            style: {
-                color: '#A0A0A3'
-            }
-        }
-    },
-    yAxis: {
-        gridLineColor: '#707073',
-        labels: {
-            style: {
-                color: '#E0E0E3'
-            }
-        },
-        lineColor: '#707073',
-        minorGridLineColor: '#505053',
-        tickColor: '#707073',
-        tickWidth: 1,
-        title: {
-            style: {
-                color: '#A0A0A3'
-            }
-        }
-    },
-    tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-        style: {
-            color: '#F0F0F0'
-        }
-    },
-    plotOptions: {
-        series: {
-            dataLabels: {
-                color: '#F0F0F3',
-                style: {
-                    fontSize: '13px'
-                }
-            },
-            marker: {
-                lineColor: '#333'
-            }
-        },
-        boxplot: {
-            fillColor: '#505053'
-        },
-        candlestick: {
-            lineColor: 'white'
-        },
-        errorbar: {
-            color: 'white'
-        }
-    },
-    legend: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        itemStyle: {
-            color: '#E0E0E3'
-        },
-        itemHoverStyle: {
-            color: '#FFF'
-        },
-        itemHiddenStyle: {
-            color: '#606063'
-        },
-        title: {
-            style: {
-                color: '#C0C0C0'
-            }
-        }
-    },
-    credits: {
-        style: {
-            color: '#666'
-        }
-    },
-    labels: {
-        style: {
-            color: '#707073'
-        }
-    },
-    drilldown: {
-        activeAxisLabelStyle: {
-            color: '#F0F0F3'
-        },
-        activeDataLabelStyle: {
-            color: '#F0F0F3'
-        }
-    },
-    navigation: {
-        buttonOptions: {
-            symbolStroke: '#DDDDDD',
-            theme: {
-                fill: '#505053'
-            }
-        }
-    },
-    // scroll charts
-    rangeSelector: {
-        buttonTheme: {
-            fill: '#505053',
-            stroke: '#000000',
-            style: {
-                color: '#CCC'
-            },
-            states: {
-                hover: {
-                    fill: '#707073',
-                    stroke: '#000000',
-                    style: {
-                        color: 'white'
-                    }
-                },
-                select: {
-                    fill: '#000003',
-                    stroke: '#000000',
-                    style: {
-                        color: 'white'
-                    }
-                }
-            }
-        },
-        inputBoxBorderColor: '#505053',
-        inputStyle: {
-            backgroundColor: '#333',
-            color: 'silver'
-        },
-        labelStyle: {
-            color: 'silver'
-        }
-    },
-    navigator: {
-        handles: {
-            backgroundColor: '#666',
-            borderColor: '#AAA'
-        },
-        outlineColor: '#CCC',
-        maskFill: 'rgba(255,255,255,0.1)',
-        series: {
-            color: '#7798BF',
-            lineColor: '#A6C7ED'
-        },
-        xAxis: {
-            gridLineColor: '#505053'
-        }
-    },
-    scrollbar: {
-        barBackgroundColor: '#808083',
-        barBorderColor: '#808083',
-        buttonArrowColor: '#CCC',
-        buttonBackgroundColor: '#606063',
-        buttonBorderColor: '#606063',
-        rifleColor: '#FFF',
-        trackBackgroundColor: '#404043',
-        trackBorderColor: '#404043'
-    }
-};
-Highcharts.setOptions(Highcharts.theme);
-    </script>
+    <center>
+        <div class='graphs' id="new" style="width:80%; height:400px;"></div>
+    </center>
 
-<div class="container">
+    <div class="container">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#daily">Daily</a>
+          <a class="nav-link active" data-toggle="tab" href="#daily_death">Daily</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#linear">Linear</a>
+          <a class="nav-link" data-toggle="tab" href="#linear_death">Linear</a>
         </li>
       </ul>
 
       <!-- Tab panes -->
       <div class="tab-content" style="border: 10px solid black">
-        <div id="daily" class="tab-pane active" style="padding; 0;">
-          <div id="container" style="height:400px;"></div>
+        <div id="daily_death" class="tab-pane active">
+          <div id="container"></div>
         </div>
-        <div id="linear" class="tab-pane fade" style="padding; 0;">
-            <div id="total_confirmed" style="height:400px;"></div>
-
+        <div id="linear_death" class="tab-pane fade">
+          <div id="total_confirmed"></div>
         </div>
       </div>
     </div>
-    <div id="new" style="width:80%; height:400px;margin-left:100px;margin-top:40px;"></div>
 
+   <script>
+    Highcharts.createElement('link', {
+            href: 'https://fonts.googleapis.com/css?family=Unica+One',
+            rel: 'stylesheet',
+            type: 'text/css'
+        }, null, document.getElementsByTagName('head')[0]);
+        Highcharts.theme = {
+            colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+                '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+        chart: {
+            backgroundColor: {
+                linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+                stops: [
+                    [0, '#2a2a2b'],
+                    [1, '#3e3e40']
+                ]
+            },
+            style: {
+                fontFamily: '\'Unica One\', sans-serif'
+            },
+            plotBorderColor: '#606063'
+        },
+        title: {
+            style: {
+                color: '#E0E0E3',
+                textTransform: 'uppercase',
+                fontSize: '20px'
+            }
+        },
+        subtitle: {
+            style: {
+                color: '#E0E0E3',
+                textTransform: 'uppercase'
+            }
+        },
+        xAxis: {
+            gridLineColor: '#707073',
+            labels: {
+                style: {
+                    color: '#E0E0E3'
+                }
+            },
+            lineColor: '#707073',
+            minorGridLineColor: '#505053',
+            tickColor: '#707073',
+            title: {
+                style: {
+                    color: '#A0A0A3'
+                }
+            }
+        },
+        yAxis: {
+            gridLineColor: '#707073',
+            labels: {
+                style: {
+                    color: '#E0E0E3'
+                }
+            },
+            lineColor: '#707073',
+            minorGridLineColor: '#505053',
+            tickColor: '#707073',
+            tickWidth: 1,
+            title: {
+                style: {
+                    color: '#A0A0A3'
+                }
+            }
+        },
+        tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            style: {
+                color: '#F0F0F0'
+            }
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    color: '#F0F0F3',
+                    style: {
+                        fontSize: '13px'
+                    }
+                },
+                marker: {
+                    lineColor: '#333'
+                }
+            },
+            boxplot: {
+                fillColor: '#505053'
+            },
+            candlestick: {
+                lineColor: 'white'
+            },
+            errorbar: {
+                color: 'white'
+            }
+        },
+        legend: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            itemStyle: {
+                color: '#E0E0E3'
+            },
+            itemHoverStyle: {
+                color: '#FFF'
+            },
+            itemHiddenStyle: {
+                color: '#606063'
+            },
+            title: {
+                style: {
+                    color: '#C0C0C0'
+                }
+            }
+        },
+        credits: {
+            style: {
+                color: '#666'
+            }
+        },
+        labels: {
+            style: {
+                color: '#707073'
+            }
+        },
+        drilldown: {
+            activeAxisLabelStyle: {
+                color: '#F0F0F3'
+            },
+            activeDataLabelStyle: {
+                color: '#F0F0F3'
+            }
+        },
+        navigation: {
+            buttonOptions: {
+                symbolStroke: '#DDDDDD',
+                theme: {
+                    fill: '#505053'
+                }
+            }
+        },
+        // scroll charts
+        rangeSelector: {
+            buttonTheme: {
+                fill: '#505053',
+                stroke: '#000000',
+                style: {
+                    color: '#CCC'
+                },
+                states: {
+                    hover: {
+                        fill: '#707073',
+                        stroke: '#000000',
+                        style: {
+                            color: 'white'
+                        }
+                    },
+                    select: {
+                        fill: '#000003',
+                        stroke: '#000000',
+                        style: {
+                            color: 'white'
+                        }
+                    }
+                }
+            },
+            inputBoxBorderColor: '#505053',
+            inputStyle: {
+                backgroundColor: '#333',
+                color: 'silver'
+            },
+            labelStyle: {
+                color: 'silver'
+            }
+        },
+        navigator: {
+            handles: {
+                backgroundColor: '#666',
+                borderColor: '#AAA'
+            },
+            outlineColor: '#CCC',
+            maskFill: 'rgba(255,255,255,0.1)',
+            series: {
+                color: '#7798BF',
+                lineColor: '#A6C7ED'
+            },
+            xAxis: {
+                gridLineColor: '#505053'
+            }
+        },
+        scrollbar: {
+            barBackgroundColor: '#808083',
+            barBorderColor: '#808083',
+            buttonArrowColor: '#CCC',
+            buttonBackgroundColor: '#606063',
+            buttonBorderColor: '#606063',
+            rifleColor: '#FFF',
+            trackBackgroundColor: '#404043',
+            trackBorderColor: '#404043'
+        }
+    };
+    Highcharts.setOptions(Highcharts.theme);
+    </script>
 
     <script>
 
@@ -470,8 +517,7 @@ Highcharts.setOptions(Highcharts.theme);
       {% for total in total_confirmed %}
       total_cases.push({{total}})
       {% endfor %}
-      console.log(labels);
-    document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('DOMContentLoaded', function () {
         var myChart = Highcharts.chart('container', {
             chart: {
                 type: 'column'
@@ -560,6 +606,18 @@ Highcharts.setOptions(Highcharts.theme);
         });
     });
 
+    </script>
+
+    <script>
+        $( ".inner-switch" ).on("click", function() {
+        if( $( "body" ).hasClass( "dark" )) {
+          $( "body" ).removeClass( "dark" );
+          $( ".inner-switch" ).text( "OFF" );
+        } else {
+          $( "body" ).addClass( "dark" );
+          $( ".inner-switch" ).text( "ON" );
+        }
+      });
     </script>
 </body>
 </html>

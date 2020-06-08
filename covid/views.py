@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Max
-from .models import News, CountryData, CountryNews, DailyData
+from .models import News, CountryData, CountryNews, DailyData, Predictions
 
 import sys
 import json
@@ -44,6 +44,7 @@ def scrape_world():
     return world_data
 
 
+
 def scrape_news():
     source = requests.get('https://www.indiatimes.com/').text
     soup = BeautifulSoup(source, 'lxml')
@@ -76,6 +77,49 @@ def scrape_news():
         news.date = str(datetime.now())[:10]
         news.link = url
         news.save()
+
+def scrape():
+    source = requests.get('https://www.worldometers.info/coronavirus/').text
+    soup = BeautifulSoup(source, 'lxml')
+
+    countries = soup.find_all('tr')
+    countries = countries[9:221]
+
+    for country in countries:
+
+        rows = country.find_all('td')
+        rows = list(map(lambda x:str(x.text).replace(',', ''), rows))
+
+        name = rows[1]
+
+        if name in country_dict:
+            name = country_dict[name]
+
+        if not path.isfile(f'media/flag/{name}.png'):
+            country = name.replace(' ', '_').lower()
+            url = f'http://img.freeflagicons.com/thumb/rectangular_icon_with_shadow/{country}/{country}_640.png'
+            r = requests.get(url, allow_redirects=True, headers={"User-Agent": "XY"})
+            open(f'media/flag/{name}.png', 'wb').write(r.content)
+
+        my_country              = CountryData()
+        my_country.name         = name
+        my_country.totalcase    = my_int(rows[2])
+        my_country.activecase   = my_int(rows[7])
+        my_country.newcase      = my_int(rows[3].replace('+', ''))
+        my_country.deaths       = my_int(rows[4])
+        my_country.newdeath     = my_int(rows[5].replace('+', ''))
+        my_country.recovered    = my_int(rows[6])
+        my_country.tests        = my_int(rows[11])
+        my_country.total_pop    = my_int(rows[9])
+        my_country.death_pop    = my_int(rows[10])
+        my_country.test_pop     = my_int(rows[12])
+        my_country.continent    = rows[14]
+        my_country.flag         = f'media/flag/{name}.png'
+
+        if name == 'United States of America':
+            my_country.name = 'United States'
+
+        my_country.save()
 
 
 def india_state_data():
@@ -160,14 +204,8 @@ def home(request):
     for death in death_list:
         deaths+=death
 
-    print(recoveries)
-    print(deaths)
     total_outcome = int(recoveries) + int(deaths)
-
-    print(total_outcome)
-
     recovery_percent = (int(recoveries) / int(total_outcome)) * 100
-
     death_percent = 100 - recovery_percent
 
     worlddailydata = DailyData.objects.filter(country='World')
@@ -198,7 +236,7 @@ def news(request):
 
 
 def country(request):
-    # scrape()
+    #scrape()
     countries = CountryData.objects.order_by('-totalcase')
     return render(request, 'country.html', {'countries': countries})
     
@@ -290,12 +328,6 @@ def state(request, state_name):
         else:
             day_total_confirmed = total_confirmed[counter-1] + confirmed
             total_confirmed.append(day_total_confirmed)
-        print(counter)
         counter+=1
-    print(total_confirmed)
 
     return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data , 'state_confirmed':state_data_confirmed, 'state_date':state_date, 'state_recovered':state_data_recovered, 'total_confirmed':total_confirmed})
-
-
-'''x = state_daily_data("mh")
-print(x)'''
