@@ -17,27 +17,25 @@ class Command(BaseCommand):
     @staticmethod
     def getDailyData(country):
         daily_data = DailyData.objects.filter(country=country)
-        num_of_date = iter(range(len(daily_data)))
-        data_list = [{'Date': str(data.date), 'num_of_date': next(num_of_date), 'num_of_patients': data.totalcase} for data in daily_data]
+        num_of_date = iter(range(1, len(daily_data)+1))
+        data_list = [{'Date': str(data.date), 'num_of_date': next(num_of_date), 'num_of_patients': data.totalcase} for data in daily_data if data.totalcase!=0]
         df = pd.DataFrame(data_list)
+        df.set_index('Date', inplace=True)
         return df
 
 
     @staticmethod
     def predict_cases(country):
         ds = Command.getDailyData(country)
-
         last = ds.shape[0]
         ds1 = ds.sample(frac =.15)
-        ds.drop(ds1.index) 
-
+        ds.drop(ds1.index, inplace=True) 
+        
         x = ds['num_of_date']
         y = ds['num_of_patients']
         x_test_patient = ds1['num_of_date']
         y_test_patient = ds1['num_of_patients']
-        x_prediction =[[x] for x in range(last, last+7)]
-
-        print(x_prediction)
+        x_prediction =[[x] for x in range(last, last+6)]
 
         yy=np.log10(y)
 
@@ -54,6 +52,7 @@ class Command(BaseCommand):
         MLP_Regressor_5 = MLPRegressor(hidden_layer_sizes=(5), activation='tanh', solver='sgd' ,learning_rate_init=0.01, max_iter=1000,random_state=1, validation_fraction=0.1)
         ######################################################################################################################
         cv = KFold(n_splits=10, random_state=1, shuffle=True)
+
         for train_index, test_index in cv.split(x):
             X_train, X_test, y_train, y_test ,yy_train, yy_test= x[train_index], x[test_index], y[train_index], y[test_index], yy[train_index], yy[test_index]
             #
