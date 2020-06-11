@@ -15,3 +15,7 @@ Our Country Page
 ![alt Country-Detail page](https://github.com/thinking-tomorrow/Covid19/blob/master/images/country-details.jpg?raw=true)
 
 Our Country-Detail Page
+
+![alt State page](https://github.com/thinking-tomorrow/Covid19/blob/master/images/state.jpg?raw=true)
+
+Our State Page(only for India)
