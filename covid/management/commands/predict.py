@@ -21,6 +21,7 @@ class Command(BaseCommand):
         data_list = [{'Date': str(data.date), 'num_of_date': next(num_of_date), 'num_of_patients': data.totalcase} for data in daily_data if data.totalcase!=0]
         df = pd.DataFrame(data_list)
         df.set_index('Date', inplace=True)
+        print(df)
         return df
 
 
@@ -28,6 +29,7 @@ class Command(BaseCommand):
     def predict_cases(country):
         ds = Command.getDailyData(country)
         last = ds.shape[0]
+        print(last, last+6)
         ds1 = ds.sample(frac =.15)
         ds.drop(ds1.index, inplace=True) 
         
@@ -93,4 +95,6 @@ class Command(BaseCommand):
 
     # define logic of command
     def handle(self, *args, **options):
-        Command.predict_cases('India')
+        x = Command.predict_cases('World')
+        print(x)
+
