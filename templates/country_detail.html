@@ -62,9 +62,39 @@
         }
       @media (prefers-color-scheme: dark) {
         body {
-          background-color: black;
-          color: #ccc;
+          background-color: #161625!important;
+          color: #e6e6e6;
         }
+      }
+      .switch {
+        align-self: flex-end;
+        margin: 0.9375rem;
+      }
+      .inner-switch {
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #555;
+        border-radius: 1.25rem;
+        width: 3.125rem;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.1875rem;
+        margin-left: 0.3125rem;
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .dark,
+      .dark * {
+        background-color: #161625!important;
+        color: #e6e6e6;
+        border-color: #161625!important;
       }
     </style>
 
@@ -181,7 +211,9 @@
       
     </div>
 
-    
+        <div class="switch">Dark mode:
+        <span class="inner-switch">OFF</span>
+    </div>
     <!--<div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
     </div>-->
@@ -638,6 +670,18 @@ Highcharts.setOptions(Highcharts.theme);
         const loader = document.querySelector(".loader");
         loader.className += " hidden"; // class "loader hidden"
     });**/
+    </script>
+
+        <script>
+      $( ".inner-switch" ).on("click", function() {
+        if( $( "body" ).hasClass( "dark" )) {
+          $( "body" ).removeClass( "dark" );
+          $( ".inner-switch" ).text( "OFF" );
+        } else {
+          $( "body" ).addClass( "dark" );
+          $( ".inner-switch" ).text( "ON" );
+        }
+      });
     </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
