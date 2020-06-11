@@ -19,3 +19,8 @@ Our Country-Detail Page
 ![alt State page](https://github.com/thinking-tomorrow/Covid19/blob/master/images/state.jpg?raw=true)
 
 Our State Page(only for India)
+
+![alt Linear Graph](https://github.com/thinking-tomorrow/Covid19/blob/master/images/bar_graph.jpg?raw=true)
+![alt Daily Graph](https://github.com/thinking-tomorrow/Covid19/blob/master/images/linear_graph.jpg?raw=true)
+
+Some of our graphs(daily and linear)
