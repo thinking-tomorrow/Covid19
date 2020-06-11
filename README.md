@@ -11,3 +11,7 @@ Our World Page
 ![alt Country page](https://github.com/thinking-tomorrow/Covid19/blob/master/images/country.jpg?raw=true)
 
 Our Country Page
+
+![alt Country-Detail page](https://github.com/thinking-tomorrow/Covid19/blob/master/images/country-details.jpg?raw=true)
+
+Our Country-Detail Page
