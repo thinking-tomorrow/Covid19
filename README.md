@@ -24,3 +24,7 @@ Our State Page(only for India)
 ![alt Daily Graph](https://github.com/thinking-tomorrow/Covid19/blob/master/images/linear_graph.jpg?raw=true)
 
 Some of our graphs(daily and linear)
+
+![alt Dark Mode](https://github.com/thinking-tomorrow/Covid19/blob/master/images/dark.jpg?raw=true)
+
+Our Dark Mode
