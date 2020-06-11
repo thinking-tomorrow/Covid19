@@ -194,15 +194,8 @@ def district_daily_data(state, district):
 def home(request):
     world_data = scrape_world()
 
-    recoveries_list = world_data[2].split(',')
-    recoveries = ''
-    for recovery in recoveries_list:
-        recoveries+=recovery
-
-    death_list = world_data[1].split(',')
-    deaths = ''
-    for death in death_list:
-        deaths+=death
+    recoveries=int(world_data[2].replace(',', ''))
+    deaths = int(world_data[1].replace(',', ''))
 
     total_outcome = int(recoveries) + int(deaths)
     recovery_percent = (int(recoveries) / int(total_outcome)) * 100
