@@ -40,6 +40,13 @@
           width: 300px;
         }
 
+        .center {
+          margin: auto;
+          width: 50%;
+          padding: 10px;
+          margin-top: 20px;
+        }
+
         @media only screen and (max-width: 600px) {
           .graphs{
             width: 100vw !important;
@@ -53,6 +60,12 @@
           .news-header{
             width: 100%;
             padding: 10px;    
+          }
+
+          .center{
+            box-sizing: border-box;
+            width:100%;
+            padding: 10px;
           }
         }
 
@@ -90,11 +103,11 @@
       .slider.round:before {
         border-radius: 50%;
       }
-      .dark,
-      .dark * {
+      .dark {
         background-color: #161625!important;
         color: #e6e6e6;
         border-color: #161625!important;
+
       }
     </style>
 
@@ -207,34 +220,41 @@
       </div>
       
     </div>
-
-        <div class="switch">Dark mode:
-        <span class="inner-switch">OFF</span>
+    
+    <div class="switch">Dark mode:
+      <span class="inner-switch" style="background-color: green; color: white;">OFF</span>
     </div>
     <!--<div class="loader">
       <img src="{% static 'preloader.svg' %}" alt="Loading..." />
     </div>-->
 
-    <center id="data">
+    <center class="center">
       <img src="../{{country.flag}}" style="height:100px;width:200px;margin-top:40px;">
       <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
-      <ul class="my_list">
-
-      </ul>
-      <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
-      <p id='cases'>{{country.totalcase}}</p>
-      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
-      <p id='deaths'>{{country.deaths}}</p>
-      <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Coronavirus Winners:</h2>
-      <p id='recovery' style="margin-bottom: 0px">{{country.recovered}}</p>
+    
+      <div>
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
+        <p id='cases'>{{country.totalcase}}</p>
+      </div>
+      
+      <div style="width: 40%; display: inline-block">
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Deaths:</h2>
+        <p id='deaths'>{{country.deaths}}</p>
+      </div>
+      
+      <div style="width: 40%; display: inline-block">
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Winners:</h2>
+        <p id='recovery'>{{country.recovered}}</p>
+      </div>
 
       <br><br>
 
       <p>Daily Case Search</p>
       <input class="form-control mr-sm-2" type="date" id='datePickerId' placeholder="Search Cases or Deaths according to the date" aria-label="Search" autocomplete="off" min="2019-12-31">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getDetail()">Get Detail</button>
-      <br>
-      <br>
+      
+      <br><br>
+
     </center>
 
     {% if latest_news %}
@@ -669,14 +689,15 @@ Highcharts.setOptions(Highcharts.theme);
     });**/
     </script>
 
-        <script>
+    <script>
       $( ".inner-switch" ).on("click", function() {
+        $("body").toggleClass("dark");
+
         if( $( "body" ).hasClass( "dark" )) {
-          $( "body" ).removeClass( "dark" );
-          $( ".inner-switch" ).text( "OFF" );
-        } else {
-          $( "body" ).addClass( "dark" );
-          $( ".inner-switch" ).text( "ON" );
+          $(".inner-switch" ).text( "ON" );
+        }
+         else {
+          $(".inner-switch" ).text( "OFF" );
         }
       });
     </script>

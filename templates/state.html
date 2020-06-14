@@ -81,6 +81,12 @@
           display: inline-block;
           width: 100px; 
           border-radius: 4px;
+          transition: all 0.8s ease-in-out;
+          cursor: pointer;
+        }
+
+        .sidenav div:hover{
+          transform: scale(0.8);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -113,8 +119,7 @@
       .slider.round:before {
         border-radius: 50%;
       }
-      .dark,
-      .dark * {
+      .dark{
         background-color: #161625!important;
         color: #e6e6e6;
         border-color: #161625!important;
@@ -204,8 +209,8 @@
       </div>
     </nav>
 
-        <div class="switch">Dark mode:
-        <span class="inner-switch">OFF</span>
+    <div class="switch">Dark mode:
+        <span class="inner-switch" style="background-color: green; color: white;">OFF</span>
     </div>
 
     <h1 style="font-weight:bold;text-align:center; padding-top: 50px;padding-bottom: 50px;">{{state}}</h1>
@@ -606,15 +611,16 @@
     </script>
 
     <script>
-        $( ".inner-switch" ).on("click", function() {
-        if( $( "body" ).hasClass( "dark" )) {
-          $( "body" ).removeClass( "dark" );
-          $( ".inner-switch" ).text( "OFF" );
-        } else {
-          $( "body" ).addClass( "dark" );
-          $( ".inner-switch" ).text( "ON" );
-        }
-      });
+    $( ".inner-switch" ).on("click", function() {
+      $("body").toggleClass("dark");
+
+      if( $( "body" ).hasClass( "dark" )) {
+        $(".inner-switch" ).text( "ON" );
+      }
+      else {
+        $(".inner-switch" ).text( "OFF" );
+      }
+    });
     </script>
 </body>
 </html>

@@ -96,7 +96,7 @@
       .slider.round:before {
         border-radius: 50%;
       }
-      .dark, .dark * {
+      .dark{
         background-color: #161625!important;
         color: #e6e6e6;
         border-color: #161625!important;
@@ -269,7 +269,7 @@
     </div>-->
 
     <div class="switch">Dark mode:
-        <span class="inner-switch">OFF</span>
+      <span class="inner-switch" style="background-color: green; color: white;">OFF</span>
     </div>
 
     <center>
@@ -741,12 +741,13 @@ Highcharts.setOptions(Highcharts.theme);
     </script>
     <script>
       $( ".inner-switch" ).on("click", function() {
+        $("body").toggleClass("dark");
+
         if( $( "body" ).hasClass( "dark" )) {
-          $( "body" ).removeClass( "dark" );
-          $( ".inner-switch" ).text( "OFF" );
-        } else {
-          $( "body" ).addClass( "dark" );
-          $( ".inner-switch" ).text( "ON" );
+          $(".inner-switch" ).text( "ON" );
+        }
+         else {
+          $(".inner-switch" ).text( "OFF" );
         }
       });
     </script>
