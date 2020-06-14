@@ -41,6 +41,14 @@
         width: 300px;
       }
 
+      #footer{
+        background-color: black; color: white; border-radius: 5px; width: 20%; cursor: pointer;
+      }
+
+      #hash{
+        background-color: purple; color: white; border-radius: 5px; width: 20%;
+      }
+
       @media only screen and (max-width: 600px) {
         .center{
           box-sizing: border-box;
@@ -50,6 +58,9 @@
 
         #datePickerId{
           width: 80vw;
+        }
+        #footer, #hash{
+          width: 80%;
         }
       }
       #recovery{
@@ -85,13 +96,11 @@
       .slider.round:before {
         border-radius: 50%;
       }
-      .dark,
-      .dark * {
+      .dark, .dark * {
         background-color: #161625!important;
         color: #e6e6e6;
         border-color: #161625!important;
       }
-
     </style>
 
     <script>
@@ -353,12 +362,12 @@
 
     <center>
       <h5>Salute to the ones fighting on the frontlines</h5>
-      <h5>#CovidWorriors</h5>
+      <h5 id="hash">#CovidWarriors</h5>
 
       <br><br>
 
-      <div style="background-color: black; color: white; border-radius: 5px; width: 400px; cursor: pointer;" onclick="location.href = 'https://www.github.com/thinking-tomorrow/Covid19'">
-        <a><h3><i class="fab fa-github" style="color: white; margin: 10px"></i>Contribute On GitHub</h3>
+      <div id="footer" onclick="location.href = 'https://www.github.com/thinking-tomorrow/Covid19'">
+        <h4><i class="fab fa-github" style="color: white; margin: 10px"></i>Contribute On GitHub</h4>
       </div>
     </center>
 
