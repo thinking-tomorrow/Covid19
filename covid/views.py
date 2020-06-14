@@ -198,8 +198,8 @@ def home(request):
     deaths = int(world_data[1].replace(',', ''))
 
     total_outcome = int(recoveries) + int(deaths)
-    recovery_percent = (int(recoveries) / int(total_outcome)) * 100
-    death_percent = 100 - recovery_percent
+    recovery_percent = round((int(recoveries) / int(total_outcome)) * 100, 2)
+    death_percent = round(100 - recovery_percent, 2)
 
     worlddailydata = DailyData.objects.filter(country='World')
     return render(request, 'home.html',
