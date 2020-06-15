@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'covid',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
