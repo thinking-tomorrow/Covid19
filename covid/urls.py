@@ -5,6 +5,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'countrydata', views.CountryDataViewSet)
+router.register(r'dailydata', views.DailyDataViewSet)
 
 urlpatterns = [
     path('', views.home, name='home'),
