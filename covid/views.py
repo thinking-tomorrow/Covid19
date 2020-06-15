@@ -27,7 +27,8 @@ country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE"
 
 
 class CountryDataViewSet(viewsets.ModelViewSet):
-
+    queryset = CountryData.objects.all().order_by('name')
+    serializer_class = CountryDataSerializer
 
 def my_int(str):
     if str.strip().isnumeric():
