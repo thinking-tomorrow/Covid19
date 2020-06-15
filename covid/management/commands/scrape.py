@@ -203,6 +203,7 @@ def country_daily_data():
     columns = {'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths'}
     df = pd.read_csv(url, usecols=columns, index_col='location')
     df.rename(columns={'location':'Country'},inplace=True)
+    df.fillna(0, inplace=True)
     print("here 1")
 
     for index, row in df.iterrows():
