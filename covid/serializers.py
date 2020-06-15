@@ -6,6 +6,6 @@ class CountryDataSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
 
-        name = CountryData
+        model = CountryData
         fields = ('name','totalcase','activecase','newcase','deaths','newdeath','recovered',
                   'tests','continent')
