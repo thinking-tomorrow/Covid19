@@ -31,7 +31,7 @@ class CountryDataViewSet(viewsets.ModelViewSet):
     serializer_class = CountryDataSerializer
 
 class DailyDataViewSet(viewsets.ModelViewSet):
-    queryset = DailyData.objects.all().order_by('name')
+    queryset = DailyData.objects.all().order_by('country')
     serializer_class = DailyDataSerializer
 
 def my_int(str):
