@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Max
 from .models import News, CountryData, CountryNews, DailyData, Predictions
+from rest_framework import viewsets
 
 import sys
 import json
