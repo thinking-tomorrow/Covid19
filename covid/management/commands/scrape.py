@@ -230,10 +230,14 @@ class Command(BaseCommand):
 
         if id == 'all':
             scrape_all()
-        elif id == 'country_news':
-            scrape_country_news()
         elif id == 'daily':
             dailydatacountrywise()
             world_daily_data()
+        elif id == 'daily_all':
+            country_daily_data() 
+        elif id == 'delete':
+            DailyData.objects.all().delete()
+        elif id == 'country_news':
+            scrape_country_news()
         elif id == 'country_news_specific':
-            country_news_specific(options['scrape_id'][1]) 
+            country_news_specific(options['scrape_id'][1])
