@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import path,include
 from . import views
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'countrydata', views.CountryDataViewSet)
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -15,5 +19,7 @@ urlpatterns = [
     path('about',views.about,name='about'),
     path('graphs',views.graphs,name='graphs'),
     path('india',views.india, name="india"),
-    path('india/<str:state_name>',views.state,name="india")
+    path('india/<str:state_name>',views.state,name="india"),
+    path('api', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
