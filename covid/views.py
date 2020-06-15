@@ -13,7 +13,7 @@ from os import path
 from bs4 import BeautifulSoup
 from sqlalchemy import create_engine
 from datetime import datetime, timedelta
-
+from .serializers import CountryDataSerializer
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
                 "S. Korea": "Korea South", "Czechia": "Czech Republic", "North Macedonia": "Macedonia", 
@@ -24,6 +24,9 @@ country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE"
                 "St. Vincent Grenadines": "Saint Vincent and the Grenadines", "Turks and Caicos": "Turks and Caicos Islands",
                 "British Virgin Islands": "Virgin Islands British", "St. Barth": "Saint Barthelemy", "Caribbean Netherlands": "Netherlands",
                 "Saint Pierre Miquelon": "Saint Pierre and Miquelon"}
+
+
+class CountryDataViewSet(viewsets.ModelViewSet):
 
 
 def my_int(str):
