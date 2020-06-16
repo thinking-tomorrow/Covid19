@@ -29,3 +29,10 @@ def country(request, country_name):
 
 def country_daily(request, country_name, date):
     return JsonResponse({'status': 'testing', 'date': date})
+def state(request, state_name):
+    a = {'a' : cv.state_data(state_name)}
+    b = {'b':a['a'][0]}
+    print(b)
+
+
+    return JsonResponse(b)
