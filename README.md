@@ -9,7 +9,8 @@ Covid-19 has left the entire world maimed and crippled to their house. At this j
 **Our World Page**
 ![alt World page](https://github.com/thinking-tomorrow/Covid19/blob/master/images/world.jpg?raw=true)
 
-
+**Our Country Page**
+![alt Country-Detail page](https://github.com/thinking-tomorrow/Covid19/blob/master/images/country.jpg?raw=true)
 
 
 **Our Country- Details Page**
