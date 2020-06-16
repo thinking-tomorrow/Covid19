@@ -73,10 +73,10 @@ def state(request, state_name):
 @csrf_exempt
 def webhook(request):
     response = "Sorry! Didn't get that!"
-    
     if request.method == 'POST':
+        
         request = json.loads(request.body)
-        params = request['queryResult']['queryText']['parameters']
+        params = request['queryResult']['parameters']
 
         if params['status']:
             if params['geo-country']:
@@ -86,7 +86,7 @@ def webhook(request):
                 else:
                     # get overall country wise data
                     data = country_raw(params['geo-country'])
-
+                    
                     if data['status'] == 'failed':
                         response = "Sorry! Internal server error"
                     else:
@@ -95,8 +95,8 @@ def webhook(request):
             else:
                 # get world data
                 pass
-    reply = {
-        "fulfillmentText": response,
-    }
+        reply = {"fulfillmentText": response}
+    else:
+        reply = {'status': 'failed'}
 
     return JsonResponse(reply)
