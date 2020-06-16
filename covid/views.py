@@ -1,19 +1,13 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.db.models import Max
-from .models import News, CountryData, CountryNews, DailyData, Predictions
+from .models import News, CountryData, CountryNews, DailyData
 from rest_framework import viewsets
 
-import sys
-import json
-import urllib
 import requests
-import pandas as pd
 from os import path
 from bs4 import BeautifulSoup
-from sqlalchemy import create_engine
-from datetime import datetime, timedelta
-from .serializers import CountryDataSerializer, DailyDataSerializer
+from datetime import datetime
+from api.serializers import CountryDataSerializer, DailyDataSerializer
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
                 "S. Korea": "Korea South", "Czechia": "Czech Republic", "North Macedonia": "Macedonia", 

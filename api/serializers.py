@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import CountryData, DailyData
+from covid.models import CountryData, DailyData
 
 class CountryDataSerializer(serializers.HyperlinkedModelSerializer):
 
