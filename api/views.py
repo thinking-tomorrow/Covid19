@@ -10,6 +10,8 @@ def india(request):
 
 def state(request, state_name):
     a = {'a' : cv.state_data(state_name)}
-    b = {'b':a['a']}
+    b = {'b':a['a'][0]}
+    print(b)
+
 
     return JsonResponse(b)
