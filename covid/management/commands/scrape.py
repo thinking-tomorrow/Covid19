@@ -197,15 +197,14 @@ def country_news_specific(country):
                 news.save()
 
 
-def country_daily_data(country):
+def country_daily_data():
     print("here")
     url = "https://covid.ourworldindata.org/data/owid-covid-data.csv"
     columns = {'location', 'date', 'total_cases', 'new_cases', 'total_deaths', 'new_deaths'}
     df = pd.read_csv(url, usecols=columns, index_col='location')
     df.rename(columns={'location':'Country'},inplace=True)
+    df.fillna(0, inplace=True)
     print("here 1")
-
-    #df = df.loc[str(country)]
 
     for index, row in df.iterrows():
         print(index)
@@ -230,10 +229,14 @@ class Command(BaseCommand):
 
         if id == 'all':
             scrape_all()
-        elif id == 'country_news':
-            scrape_country_news()
         elif id == 'daily':
             dailydatacountrywise()
             world_daily_data()
+        elif id == 'daily_all':
+            country_daily_data() 
+        elif id == 'delete':
+            DailyData.objects.all().delete()
+        elif id == 'country_news':
+            scrape_country_news()
         elif id == 'country_news_specific':
-            country_news_specific(options['scrape_id'][1]) 
+            country_news_specific(options['scrape_id'][1])
