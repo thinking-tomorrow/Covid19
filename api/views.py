@@ -9,5 +9,7 @@ def india(request):
     return JsonResponse(data)
 
 def state(request, state_name):
-    data = {'data': cv.state_data(state_name)}
-    return JsonResponse(data)
+    a = {'a' : cv.state_data(state_name)}
+    b = {'b':a['a']}
+
+    return JsonResponse(b)
