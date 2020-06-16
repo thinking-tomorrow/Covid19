@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'covid',
     'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [
