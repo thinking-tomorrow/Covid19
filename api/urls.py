@@ -1,17 +1,17 @@
 from django.contrib import admin
 from django.urls import path,include
 from . import views
-import covid.views as view
 from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register(r'countrydata', view.CountryDataViewSet)
-router.register(r'dailydata', view.DailyDataViewSet)
+router.register(r'countrydata', views.CountryDataViewSet)
+router.register(r'dailydata', views.DailyDataViewSet)
 
 urlpatterns = [
 
-    path('', views.home,name='home'),
+    path('api', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 
 ]
