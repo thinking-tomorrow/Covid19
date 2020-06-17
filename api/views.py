@@ -82,7 +82,15 @@ def webhook(request):
             if params['geo-country']:
                 # get country specific data
                 if params['date-time']:
-                    pass
+                    date = params['date-time'][:10]
+                    data = country_daily_raw(params['geo-country'], date)
+
+                    if data['status'] == 'failed':
+                        response = "Sorry! Internal server error"
+                    else:
+                        data = data['data']
+                        data2 = country_raw(params['geo-country'])['data']
+                        # response = f"{data} people were newly affected and {} newly died in {} on {}. As of {} {} people have died and {} has been affected while {} recovered"
                 else:
                     # get overall country wise data
                     data = country_raw(params['geo-country'])

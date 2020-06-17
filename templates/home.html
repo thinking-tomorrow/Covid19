@@ -101,6 +101,28 @@
         color: #e6e6e6;
         border-color: #161625!important;
       }
+
+      #chat{
+        display: none;
+        position: fixed;
+        bottom: 85px;
+        right: 10px;
+      }
+
+      .init{
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        color: white;
+        background-color: #33c5ff;
+        border-radius: 10cm;
+        cursor: pointer;
+      }
+
+      .init:hover{
+        background-color: #008bc2;
+      }
     </style>
 
     <script>
@@ -187,7 +209,6 @@
         datePickerId.max = new Date().toISOString().split("T")[0];
         datePickerId.value = new Date(Date.now() - 864e5).toISOString().split("T")[0];
       }
-
     </script>
 
   </head>
@@ -367,6 +388,24 @@
         <h4><i class="fab fa-github" style="color: white; margin: 10px"></i>Contribute On GitHub</h4>
       </div>
     </center>
+
+    <script>
+    $(document).ready(function(){
+      $(".init").click(function() {
+        $("#chat").toggle();
+      });			
+    });
+    </script>
+
+    <iframe
+      allow="microphone;"
+      width="350"
+      height="430"
+      src="https://console.dialogflow.com/api-client/demo/embedded/4e788627-f4b9-46bc-9650-d15dd825ca16"
+      id="chat">
+    </iframe>
+
+    <i class="far fa-comments fa-3x init"></i>
 
     <script>
         Highcharts.createElement('link', {
