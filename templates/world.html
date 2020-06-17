@@ -261,6 +261,25 @@ COVID INFO
     </center>      
 
     <script>
+    $(document).ready(function(){
+      $(".init").click(function() {
+        $("#chat").toggle();
+      });
+    });
+    </script>
+
+    <iframe
+      allow="microphone;"
+      width="350"
+      height="430"
+      src="https://console.dialogflow.com/api-client/demo/embedded/4e788627-f4b9-46bc-9650-d15dd825ca16"
+      id="chat">
+    </iframe>
+
+    <i class="far fa-comments fa-3x init"></i>
+
+
+    <script>
       /**window.addEventListener("load", function () {
         const loader = document.querySelector(".loader");
         loader.className += " hidden"; // class "loader hidden"
