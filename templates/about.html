@@ -40,13 +40,11 @@
         background-color: #008bc2;
       }
         @media (prefers-color-scheme: dark) {
-  body {
-    background-color: black;
-    color: #ccc;
-  }
-      .img{
-        margin-top: 30px;
-      }
+            body {
+                background-color: black;
+                color: #ccc;
+            }
+        }
 
       @media only screen and (max-width: 600px) {
         .img{
@@ -54,10 +52,17 @@
           width:50%;
         }
       }
-
-      .detail{
+            .detail{
         margin: 15px;
         padding: 20px;
+      }
+
+      .detail p{
+        padding: 25px;
+      }
+
+        .img{
+        margin-top: 30px;
       }
     </style>
 
@@ -124,6 +129,9 @@ COVID INFO
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/graphs"><i class="fas fa-signal"></i>  Graphs</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/india">India Statistics</a>
           </li>
         </ul>
         
