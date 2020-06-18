@@ -18,7 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <style>
-        #chat{
+      #chat{
         display: none;
         position: fixed;
         bottom: 85px;
@@ -39,12 +39,13 @@
       .init:hover{
         background-color: #008bc2;
       }
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: black;
-                color: #ccc;
-            }
-        }
+      
+      @media (prefers-color-scheme: dark) {
+          body {
+              background-color: black;
+              color: #ccc;
+          }
+      }
 
       @media only screen and (max-width: 600px) {
         .img{
@@ -52,7 +53,7 @@
           width:50%;
         }
       }
-            .detail{
+      .detail{
         margin: 15px;
         padding: 20px;
       }
@@ -61,12 +62,12 @@
         padding: 25px;
       }
 
-        .img{
+      .img{
         margin-top: 30px;
       }
     </style>
 
-      <script>
+    <script>
         $(document).ready(function (){
           $('[data-toggle="popover"]').each( function() {
             //try doing console log out of popover.
@@ -135,7 +136,7 @@ COVID INFO
           </li>
         </ul>
         
-        <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
           {% csrf_token %}
@@ -163,14 +164,15 @@ COVID INFO
       <h3>WHAT DO WE DO ?</h3>
       <p>We show real-time data and analysis of the affected people all over the world . We have broken down the data into multiple formats with specific data for each country which allows a layman to understand whats
       actually going in any particular country around the globe. Not only that, we also provide reliable news that our user can trust on related to COVID-19 . Undoubtedly, this website is your one-stop guide for COVID-19 information.
-      </p>
+      We have also incorporated a first of its kind Covid Chat-Bot. We also provide predictions as to what will be the future scenario and how many more people are going to be affected. For this purpose we use the concept of Multilayer 
+      Perceptron(MLP) Regression, a neural network based machine deep algorithm.</p>
     </div>
 
     <div class="detail">
       <h3>FROM WHERE DO WE GET THIS DATA ?</h3>
-      <p>Every effort has been made to avoid any kind of error in the data in this website. This data is a compilation of different kind of data available on the official websites of all countries. This compilation 
+      <p>Every effort has been made to avoid any kind of error in the data in this website. The data of this website is a compilation of different kind of data available on the official websites of all countries. This compilation 
       is completely done by our web scrapping algorithm with no human intervention. Utmost level of transparency is maintained with no censorship. Our team of experts at <a href="https://thinkingtomorrow.cf" target="_blank" style="color: blue;"><b>Thinking Tomorrow</b></a>
-      are working round the clock to improve your experience. Feel free to contact us at <b><a href="mailto:info@thinkingtomorrow.cf" style="color: blue;">info@thinkingtomorrow.cf</a></b></p>
+      are working round the clock to improve your experience. Feel free to contact us at <b><a href="mailto:thinkingtomorrow.2020@gmail.com" style="color: blue;">thinkingtomorrow.2020@gmail.com</a></b></p>
     </div>
 
     <div class="detail">
@@ -208,7 +210,7 @@ COVID INFO
       id="chat">
     </iframe>
 
-    <i class="far fa-comments fa-3x init"></i>
+    <i class="far fa-comments fa-3x chat"></i>
 
 
     <footer style="background-color:#343a40;color:white;">

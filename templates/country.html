@@ -29,12 +29,12 @@
     <!-- Country CSS -->
     <link rel="stylesheet" href="{% static 'country.css' %}">
     <style>
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: black;
-                color: #ccc;
-            }
-        }
+      @media (prefers-color-scheme: dark) {
+          body {
+              background-color: black;
+              color: #ccc;
+          }
+      }
       #chat{
         display: none;
         position: fixed;
@@ -95,7 +95,7 @@
           </li>
         </ul>
 
-        <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
@@ -211,6 +211,15 @@
     $(document).ready(function(){
       $(".init").click(function() {
         $("#chat").toggle();
+      });
+
+      $(document).mouseup(function(e) {
+        var container = $("#chat");
+
+        if (!container.is(e.target) && container.has(e.target).length === 0 && !$(".init").is(e.target)) 
+        {
+          container.hide();
+        }
       });
     });
     </script>

@@ -169,6 +169,60 @@
         $("#myModal").modal();
 
       }
+
+      $(document).ready(function(){
+        $(".init").click(function() {
+          $("#chat").toggle();
+        });			
+      });
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      $(document).ready(function() {
+        $( ".inner-switch" ).on("click", function() {
+          $("body").toggleClass("dark");
+
+          var CookieDate = new Date;
+          CookieDate.setFullYear(CookieDate.getFullYear() +10);
+
+          if( $( "body" ).hasClass( "dark" )) {
+            $(".inner-switch" ).text( "ON" );
+            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';';
+          }
+          else {
+            $(".inner-switch" ).text( "OFF" );
+            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';';
+          }
+        });
+        c = getCookie("dark");
+        if (c == "true"){
+          $("body").addClass("dark");
+          $(".inner-switch" ).text( "ON" );
+        }
+
+        $(document).mouseup(function(e) {
+          var container = $("#chat");
+
+          if (!container.is(e.target) && container.has(e.target).length === 0 && !$(".init").is(e.target)) 
+          {
+            container.hide();
+          }
+        });
+      });
     </script>
   </head>
   <body onload="load()">
@@ -206,7 +260,7 @@
           </li>
         </ul>
 
-        <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
@@ -706,33 +760,6 @@ Highcharts.setOptions(Highcharts.theme);
     </script>
 
     {% endif %}
-    <script>
-      /**window.addEventListener("load", function () {
-        const loader = document.querySelector(".loader");
-        loader.className += " hidden"; // class "loader hidden"
-    });**/
-    </script>
-
-    <script>
-      $( ".inner-switch" ).on("click", function() {
-        $("body").toggleClass("dark");
-
-        if( $( "body" ).hasClass( "dark" )) {
-          $(".inner-switch" ).text( "ON" );
-        }
-         else {
-          $(".inner-switch" ).text( "OFF" );
-        }
-      });
-    </script>
-
-    <script>
-    $(document).ready(function(){
-      $(".init").click(function() {
-        $("#chat").toggle();
-      });
-    });
-    </script>
 
     <iframe
       allow="microphone;"

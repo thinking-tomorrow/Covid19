@@ -10,11 +10,13 @@
     <!-- My Style Sheets -->
     <link rel="stylesheet" href="{% static 'main.css' %}">
     <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!-- Font Awesome Script -->
     <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
@@ -103,7 +105,7 @@ COVID INFO
           </li>
         </ul>
 
-        <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
@@ -208,6 +210,15 @@ COVID INFO
     $(document).ready(function(){
       $(".init").click(function() {
         $("#chat").toggle();
+      });
+
+      $(document).mouseup(function(e) {
+        var container = $("#chat");
+
+        if (!container.is(e.target) && container.has(e.target).length === 0 && !$(".init").is(e.target)) 
+        {
+          container.hide();
+        }
       });
     });
     </script>

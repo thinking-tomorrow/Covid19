@@ -19,7 +19,6 @@
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
 
     <title>Covid Info</title>
@@ -162,8 +161,18 @@
       function load(){
         datePickerId.max = new Date().toISOString().split("T")[0];
         datePickerId.value = new Date(Date.now() - 864e5).toISOString().split("T")[0];
-      }
+      } 
 
+      $(document).ready(function() {
+        $(document).mouseup(function(e) {
+          var container = $("#chat");
+
+          if (!container.is(e.target) && container.has(e.target).length === 0 && !$(".init").is(e.target)) 
+          {
+            container.hide();
+          }
+        });
+      });
     </script>
 
   </head>
@@ -204,7 +213,7 @@ COVID INFO
           </li>
         </ul>
 
-        <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
@@ -250,16 +259,19 @@ COVID INFO
     <center>
       <div style="background-color: rgba(255,255,255,0.7);" class="center">
         <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:38px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
-        <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
-        <p id='cases'>{{world_total}}</p>
-        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
-        <p id='deaths'>{{world_death}}</p>
-        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Coronavirus Winners:</h2>
-        <p id='recovery'>{{world_recovery}}</p>
-
+        
         <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Daily Case Search</h2>
         <input class="form-control mr-sm-2" type="date" id='datePickerId' placeholder="Search Cases or Deaths according to the date" aria-label="Search" autocomplete="off" min="2019-12-31">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getDetail()">Get Detail</button>
+
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
+        <p id='cases'>{{world_total}}</p>
+        
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:red;'>Coronavirus Deaths:</h2>
+        <p id='deaths'>{{world_death}}</p>
+        
+        <h2 style='text-align:center;padding-top:30px;font-size:35px;color:green;'>Coronavirus Winners:</h2>
+        <p id='recovery'>{{world_recovery}}</p>
       </div>
     </center>      
 

@@ -75,7 +75,83 @@
             height: 500px;
           }
         }
+        .dark {
+            background-color: #161625!important;
+            color: #e6e6e6;
+            border-color: #161625!important;
+        }
+        .switch {
+            align-self: flex-end;
+            margin: 0.9375rem;
+        }
+        .inner-switch {
+            display: inline-block;
+            cursor: pointer;
+            border: 1px solid #555;
+            border-radius: 1.25rem;
+            width: 3.125rem;
+            text-align: center;
+            font-size: 1rem;
+            padding: 0.1875rem;
+            margin-left: 0.3125rem;
+        }
     </style>
+
+    <script>
+    $(document).ready(function(){
+        $(".init").click(function() {
+            $("#chat").toggle();
+        });			
+    });
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      $(document).ready(function() {
+        $( ".inner-switch" ).on("click", function() {
+            $("body").toggleClass("dark");
+
+            var CookieDate = new Date;
+            CookieDate.setFullYear(CookieDate.getFullYear() +10);
+
+            if( $( "body" ).hasClass( "dark" )) {
+                $(".inner-switch" ).text( "ON" );
+                document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';';
+            }
+            else {
+                $(".inner-switch" ).text( "OFF" );
+                document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';';
+            }
+        });
+        c = getCookie("dark");
+        if (c == "true"){
+          $("body").addClass("dark");
+          $(".inner-switch" ).text( "ON" );
+        }
+
+        $(document).mouseup(function(e) {
+          var container = $("#chat");
+
+          if (!container.is(e.target) && container.has(e.target).length === 0 && !$(".init").is(e.target)) 
+          {
+            container.hide();
+          }
+        });
+      });
+    </script>
   </head>
   <body>
     
@@ -114,7 +190,7 @@ COVID INFO
           </li>
         </ul>
 
-        <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
@@ -124,6 +200,10 @@ COVID INFO
         </form>
       </div>
     </nav>
+
+    <div class="switch">Dark mode:
+        <span class="inner-switch" style="background-color: green; color: white;">OFF</span>
+    </div>
     
     <center>
         <div class="container" style="margin-top: 20px;">
@@ -192,14 +272,6 @@ COVID INFO
         </div>
         </div>
     </center>
-
-    <script>
-    $(document).ready(function(){
-      $(".init").click(function() {
-        $("#chat").toggle();
-      });
-    });
-    </script>
 
     <iframe
       allow="microphone;"
