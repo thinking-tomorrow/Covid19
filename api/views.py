@@ -38,18 +38,21 @@ def country(request, country_name):
 
 
 def country_daily_raw(country_name, date):
-    daily_data = DailyData.objects.filter(country=country_name)
-    data = list(filter(lambda x: str(x.date) == date, daily_data))[0]
-    
-    payload = { 
-        'name'       : data.country, 
-        'total_case' : data.totalcase, 
-        'total_death': data.deaths,
-        'new_case'   : data.newcase,
-        'new_death'  : data.newdeath
-    }
+    try:
+        daily_data = DailyData.objects.filter(country=country_name)
+        data = list(filter(lambda x: str(x.date) == date, daily_data))[0]
+        
+        payload = { 
+            'name'       : data.country, 
+            'total_case' : data.totalcase, 
+            'total_death': data.deaths,
+            'new_case'   : data.newcase,
+            'new_death'  : data.newdeath
+        }
 
-    return {'status': 'success', 'data': payload}
+        return {'status': 'success', 'data': payload}
+    except:
+        return {'status': 'failed'}        
 
 @csrf_exempt
 def country_daily(request, country_name, date):
@@ -92,14 +95,14 @@ def webhook(request):
             if params['geo-country']:
                 # get country specific data
                 if params['date-time']:
-                    date = params['date-time'][:10]
+                    date = params['date-time'][0][:10]
                     data = country_daily_raw(params['geo-country'], date)
 
                     if data['status'] == 'failed':
                         response = "Sorry! Internal server error"
                     else:
                         data = data['data']
-                        response = f"On {date} {data['new_case']} people were newly affected and {data['new_death']} newly died in {data['name']}. As of {date} {data['total_case']} people have been affected and {data['total_deth']} have died."
+                        response = f"On {date} {data['new_case']} people were newly affected and {data['new_death']} newly died in {data['name']}. As of {date} {data['total_case']} people have been affected and {data['total_death']} have died."
                 else:
                     # get overall country wise data
                     data = country_raw(params['geo-country'])
@@ -112,14 +115,13 @@ def webhook(request):
             else:
                 # get world data
                 if params['date-time']:
-                    date = params['date-time'][:10]
+                    date = params['date-time'][0][:10]
                     data = country_daily_raw('World', date)
-
                     if data['status'] == 'failed':
                         response = "Sorry! Internal server error"
                     else:
                         data = data['data']
-                        response = f"On {date} {data['new_case']} people were newly affected and {data['new_death']} newly died worldwide. As of {date} {data['total_case']} people have been affected and {data['total_deth']} have died."
+                        response = f"On {date} {data['new_case']} people were newly affected and {data['new_death']} newly died worldwide. As of {date} {data['total_case']} people have been affected and {data['total_death']} have died."
                 else:
                     # get overall country wise data
                     data = country_raw('World')
