@@ -1,13 +1,11 @@
 from django.shortcuts import render, redirect
 from django.db.models import Max
 from .models import News, CountryData, CountryNews, DailyData
-from rest_framework import viewsets
 
 import requests
 from os import path
 from bs4 import BeautifulSoup
 from datetime import datetime
-from api.serializers import CountryDataSerializer, DailyDataSerializer
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
                 "S. Korea": "Korea South", "Czechia": "Czech Republic", "North Macedonia": "Macedonia", 
@@ -20,21 +18,6 @@ country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE"
                 "Saint Pierre Miquelon": "Saint Pierre and Miquelon"}
 
 
-class CountryDataViewSet(viewsets.ModelViewSet):
-    queryset = CountryData.objects.all().order_by('name')
-    serializer_class = CountryDataSerializer
-
-class DailyDataViewSet(viewsets.ModelViewSet):
-    queryset = DailyData.objects.all().order_by('country')
-    serializer_class = DailyDataSerializer
-
-def my_int(str):
-    if str.strip().isnumeric():
-        return int(str)
-    else:
-        return 0
-
-
 def scrape_world():
     source = requests.get('https://www.worldometers.info/coronavirus/').text
     soup = BeautifulSoup(source, 'lxml')
@@ -45,84 +28,6 @@ def scrape_world():
         world_data.append(total.span.text)
 
     return world_data
-
-
-
-def scrape_news():
-    source = requests.get('https://www.indiatimes.com/').text
-    soup = BeautifulSoup(source, 'lxml')
-
-    articles = soup.find_all('div', class_='card-div')
-    articles = articles[0:len(articles)-1]
-
-    for article in articles:
-        last_id = News.objects.latest('id').id
-        title = article.a['title']
-        url = article.a['href']
-        img = article.img['src']
-
-        r = requests.get(img, allow_redirects=True)
-        open(f'media/{last_id+1}.jpg', 'wb').write(r.content)
-
-        text_source = requests.get(url).text
-        text_soup = BeautifulSoup(text_source, 'lxml')
-
-        div = text_soup.article.find_all('div', class_='left-container')
-        text = str()
-        ps = div[0].find_all('p', class_=None)
-        for p in ps:
-            text += p.text
-
-        news = News()
-        news.heading = title
-        news.body = text
-        news.img = str(last_id+1) + '.jpg'
-        news.date = str(datetime.now())[:10]
-        news.link = url
-        news.save()
-
-def scrape():
-    source = requests.get('https://www.worldometers.info/coronavirus/').text
-    soup = BeautifulSoup(source, 'lxml')
-
-    countries = soup.find_all('tr')
-    countries = countries[9:221]
-
-    for country in countries:
-
-        rows = country.find_all('td')
-        rows = list(map(lambda x:str(x.text).replace(',', ''), rows))
-
-        name = rows[1]
-
-        if name in country_dict:
-            name = country_dict[name]
-
-        if not path.isfile(f'media/flag/{name}.png'):
-            country = name.replace(' ', '_').lower()
-            url = f'http://img.freeflagicons.com/thumb/rectangular_icon_with_shadow/{country}/{country}_640.png'
-            r = requests.get(url, allow_redirects=True, headers={"User-Agent": "XY"})
-            open(f'media/flag/{name}.png', 'wb').write(r.content)
-
-        my_country              = CountryData()
-        my_country.name         = name
-        my_country.totalcase    = my_int(rows[2])
-        my_country.activecase   = my_int(rows[7])
-        my_country.newcase      = my_int(rows[3].replace('+', ''))
-        my_country.deaths       = my_int(rows[4])
-        my_country.newdeath     = my_int(rows[5].replace('+', ''))
-        my_country.recovered    = my_int(rows[6])
-        my_country.tests        = my_int(rows[11])
-        my_country.total_pop    = my_int(rows[9])
-        my_country.death_pop    = my_int(rows[10])
-        my_country.test_pop     = my_int(rows[12])
-        my_country.continent    = rows[14]
-        my_country.flag         = f'media/flag/{name}.png'
-
-        if name == 'United States of America':
-            my_country.name = 'United States'
-
-        my_country.save()
 
 
 def india_state_data():

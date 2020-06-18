@@ -150,16 +150,18 @@
 
     <div class="country-list" id="card">
       {% for country in countries %}
-        <div class="country card" data-string="{{country.name}}" name="{{country.continent}}">
-          <img src="{{country.flag}}" style="width:80%;height:50%;">
-          <a href="country/{{country.name}}" class="stretched-link"><h2 align='center'>{{country.name}}</h2></a>
-          <div class="describe">
-              <p align='center'>Active : <br>{{country.activecase}}</p>
-              <p align='center'>Confirmed : <br>{{country.totalcase}}</p>
-              <p align='center'>Deaths : <br>{{country.deaths}}</p>
-              <p align='center'>Recovered : <br>{{country.recovered}}</p>
+        {% if country.name != 'World' %}
+          <div class="country card" data-string="{{country.name}}" name="{{country.continent}}">
+            <img src="{{country.flag}}" style="width:80%;height:50%;">
+            <a href="country/{{country.name}}" class="stretched-link"><h2 align='center'>{{country.name}}</h2></a>
+            <div class="describe">
+                <p align='center'>Active : <br>{{country.activecase}}</p>
+                <p align='center'>Confirmed : <br>{{country.totalcase}}</p>
+                <p align='center'>Deaths : <br>{{country.deaths}}</p>
+                <p align='center'>Recovered : <br>{{country.recovered}}</p>
+            </div>
           </div>
-        </div>
+        {% endif %}
       {% endfor %}
     </div>
 
@@ -182,20 +184,20 @@
         <tbody>
 
         {% for country in countries %}
-
-          <tr name="{{country.continent}}" class="table-row">
-            <td><img src="{{country.flag}}" style="height: 50px; width: 80px;"></td>
-            <td><a href="country/{{country.name}}">{{country.name}}</a></td>
-            <td>{{country.totalcase}}</td>
-            <td>{{country.activecase}}</td>
-            <td>{{country.newcase}}</td>
-            <td>{{country.deaths}}</td>
-            <td>{{country.newdeath}}</td>
-            <td>{{country.recovered}}</td>
-            <td>{{country.tests}}</td>
-          </tr>
-
-          {% endfor %}
+          {% if country.name != 'World' %}
+            <tr name="{{country.continent}}" class="table-row">
+              <td><img src="{{country.flag}}" style="height: 50px; width: 80px;"></td>
+              <td><a href="country/{{country.name}}">{{country.name}}</a></td>
+              <td>{{country.totalcase}}</td>
+              <td>{{country.activecase}}</td>
+              <td>{{country.newcase}}</td>
+              <td>{{country.deaths}}</td>
+              <td>{{country.newdeath}}</td>
+              <td>{{country.recovered}}</td>
+              <td>{{country.tests}}</td>
+            </tr>
+          {% endif %}
+        {% endfor %}
         </tbody>
       </table>
 

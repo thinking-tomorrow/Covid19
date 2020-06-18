@@ -17,7 +17,7 @@ country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE"
                 "Eswatini": "Swaziland", "CAR": "Central African Republic", "Timor-Leste": "East Timor", "Curaçao": "Curacao",
                 "St. Vincent Grenadines": "Saint Vincent and the Grenadines", "Turks and Caicos": "Turks and Caicos Islands",
                 "British Virgin Islands": "Virgin Islands British", "St. Barth": "Saint Barthelemy", "Caribbean Netherlands": "Netherlands",
-                "Saint Pierre Miquelon": "Saint Pierre and Miquelon"}
+                "Saint Pierre Miquelon": "Saint Pierre and Miquelon", "Total:": "World"}
 
 
 def my_int(str):
@@ -32,7 +32,9 @@ def scrape_all():
     soup = BeautifulSoup(source, 'lxml')
     
     countries = soup.find_all('tr')
-    countries = countries[9:221]
+    world = countries[231]
+    countries = countries[9:224]
+    countries.append(world)
 
     for country in countries:
 
@@ -43,7 +45,7 @@ def scrape_all():
 
         if name in country_dict:
             name = country_dict[name]
-
+        
         if not path.isfile(f'media/flag/{name}.png'):
             country = name.replace(' ', '_').lower()
             url = f'http://img.freeflagicons.com/thumb/rectangular_icon_with_shadow/{country}/{country}_640.png'

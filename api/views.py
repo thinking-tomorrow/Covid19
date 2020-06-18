@@ -71,6 +71,16 @@ def state(request, state_name):
 
 
 @csrf_exempt
+def world(request):
+    return JsonResponse(country_raw('World'))
+
+
+@csrf_exempt
+def world_daily(request, date):
+    return JsonResponse(country_daily_raw('World', date))
+
+
+@csrf_exempt
 def webhook(request):
     response = "Sorry! Didn't get that!"
     if request.method == 'POST':
@@ -89,8 +99,7 @@ def webhook(request):
                         response = "Sorry! Internal server error"
                     else:
                         data = data['data']
-                        data2 = country_raw(params['geo-country'])['data']
-                        # response = f"{data} people were newly affected and {} newly died in {} on {}. As of {} {} people have died and {} has been affected while {} recovered"
+                        response = f"On {date} {data['new_case']} people were newly affected and {data['new_death']} newly died in {data['name']}. As of {date} {data['total_case']} people have been affected and {data['total_deth']} have died."
                 else:
                     # get overall country wise data
                     data = country_raw(params['geo-country'])
@@ -99,10 +108,28 @@ def webhook(request):
                         response = "Sorry! Internal server error"
                     else:
                         data = data['data']
-                        response = f"A total of {data['total_case']} people have been affected in {data['name']} and out of them {data['total_death']} have died."
+                        response = f"A total of {data['total_case']} people have been affected in {data['name']} and out of them {data['total_death']} have died and {data['recovered']} has recovered while {data['total_tests']} have been tested."
             else:
                 # get world data
-                pass
+                if params['date-time']:
+                    date = params['date-time'][:10]
+                    data = country_daily_raw('World', date)
+
+                    if data['status'] == 'failed':
+                        response = "Sorry! Internal server error"
+                    else:
+                        data = data['data']
+                        response = f"On {date} {data['new_case']} people were newly affected and {data['new_death']} newly died worldwide. As of {date} {data['total_case']} people have been affected and {data['total_deth']} have died."
+                else:
+                    # get overall country wise data
+                    data = country_raw('World')
+                    
+                    if data['status'] == 'failed':
+                        response = "Sorry! Internal server error"
+                    else:
+                        data = data['data']
+                        response = f"A total of {data['total_case']} people have been affected worldwide and out of them {data['total_death']} have died and {data['recovered']} has recovered."
+
         reply = {"fulfillmentText": response}
     else:
         reply = {'status': 'failed'}
