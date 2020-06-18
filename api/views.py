@@ -96,6 +96,7 @@ def webhook(request):
                 # get country specific data
                 if params['date-time']:
                     date = params['date-time'][0][:10]
+                    date = date.replace('2021', '2020')
                     data = country_daily_raw(params['geo-country'], date)
 
                     if data['status'] == 'failed':
@@ -116,6 +117,7 @@ def webhook(request):
                 # get world data
                 if params['date-time']:
                     date = params['date-time'][0][:10]
+                    date = date.replace('2021', '2020')
                     data = country_daily_raw('World', date)
                     if data['status'] == 'failed':
                         response = "Sorry! Internal server error"
