@@ -245,6 +245,18 @@
           }
         });
       });
+      </script>
+    <script>
+      $( ".inner-switch" ).on("click", function() {
+        $("body").toggleClass("dark");
+
+        if( $( "body" ).hasClass( "dark" )) {
+          $(".inner-switch" ).text( "ON" );
+        }
+        else {
+          $(".inner-switch" ).text( "OFF" );
+        }
+      });
     </script>
   </head>
   <body onload="load()">
@@ -441,16 +453,7 @@
     <i class="far fa-comments fa-3x init"></i>
 
     <script>
-      $( ".inner-switch" ).on("click", function() {
-        $("body").toggleClass("dark");
 
-        if( $( "body" ).hasClass( "dark" )) {
-          $(".inner-switch" ).text( "ON" );
-        }
-        else {
-          $(".inner-switch" ).text( "OFF" );
-        }
-      });
     </script>
 
     {% if countrydailydata %}
