@@ -35,65 +35,65 @@
     <title>Covid Info</title>
 
     <style>
-      canvas{
-        margin-bottom: 150px;
-        margin-top: 150px;
-      }
-      .graphs{
-        width:80vw !important;
-        height:450px !important;
-        margin: 100px;
-      }
-
-      #datePickerId{
-        width: 300px;
-      }
-
-      table{
-        border-collapse:separate;border:solid black 1px;border-radius:6px;
-      }
-
-      .table.sticky th{
-        position: sticky;
-        top: 70px;
-        background-color: white;
-      }
-
-      @media only screen and (max-width: 600px) {
+        canvas{
+          margin-bottom: 150px;
+          margin-top: 150px;
+        }
         .graphs{
-          width: 100vw !important;
-          height: 350px !important;
-          margin: 20px;
+          width:80vw !important;
+          height:450px !important;
+          margin: 100px;
         }
 
         #datePickerId{
-          width: 80vw;
+          width: 300px;
         }
-      }
 
-      .sidenav {
-        overflow-x: hidden;
-        padding: 8px 0;
-      }
+        table{
+          border-collapse:separate;border:solid black 1px;border-radius:6px;
+        }
 
-      .sidenav p{
-        font-weight: bold;
-        text-align: center;
-      }
+        .table.sticky th{
+          position: sticky;
+          top: 70px;
+          background-color: white;
+        }
 
-      .sidenav div{
-        display: inline-block;
-        width: 100px;
-        border-radius: 4px;
-        transition: all 0.8s ease-in-out;
-        cursor: pointer;
-      }
+        @media only screen and (max-width: 600px) {
+          .graphs{
+            width: 100vw !important;
+            height: 350px !important;
+            margin: 20px;
+          }
 
-      .sidenav div:hover{
-        transform: scale(0.8);
-      }
+          #datePickerId{
+            width: 80vw;
+          }
+        }
 
-      @media (prefers-color-scheme: dark) {
+        .sidenav {
+          overflow-x: hidden;
+          padding: 8px 0;
+        }
+
+        .sidenav p{
+          font-weight: bold;
+          text-align: center;
+        }
+
+        .sidenav div{
+          display: inline-block;
+          width: 100px;
+          border-radius: 4px;
+          transition: all 0.8s ease-in-out;
+          cursor: pointer;
+        }
+
+        .sidenav div:hover{
+          transform: scale(0.8);
+        }
+
+        @media (prefers-color-scheme: dark) {
         body {
           background-color: #161625!important;
           color: #e6e6e6;
@@ -188,60 +188,6 @@
         $("#myModal").modal();
 
       }
-
-      $(document).ready(function(){
-        $(".init").click(function() {
-          $("#chat").toggle();
-        });			
-      });
-
-      function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-          var c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
-        }
-        return "";
-      }
-
-      $(document).ready(function() {
-        $( ".inner-switch" ).on("click", function() {
-          $("body").toggleClass("dark");
-
-          var CookieDate = new Date;
-          CookieDate.setFullYear(CookieDate.getFullYear() +10);
-
-          if( $( "body" ).hasClass( "dark" )) {
-            $(".inner-switch" ).text( "ON" );
-            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';';
-          }
-          else {
-            $(".inner-switch" ).text( "OFF" );
-            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';';
-          }
-        });
-        c = getCookie("dark");
-        if (c == "true"){
-          $("body").addClass("dark");
-          $(".inner-switch" ).text( "ON" );
-        }
-
-        $(document).mouseup(function(e) {
-          var container = $("#chat");
-
-          if (!container.is(e.target) && container.has(e.target).length === 0 && !$(".init").is(e.target)) 
-          {
-            container.hide();
-          }
-        });
-      });
     </script>
   </head>
   <body>
@@ -280,7 +226,7 @@
           </li>
         </ul>
 
-        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="mailto://info@thinkingtomorrow.cf" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
 
         <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
@@ -349,7 +295,9 @@
       </table>
     </center>
 
-    <div class="container">
+
+
+        <div class="container">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
@@ -371,9 +319,19 @@
       </div>
     </div>
 
-    <center>
-      <div class='graphs' id="new" style="width:80%; height:400px;"></div>
-    </center>
+
+
+        <center>
+        <div class='graphs' id="new" style="width:80%; height:400px;"></div>
+       </center>
+
+    <script>
+    $(document).ready(function(){
+      $(".init").click(function() {
+        $("#chat").toggle();
+      });
+    });
+    </script>
 
     <iframe
       allow="microphone;"
@@ -695,7 +653,7 @@
                 }
             },
             series: [{
-                name: 'New Cases',
+                name: 'New Recoveries',
                 data: new_recovered
             }]
         });
@@ -704,8 +662,23 @@
 
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script>
+    $( ".inner-switch" ).on("click", function() {
+      $("body").toggleClass("dark");
+
+      if( $( "body" ).hasClass( "dark" )) {
+        $(".inner-switch" ).text( "ON" );
+      }
+      else {
+        $(".inner-switch" ).text( "OFF" );
+      }
+    });
+    </script>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
