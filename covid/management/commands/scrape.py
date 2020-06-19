@@ -80,6 +80,7 @@ def dailydatacountrywise():
     
     df = pd.read_csv(url)
     df.rename(columns={'location':'Country'},inplace=True)
+    df.dropna(axis=0, how='any')
     print("here 1")
     date = str(datetime.now() - timedelta(days=1))[:10]
     fil = df['date'] == date
