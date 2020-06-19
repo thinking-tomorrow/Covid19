@@ -87,8 +87,11 @@
 
         @media only screen and (max-width: 600px) {
           .table{
-            width:20%;
+            width:50vw;
             box-sizing: border-box;
+            border-collapse:separate;
+            border:solid black 1px;
+            border-radius:6px;
           }
           .graphs{
             width: 100vw !important;
@@ -354,14 +357,14 @@
     </center>
 
     <center>
-      <table class="table table-striped table-dark sticky" id="myTable" style="">
+      <table class="table table-striped table-dark sticky" id="myTable">
         <thead class="thead-light">
           <tr name="head">
             <th id="name">State<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
             <th id="total">Total<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
             <th id="active">Active<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
             <th id="death">Deaths<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="">Recovered<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="">Recov.<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
           </tr>
         </thead>
 
