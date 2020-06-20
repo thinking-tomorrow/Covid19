@@ -65,7 +65,6 @@
           margin: auto;
           width: 50%;
           padding: 10px;
-          margin-top: 20px;
         }
 
         @media only screen and (max-width: 600px) {
@@ -86,7 +85,6 @@
           .center{
             box-sizing: border-box;
             width:100%;
-            padding: 10px;
           }
         }
 
@@ -296,13 +294,14 @@
     <div class="switch">Dark mode:
       <span class="inner-switch" style="background-color: green; color: white;">OFF</span>
     </div>
-    <!--<div class="loader">
-      <img src="{% static 'preloader.svg' %}" alt="Loading..." />
-    </div>-->
-
+    
     <center class="center">
-      <img src="../{{country.flag}}" style="height:100px;width:200px;margin-top:40px;">
+      <img src="../{{country.flag}}" style="height:100px;width:200px;">
+
       <h1 style='font:Candara;text-align:center;padding-top:10px;font-size:40px;'>{{country.name}}</h1>
+
+      <a class="btn btn-success" href="#graphs" role="button">Graphs</a>
+      <a class="btn btn-success" href="#news" role="button">News</a>
     
       <div>
         <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
@@ -328,32 +327,6 @@
       <br><br>
 
     </center>
-
-    {% if latest_news %}
-      <div style="padding: 20px; background-image: url('../static/images/bg_news.jpg'); background-size: cover;" id="news">
-        
-        <center>
-          <!-- <h1 style="padding-top:30px; color: yellow;">News</h1> -->
-          <img class='news-header' src="{% static 'images/news_header.PNG' %}">
-          <br>
-
-          {% for news in latest_news %}
-          <a href="{{news.link}}" target="_blank">
-            <div class="card" style="width: 18rem;height:15rem;padding-left:20px;margin-top:20px;display: inline-block;">
-              
-              <div class="card-body">
-                <h5 class="card-title" style="height: 100px">{{news.title}}</h5>
-                <p class="card-text">{{news.date}}</p>
-                <a href="{{news.link}}" target="_blank" class="btn btn-primary stretched-link">Know more</a>
-              </div>
-            </div>
-          </a>
-          {% endfor %}
-        </center>
-      </div>
-    {% endif %}
-
-    <br><br>
 
     <div class="container" id="graphs">
       <!-- Nav tabs -->
@@ -401,6 +374,31 @@
       </div>
     </div>
 
+    <br><br>
+
+    {% if latest_news %}
+      <div style="padding: 20px; background-image: url('../static/images/bg_news.jpg'); background-size: cover;" id="news">
+        
+        <center>
+          <!-- <h1 style="padding-top:30px; color: yellow;">News</h1> -->
+          <img class='news-header' src="{% static 'images/news_header.PNG' %}">
+          <br>
+
+          {% for news in latest_news %}
+          <a href="{{news.link}}" target="_blank">
+            <div class="card" style="width: 18rem;height:15rem;padding-left:20px;margin-top:20px;display: inline-block;">
+              
+              <div class="card-body">
+                <h5 class="card-title" style="height: 100px">{{news.title}}</h5>
+                <p class="card-text">{{news.date}}</p>
+                <a href="{{news.link}}" target="_blank" class="btn btn-primary stretched-link">Know more</a>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </center>
+      </div>
+    {% endif %}
 
 
     {% if countrydailydata %}

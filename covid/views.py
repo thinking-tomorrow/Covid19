@@ -147,7 +147,7 @@ def country_detail(request, country_name):
     if country_name == 'India':
         return redirect('india')
 
-    news = CountryNews.objects.filter(country=country_name).order_by('-id')
+    news = CountryNews.objects.filter(country=country_name).order_by('-id')[:9]
     #country_daily_data(country_name)
 
     dailydata = DailyData.objects.filter(country=country_name)
