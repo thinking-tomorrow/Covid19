@@ -788,6 +788,11 @@ Highcharts.setOptions(Highcharts.theme);
     }
 
     },
+                      tooltip: {
+    formatter: function() {
+        return 'The value for <b>' + labels[this.x - 1] + '</b> is <b>' + this.y + '</b>, New Deaths' ;
+    }
+},
 
 
             yAxis: {
@@ -822,32 +827,13 @@ Highcharts.setOptions(Highcharts.theme);
 
     },
 
-    labels: {
-    items: [{
-      html: 'Total fruit consumption',
-      style: {
-        left: '50px',
-        top: '18px',
-        color: ( // theme
-          Highcharts.defaultOptions.title.style &&
-          Highcharts.defaultOptions.title.style.color
-        ) || 'black'
-      }
-    }]
-  },
+                      tooltip: {
+    formatter: function() {
+        return 'The value for <b>' + labels[this.x - 1] + '</b> is <b>' + this.y + '</b>, New Cases' ;
+    }
+},
 
-            labels: {
-    items: [{
 
-      style: {
-
-        color: ( // theme
-          Highcharts.defaultOptions.title.style &&
-          Highcharts.defaultOptions.title.style.color
-        ) || 'black'
-      }
-    }]
-  },
 
             yAxis: {
                 title: {
