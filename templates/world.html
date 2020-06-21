@@ -76,6 +76,34 @@
       #recovery{
         color: green;
       }
+
+      .switch {
+        align-self: flex-end;
+        margin: 0.9375rem;
+      }
+      .inner-switch {
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #555;
+        border-radius: 1.25rem;
+        width: 3.125rem;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.1875rem;
+        margin-left: 0.3125rem;
+      }
+
+      .dark{
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #e6e6e6;
+        border-color: #161625!important;
+      }
+
+      .light{
+        color: black;
+        background-color: rgba(255,255,255,0.7);
+      }
+
     </style>
 
     <script>
@@ -163,7 +191,47 @@
         datePickerId.value = new Date(Date.now() - 864e5).toISOString().split("T")[0];
       } 
 
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+     
       $(document).ready(function() {
+        $( ".inner-switch" ).on("click", function() {
+          $("#div").toggleClass("light");
+          $("#div").toggleClass("dark");
+
+          var CookieDate = new Date;
+          CookieDate.setFullYear(CookieDate.getFullYear() +10);
+
+          if( $( "body" ).hasClass( "dark" )) {
+            $(".inner-switch" ).text( "ON" );
+            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';';
+          }
+          else {
+            $(".inner-switch" ).text( "OFF" );
+            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';';
+          }
+        });
+
+        c = getCookie("dark");
+        if (c == "true"){
+          $("#div").toggleClass("light");
+          $("#div").toggleClass("dark");
+          $(".inner-switch" ).text( "ON" );
+        }
+
         $(document).mouseup(function(e) {
           var container = $("#chat");
 
@@ -215,12 +283,6 @@ COVID INFO
 
         <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
-
-        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
-          {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
 
@@ -257,9 +319,13 @@ COVID INFO
     </div>-->
 
     <center>
-      <div style="background-color: rgba(255,255,255,0.7);" class="center">
+      <div class="light center" id="div">
         <h1 style='font:Candara;text-align:center;padding-top: 25px;font-size:38px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
         
+        <div class="switch">Dark mode:
+          <span class="inner-switch" style="background-color: green; color: white;">OFF</span>
+        </div>
+
         <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Daily Case Search</h2>
         <input class="form-control mr-sm-2" type="date" id='datePickerId' placeholder="Search Cases or Deaths according to the date" aria-label="Search" autocomplete="off" min="2019-12-31">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getDetail()">Get Detail</button>

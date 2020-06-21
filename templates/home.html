@@ -306,12 +306,6 @@
 
         <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
-
-        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
-          {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
 
@@ -351,10 +345,10 @@
       <div  class="center">
         <h1 style='font:Candara; text-align:center;padding-top: 25px;font-size:38px;'>CORONAVIRUS PANDEMIC 2019-20</h1>
         
-<a class="btn btn-success" href="/graphs" role="button">Graphs</a>
-<a class="btn btn-success" href="/country" role="button">Country</a>
-
-<a class="btn btn-success" href="/india" role="button">India</a>
+        <a class="btn btn-success" href="/graphs" role="button">Graphs</a>
+        <a class="btn btn-success" href="/country" role="button">Country</a>
+        <a class="btn btn-success" href="/india" role="button">India</a>
+        
         <div>
           <h2 style='text-align:center;padding-top:30px;font-size:35px;'>Coronavirus Cases:</h2>
           <p id='cases'>{{world_total}}</p>

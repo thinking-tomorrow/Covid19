@@ -191,12 +191,6 @@
 
       }
 
-      $(document).ready(function(){
-        $(".init").click(function() {
-          $("#chat").toggle();
-        });			
-      });
-
       function getCookie(cname) {
         var name = cname + "=";
         var decodedCookie = decodeURIComponent(document.cookie);
@@ -214,6 +208,10 @@
       }
 
       $(document).ready(function() {
+        $(".init").click(function() {
+          $("#chat").toggle();
+        });
+
         $( ".inner-switch" ).on("click", function() {
           $("body").toggleClass("dark");
 
@@ -296,18 +294,12 @@
 
         <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
         <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
-
-        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method='post'>
-          {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" name='data' placeholder="Search" aria-label="Search" autocomplete="off">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
 
     <div class="container">
       <!-- The Modal -->
-      <div class="modal fade" id="myModal">
+      <div class="modal fade" id="myModal" style="color: black;">
         <div class="modal-dialog">
           <div class="modal-content">
           
