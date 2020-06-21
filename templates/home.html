@@ -689,6 +689,20 @@ Highcharts.setOptions(Highcharts.theme);
     }
 
     },
+
+            tooltip: {
+    formatter: function() {
+        return 'The value for <b>' + labels[this.x - 1] + '</b> is <b>' + this.y + '</b>, New Cases' ;
+    }
+},
+
+            legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+
             yAxis: {
                 title: {
                     text: 'Daily New Cases'
@@ -696,9 +710,28 @@ Highcharts.setOptions(Highcharts.theme);
             },
             series: [{
                 name: 'New Cases',
-                data: new_cases
+                data: new_cases,
+                dataLabels : {
+                    enabled:false
+                }
             }]
         });
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+
+
     });
 
       document.addEventListener('DOMContentLoaded', function () {
@@ -719,8 +752,11 @@ Highcharts.setOptions(Highcharts.theme);
     }
 
     },
-
-
+            tooltip: {
+    formatter: function() {
+        return 'The value for <b>' + labels[this.x - 1] + '</b> is <b>' + this.y + '</b>, New Cases' ;
+    }
+},
 
             yAxis: {
                 title: {
