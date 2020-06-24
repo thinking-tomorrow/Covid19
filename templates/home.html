@@ -686,7 +686,7 @@ Highcharts.setOptions(Highcharts.theme);
 
             tooltip: {
     formatter: function() {
-        return 'The value for <b>' + labels[this.x - 1] + '</b> is <b>' + this.y + '</b>, New Cases' ;
+        return labels[this.x - 1] + ':' + this.y + '</b> New Cases' ;
     }
 },
 
