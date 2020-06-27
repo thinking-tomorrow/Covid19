@@ -1,10 +1,317 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <script src="https://code.highcharts.com/highcharts.js"></script>
+
+    <!-- My Style Sheets -->
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Font Awesome Script -->
+    <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" crossorigin="anonymous"></script>
+
+    <title>Covid Info</title>
+
+    <style>
+
+      .center {
+        margin: auto;
+        width: 50%;
+        padding: 10px;
+        margin-top: 20px;
+      }
+
+      #datePickerId{
+        width: 300px;
+      }
+
+      #footer{
+        background-color: black; color: white; border-radius: 5px; width: 20%; cursor: pointer;
+      }
+
+      #hash{
+        background-color: purple; color: white; border-radius: 5px; width: 20%;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .center{
+          box-sizing: border-box;
+          width:100%;
+          padding: 10px;
+        }
+
+        #datePickerId{
+          width: 80vw;
+        }
+        #footer, #hash{
+          width: 80%;
+        }
+      }
+      #recovery{
+        color: green;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #161625!important;
+          color: #e6e6e6;
+        }
+      }
+      .switch {
+        align-self: flex-end;
+        margin: 0.9375rem;
+      }
+      .inner-switch {
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #555;
+        border-radius: 1.25rem;
+        width: 3.125rem;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.1875rem;
+        margin-left: 0.3125rem;
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .dark{
+        background-color: #161625!important;
+        color: #e6e6e6;
+        border-color: #161625!important;
+      }
+
+      #chat{
+        display: none;
+        position: fixed;
+        bottom: 85px;
+        right: 10px;
+      }
+
+      .init{
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        color: white;
+        background-color: #33c5ff;
+        border-radius: 10cm;
+        cursor: pointer;
+      }
+
+      .init:hover{
+        background-color: #008bc2;
+      }
+    </style>
+
+    <script>
+      function animateValue(id, start, end, duration) {
+        var range = end - start;
+        var current = start;
+        var increment = end > start? 1 : -1;
+        var stepTime = Math.abs(Math.floor(duration / range));
+        var obj = document.getElementById(id);
+        var timer = setInterval(function() {
+            current += increment;
+            obj.innerHTML = current;
+            if (current == end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+      }
+
+      function count(){
+        var cases = document.getElementById('cases');
+        var deaths = document.getElementById('deaths');
+        var recovery = document.getElementById('recovery');
+
+        case_count = parseInt(cases.innerHTML.replace(/,/g, ''));
+        death_count = parseInt(deaths.innerHTML.replace(/,/g, ''));
+        recovery_count = parseInt(recovery.innerHTML.replace(/,/g, ''));
+
+        animateValue('cases', case_count-1000, case_count, 5000);
+        animateValue('deaths', death_count-1000, death_count, 5000);
+        animateValue('recovery', recovery_count-1000, recovery_count, 5000);
+      }
+
+      function load(){
+        datePickerId.max = new Date().toISOString().split("T")[0];
+        datePickerId.value = new Date().toISOString().split("T")[0];
+      }
+
+      function getDetail(){
+        input = document.getElementById('datePickerId');
+        input_date = new Date(input.value);
+        input_date.setHours(0, 0);
+
+        modal_body = document.getElementById("modal-body");
+        modal = document.getElementById("myModal");
+        var date;
+
+        for (i=0; i<labels.length; i++){
+          compa_date = new Date(labels[i]);
+
+          if (input_date.getTime() == compa_date.getTime()){
+            date = labels[i];
+            deaths = new_death[i];
+            cases = new_cases[i];
+            t_cases = total_cases[i];
+            t_death = total_deaths[i];
+          }
+        }
+
+        if (date){
+          modal_body.innerHTML = '<center>Date : ' + date + '<br>' + 'New Cases : ' + cases + "<br>" + "New Deaths : " + deaths + '<br>' + 'Total Cases : ' + t_cases + "<br>" + "Total Deaths : " + t_death + "</center>";
+        }
+        else{
+          modal_body.innerHTML = '<center><p class="text text-danger">No results found. Please give a date between 31/12/2020 to yesterday</p></center>';
+        }
+        $("#myModal").modal();
+
+      }
+
+      var total_cases = [];
+      var total_deaths = [];
+      var new_death = [];
+      var new_cases = [];
+      var labels = [];
+      var countri ;
+      {% for data in worlddailydata %}
+          new_cases.push({{data.newcase}})
+          new_death.push({{data.newdeath}});
+          labels.push('{{data.date}}');
+          total_cases.push({{data.totalcase}});
+          total_deaths.push({{data.deaths}});
+      {% endfor %}
+
+      function load(){
+        datePickerId.max = new Date().toISOString().split("T")[0];
+        datePickerId.value = new Date(Date.now() - 864e5).toISOString().split("T")[0];
+      }
+
+      $(document).ready(function(){
+        $(".init").click(function() {
+          $("#chat").toggle();
+        });
+      });
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+
+      $(document).ready(function() {
+        $( ".inner-switch" ).on("click", function() {
+          $("body").toggleClass("dark");
+
+          var CookieDate = new Date;
+          CookieDate.setFullYear(CookieDate.getFullYear() +10);
+
+          if( $( "body" ).hasClass( "dark" )) {
+            $(".inner-switch" ).text( "ON" );
+            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';';
+          }
+          else {
+            $(".inner-switch" ).text( "OFF" );
+            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';';
+          }
+        });
+
+        c = getCookie("dark");
+        if (c == "true"){
+          $("body").addClass("dark");
+          $(".inner-switch" ).text( "ON" );
+        }
+
+        $(document).mouseup(function(e) {
+          var container = $("#chat");
+
+          if (!container.is(e.target) && container.has(e.target).length === 0 && !$(".init").is(e.target))
+          {
+            container.hide();
+          }
+        });
+      });
+    </script>
+
+  </head>
+  <body  onload='count();load()'>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
+      <a class="navbar-brand" href="#"></a>
+      <a class="navbar-brand" href="#">
+        <img id="brand" src="static/fav.png" width="40" height="40" alt="" style="margin: 0;">
+        COVID INFO
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href='/'><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tips"><i class="fas fa-question"></i> Tips and Tricks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/graphs"><i class="fas fa-signal"></i>  Graphs</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/india">India Statistics</a>
+          </li>
+        </ul>
+
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+      </div>
+    </nav>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 
 </body>
 </html>
