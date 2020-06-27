@@ -221,6 +221,10 @@ def country_daily_data():
         daily.save()
 
 
+def get_csv_data():
+    df = pd.DataFrame(list(DailyData.objects.filter(country='World').values()))
+    df.to_csv('country_data.csv')
+
 class Command(BaseCommand):
 
     def add_arguments(self, parser):
@@ -243,3 +247,5 @@ class Command(BaseCommand):
             scrape_country_news()
         elif id == 'country_news_specific':
             country_news_specific(options['scrape_id'][1])
+        elif id == 'get_csv':
+            get_csv_data()
