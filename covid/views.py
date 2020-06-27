@@ -234,4 +234,12 @@ def state(request, state_name):
 
 def predictions(request):
 
+    list = []
+
+    for country in CountryData.objects.all():
+
+        list.append(country.name)
+
+    print(list)
+
     return render(request,'predict.html')
