@@ -311,16 +311,21 @@
       <span class="inner-switch" style="background-color: green; color: white;">OFF</span>
     </div>
 
-  <select>
 
+    <div class="dropdown" style="margin-left:600px;margin-top:80px;width:150px;">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select a country
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
     {% for country in countries %}
 
-    <option value={{country}}>{{country}}</option>
-
+    <a class="dropdown-item" href="#">{{country}}</a>
 
     {% endfor %}
-    </select>
+
+  </div>
+</div>
         <iframe
       allow="microphone;"
       width="350"
