@@ -111,10 +111,13 @@ def predictions2(country):
     m = Prophet(changepoint_prior_scale=5, interval_width=1)
     m.fit(df)
     
-    future = m.make_future_dataframe(periods=5)
+    future = m.make_future_dataframe(periods=15)
     forecast = m.predict(future)
-    updated_forecast = forecast[['ds', 'yhat', 'yhat_upper', 'trend_upper']]
-    return updated_forecast
+    updated_forecast = forecast[['ds', 'yhat_upper']]
+
+    tail_updated_forecast = updated_forecast.tail(15)
+    tail_updated_forecast.set_index('ds', inplace=True)
+    return tail_updated_forecast
 
 
 def predict_country(country):
