@@ -102,36 +102,27 @@ def district_daily_data(state, district):
 
 def predictions(country):
     data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
-
-    india_data = data[country]
-
-    df = pd.DataFrame(india_data)
-
+    
+    country_data = data[country]
+    
+    df = pd.DataFrame(country_data)
     df.rename(columns={'date': 'ds', 'confirmed': 'y'}, inplace=True)
-
-    new_df = pd.read_csv('country_data.csv')
-
+    
     m = Prophet(changepoint_prior_scale=5, interval_width=1)
-
     m.fit(df)
-
+    
     future = m.make_future_dataframe(periods=5)
-
     forecast = m.predict(future)
-
     updated_forecast = forecast[['ds', 'yhat', 'yhat_upper', 'trend_upper']]
-
     return updated_forecast
 
+
 def predict_country(country):
-
     df = predictions(country)
-
     df = df.to_json()
-
     df.rename(columns={'ds':'dates','y':'predictions'},inplace=True)
-
     return df
+
 
 def home(request):
     world_data = scrape_world()
