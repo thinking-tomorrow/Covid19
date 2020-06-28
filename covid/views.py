@@ -6,6 +6,8 @@ import requests
 from os import path
 from bs4 import BeautifulSoup
 from datetime import datetime
+from fbprophet import Prophet
+import pandas as pd
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
                 "S. Korea": "Korea South", "Czechia": "Czech Republic", "North Macedonia": "Macedonia", 
@@ -97,6 +99,29 @@ def district_daily_data(state, district):
     deceased  = [x["deceased"] for x in data_daily]
 
     return {'date': date, 'active': active, 'confirmed': confirmed, 'recovered': recovered, 'deceased': deceased}
+
+def predictions(country):
+    data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
+
+    india_data = data[country]
+
+    df = pd.DataFrame(india_data)
+
+    df.rename(columns={'date': 'ds', 'confirmed': 'y'}, inplace=True)
+
+    new_df = pd.read_csv('country_data.csv')
+
+    m = Prophet(changepoint_prior_scale=5, interval_width=1)
+
+    m.fit(df)
+
+    future = m.make_future_dataframe(periods=5)
+
+    forecast = m.predict(future)
+
+    updated_forecast = forecast[['ds', 'yhat', 'yhat_upper', 'trend_upper']]
+
+    return updated_forecast
 
 
 def home(request):
