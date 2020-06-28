@@ -123,6 +123,13 @@ def predictions(country):
 
     return updated_forecast
 
+def predict_country(country):
+
+    df = predictions(country)
+
+    df = df.to_json()
+
+    return df
 
 def home(request):
     world_data = scrape_world()
