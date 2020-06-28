@@ -84,6 +84,21 @@
       .init:hover{
         background-color: #008bc2;
       }
+
+              .table.sticky th{
+          position: sticky;
+          top: 70px;
+          background-color: white;
+        }
+
+        .table{
+            width:20%;
+          border-collapse:separate;
+          border:solid black 1px;
+          border-radius:6px;
+
+        }
+
     </style>
 
     <script>
@@ -201,6 +216,7 @@
     </div>
 
 
+<<<<<<< HEAD
     <!--<div class="dropdown" style="margin-left:600px;margin-top:80px;width:150px;">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a country</button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -220,6 +236,44 @@
     </center>
 
     <iframe
+=======
+    <div class="dropdown" style="margin-left:600px;margin-top:80px;width:150px;">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Select a country
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+    {% for country in countries %}
+
+    <a class="dropdown-item" href="#">{{country}}</a>
+
+    {% endfor %}
+
+  </div>
+</div>
+
+    <center>
+      <table class="table table-striped table-dark sticky" id="myTable" style="margin-top:100px;">
+        <thead class="thead-light">
+          <tr name="head">
+            <th id="name">Date<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="total">Projected<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>ABCD</td>
+            <td>1000000</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </center>
+        <iframe
+>>>>>>> 59d45080fd7f2d6b5c8217b67376c55a33a93bf5
       allow="microphone;"
       width="350"
       height="430"
