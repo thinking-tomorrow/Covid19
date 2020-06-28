@@ -100,7 +100,7 @@ def district_daily_data(state, district):
 
     return {'date': date, 'active': active, 'confirmed': confirmed, 'recovered': recovered, 'deceased': deceased}
 
-def predictions(country):
+def predictions2(country):
     data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
     
     country_data = data[country]
@@ -118,10 +118,10 @@ def predictions(country):
 
 
 def predict_country(country):
-    df = predictions(country)
-    df = df.to_json()
+    df = predictions2(country)
     df.rename(columns={'ds':'dates','y':'predictions'},inplace=True)
-    return df
+    df = df.to_json()
+    return {'data':df}
 
 
 def home(request):

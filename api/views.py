@@ -143,4 +143,4 @@ def webhook(request):
 
 def predict(request, country):
     data = cv.predict_country(country)
-    return JsonResponse({'data': data})
+    return JsonResponse(data)
