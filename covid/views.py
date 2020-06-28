@@ -116,7 +116,9 @@ def predictions2(country):
     updated_forecast = forecast[['ds', 'yhat_upper']]
 
     tail_updated_forecast = updated_forecast.tail(15)
+
     tail_updated_forecast.set_index('ds', inplace=True)
+
     return tail_updated_forecast
 
 
