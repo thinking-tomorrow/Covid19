@@ -129,6 +129,8 @@ def predict_country(country):
 
     df = df.to_json()
 
+    df.rename(columns={'ds':'dates','y':'predictions'},inplace=True)
+
     return df
 
 def home(request):
