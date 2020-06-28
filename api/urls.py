@@ -9,5 +9,6 @@ urlpatterns = [
     path('api/india/<str:state_name>',views.state,name='state'),
     path('api/webhook', views.webhook, name='webhook'),
     path('api/world', views.world, name='world'),
-    path('api/world_daily/<str:date>', views.world_daily, name='world_daily')
+    path('api/world_daily/<str:date>', views.world_daily, name='world_daily'),
+    path('api/predict/<str:country>', views.predict, name='predict')
 ]

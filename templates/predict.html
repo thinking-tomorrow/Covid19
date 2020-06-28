@@ -141,6 +141,15 @@
             container.hide();
           }
         });
+
+        $("#country").change(function(){
+          country = $("#country").find(":selected").text();
+          url = "api/predict/"+country;
+
+          $.get(url, function(data, status){
+            console.log(data);
+          });
+        });
       });
     </script>
 
@@ -192,21 +201,25 @@
     </div>
 
 
-    <div class="dropdown" style="margin-left:600px;margin-top:80px;width:150px;">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Select a country
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <!--<div class="dropdown" style="margin-left:600px;margin-top:80px;width:150px;">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select a country</button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% for country in countries %}
+          <a class="dropdown-item" href="#">{{country}}</a>
+        {% endfor %}
+      </div>
+    </div>-->
 
-    {% for country in countries %}
+    <center>
+      <select id="country" name="country">
+        <option value="World">World</option>
+        {% for country in countries %}
+          <option value="{{country}}">{{country}}</option>
+        {% endfor %}
+      </select>
+    </center>
 
-    <a class="dropdown-item" href="#">{{country}}</a>
-
-    {% endfor %}
-
-  </div>
-</div>
-        <iframe
+    <iframe
       allow="microphone;"
       width="350"
       height="430"
@@ -216,7 +229,7 @@
 
     <i class="far fa-comments fa-3x init"></i>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 

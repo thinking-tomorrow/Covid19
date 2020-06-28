@@ -139,3 +139,7 @@ def webhook(request):
         reply = {'status': 'failed'}
 
     return JsonResponse(reply)
+
+
+def predict(request, country):
+    return JsonResponse({'country': country})
