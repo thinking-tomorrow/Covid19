@@ -112,6 +112,16 @@ def predictions2(country):
 
         country = 'World'
 
+    elif country == 'United States':
+
+        country = 'US'
+
+        data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
+
+        country_data = data[country]
+
+        country = 'Other'
+
     else:
 
         data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
