@@ -156,18 +156,24 @@
         });
 
         $("#country").change(function(){
-          country = $("#country").find(":selected").text();
+	  //$("#tableBody tr").remove();	  
+          $("#myTable").find("tr:gt(0)").remove();
+	  country = $("#country").find(":selected").text();
           url = "api/predict/"+country;
 
           $.get(url, function(data, status){
 	    d = JSON.parse(data['data']);
-	    console.log(d);
-
+	    
+	    dates = d['ds'];
 	    predictions = d['predictions'];
-
-	    /**for(i=0; i<predictions.length;i++){
-	      console.log(predictions[i]);
-	    }**/
+	
+	    for(date in dates){
+	      date_new = new Date(dates[date]);
+	      date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
+	      prediction_new = Math.round(predictions[date]);
+	      console.log(new Date(dates[date]), predictions[date]);
+	      $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
+	    }
           });
         });
       });
@@ -246,11 +252,8 @@
           </tr>
         </thead>
 
-        <tbody>
-          <tr>
-            <td>ABCD</td>
-            <td>1000000</td>
-          </tr>
+        <tbody id="tableBody">
+
         </tbody>
       </table>
     </center>
