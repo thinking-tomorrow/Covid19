@@ -124,7 +124,7 @@ def predictions2(country):
 
 def predict_country(country):
     df = predictions2(country)
-    df.rename(columns={'ds':'dates','y':'predictions'},inplace=True)
+    df.rename(columns={'ds':'dates','yhat_upper':'predictions'},inplace=True)
     df = df.to_json()
     return {'data':df}
 
