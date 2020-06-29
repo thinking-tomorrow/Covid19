@@ -101,7 +101,18 @@ def district_daily_data(state, district):
     return {'date': date, 'active': active, 'confirmed': confirmed, 'recovered': recovered, 'deceased': deceased}
 
 def predictions2(country):
-    data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
+
+    if country == 'World':
+
+        world = DailyData.objects.filter(country='World')
+
+        world_values = world.values('date','totalcase')
+
+        data = pd.DataFrame.from_records(world_values)
+
+    else:
+
+        data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
     
     country_data = data[country]
     
