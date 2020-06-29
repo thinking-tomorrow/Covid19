@@ -92,7 +92,7 @@
       }
 
       .table{
-        width:50%;
+        width:60%;
         border-collapse:separate;
         border:solid black 1px;
         border-radius:6px;
@@ -123,7 +123,26 @@
         return "";
       }
 
+      function load_prediction(country){
+	url = "api/predict/"+country;
+
+        $.get(url, function(data, status){
+	  d = JSON.parse(data['data']);
+	    
+	  dates = d['ds'];
+	  predictions = d['predictions'];
+	
+	  for(date in dates){
+	    date_new = new Date(dates[date]);
+	    date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
+	    prediction_new = Math.round(predictions[date]);
+	    $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
+	  }
+        });
+      }
+
       $(document).ready(function() {
+	load_prediction('World');
         $( ".inner-switch" ).on("click", function() {
           $("body").toggleClass("dark");
 
@@ -156,25 +175,9 @@
         });
 
         $("#country").change(function(){
-	  //$("#tableBody tr").remove();	  
-          $("#myTable").find("tr:gt(0)").remove();
+	  $("#myTable").find("tr:gt(0)").remove();
 	  country = $("#country").find(":selected").text();
-          url = "api/predict/"+country;
-
-          $.get(url, function(data, status){
-	    d = JSON.parse(data['data']);
-	    
-	    dates = d['ds'];
-	    predictions = d['predictions'];
-	
-	    for(date in dates){
-	      date_new = new Date(dates[date]);
-	      date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
-	      prediction_new = Math.round(predictions[date]);
-	      console.log(new Date(dates[date]), predictions[date]);
-	      $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
-	    }
-          });
+          load_prediction(country);
         });
       });
     </script>
@@ -247,8 +250,8 @@
       <table class="table table-striped table-dark sticky" id="myTable" style="margin-top:100px;">
         <thead class="thead-light">
           <tr name="head">
-            <th id="name">Date<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
-            <th id="total">Projected<i class="fas fa-sort-up"></i><i class="fas fa-sort-down"></i></th>
+            <th id="name">Date</th>
+            <th id="total">Projected</th>
           </tr>
         </thead>
 
