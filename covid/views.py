@@ -110,6 +110,8 @@ def predictions2(country):
 
         country_data = pd.DataFrame.from_records(world_values)
 
+        country_data.rename(columns={'date':'ds','totalcase':'y'})
+
     else:
 
         data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
