@@ -117,9 +117,11 @@ def predictions2(country):
         data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
     
         country_data = data[country]
+
+        country_data.rename(columns={'confirmed':'totalcase'},inplace=True)
     
     df = pd.DataFrame(country_data)
-    df.rename(columns={'date': 'ds', 'confirmed': 'y'}, inplace=True)
+    df.rename(columns={'date': 'ds', 'totalcase': 'y'}, inplace=True)
     
     m = Prophet(changepoint_prior_scale=5, interval_width=1)
     m.fit(df)
