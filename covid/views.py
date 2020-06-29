@@ -110,7 +110,7 @@ def predictions2(country):
 
         country_data = pd.DataFrame.from_records(world_values)
 
-        country='World'
+        country_data.rename(columns={'date':'ds','totalcase':'y'})
 
     else:
 
@@ -118,17 +118,10 @@ def predictions2(country):
     
         country_data = data[country]
 
-        country = 'Other'
+        country_data.rename(columns={'confirmed':'totalcase'},inplace=True)
     
     df = pd.DataFrame(country_data)
-
-    if country == 'World':
-
-        df.rename(columns={'date': 'ds', 'totalcase': 'y'}, inplace=True)
-
-    else:
-
-        df.rename(columns={'date':'ds','confirmed':'y'},inplace=True)
+    df.rename(columns={'date': 'ds', 'totalcase': 'y'}, inplace=True)
     
     m = Prophet(changepoint_prior_scale=5, interval_width=1)
     m.fit(df)

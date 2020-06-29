@@ -160,7 +160,14 @@
           url = "api/predict/"+country;
 
           $.get(url, function(data, status){
-            console.log(data);
+	    d = JSON.parse(data['data']);
+	    console.log(d);
+
+	    predictions = d['predictions'];
+
+	    /**for(i=0; i<predictions.length;i++){
+	      console.log(predictions[i]);
+	    }**/
           });
         });
       });
