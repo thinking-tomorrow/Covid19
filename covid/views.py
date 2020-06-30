@@ -6,7 +6,7 @@ import requests
 from os import path
 from bs4 import BeautifulSoup
 from datetime import datetime
-from fbprophet import Prophet
+#from fbprophet import Prophet
 import pandas as pd
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
@@ -99,7 +99,12 @@ def district_daily_data(state, district):
     deceased  = [x["deceased"] for x in data_daily]
 
     return {'date': date, 'active': active, 'confirmed': confirmed, 'recovered': recovered, 'deceased': deceased}
+<<<<<<< HEAD
 
+=======
+'''
+def predictions2(country):
+>>>>>>> 6d9aa8f64b360208da43e5e39844e4578448a32f
 
 def predictions2(country):
     if country == 'World':
@@ -155,7 +160,7 @@ def predict_country(country):
 
     else:
         return {'data':'failed'}
-
+'''
 def home(request):
     world_data = scrape_world()
 
