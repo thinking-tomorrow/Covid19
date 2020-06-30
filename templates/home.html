@@ -695,11 +695,6 @@ Highcharts.setOptions(Highcharts.theme);
     }
 },
 
-            legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
-    },
 
 
             yAxis: {
@@ -753,7 +748,7 @@ Highcharts.setOptions(Highcharts.theme);
     },
             tooltip: {
     formatter: function() {
-        return 'The value for <b>' + labels[this.x - 1] + '</b> is <b>' + this.y + '</b>, New Cases' ;
+        return labels[this.x - 1] + ':' + this.y + '</b> New Cases' ;
     }
 },
 
@@ -787,9 +782,9 @@ Highcharts.setOptions(Highcharts.theme);
     }
 
     },
-                      tooltip: {
+            tooltip: {
     formatter: function() {
-        return 'The value for <b>' + labels[this.x - 1] + '</b> is <b>' + this.y + '</b>, New Deaths' ;
+        return labels[this.x - 1] + ':' + this.y + '</b> New Cases' ;
     }
 },
 
@@ -825,10 +820,9 @@ Highcharts.setOptions(Highcharts.theme);
     }
 
     },
-
-                      tooltip: {
+            tooltip: {
     formatter: function() {
-        return 'The value for <b>' + labels[this.x - 1] + '</b> is <b>' + this.y + '</b>, New Cases' ;
+        return labels[this.x - 1] + ':' + this.y + '</b> New Cases' ;
     }
 },
 
