@@ -157,9 +157,13 @@ def predictions2(country):
 
 
 def predict_country(country):
-    countries = [country.name for country in CountryData.objects.all()]
+    url = "https://pomber.github.io/covid19/timeseries.json"
+    countries = requests.get(url).json()
+    x = country
+    r = [country for country in countries if country == x]
+    print(r)
 
-    if country in countries :
+    if len(r) != 0:
         df = predictions2(country)
         df.rename(columns={'ds':'dates','yhat_upper':'predictions'},inplace=True)
         df.reset_index(inplace=True)
