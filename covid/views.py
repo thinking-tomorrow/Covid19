@@ -6,7 +6,7 @@ import requests
 from os import path
 from bs4 import BeautifulSoup
 from datetime import datetime
-#from fbprophet import Prophet
+from fbprophet import Prophet
 import pandas as pd
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
