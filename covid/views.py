@@ -157,12 +157,17 @@ def predictions2(country):
 
 
 def predict_country(country):
-    df = predictions2(country)
-    df.rename(columns={'ds':'dates','yhat_upper':'predictions'},inplace=True)
-    df.reset_index(inplace=True);
-    df = df.to_json()
-    return {'data':df}
+    countries = [country.name for country in CountryData.objects.all()]
 
+    if country in countries :
+        df = predictions2(country)
+        df.rename(columns={'ds':'dates','yhat_upper':'predictions'},inplace=True)
+        df.reset_index(inplace=True)
+        df = df.to_json()
+        return {'data':df}
+
+    else:
+        return {'data':'failed'}
 
 def home(request):
     world_data = scrape_world()
