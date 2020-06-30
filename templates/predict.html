@@ -124,25 +124,25 @@
       }
 
       function load_prediction(country){
-	url = "api/predict/"+country;
+      	url = "api/predict/"+country;
 
         $.get(url, function(data, status){
-	  d = JSON.parse(data['data']);
-	    
-	  dates = d['ds'];
-	  predictions = d['predictions'];
-	
-	  for(date in dates){
-	    date_new = new Date(dates[date]);
-	    date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
-	    prediction_new = Math.round(predictions[date]);
-	    $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
-	  }
+          d = JSON.parse(data['data']);
+            
+          dates = d['ds'];
+          predictions = d['predictions'];
+        
+          for(date in dates){
+            date_new = new Date(dates[date]);
+            date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
+            prediction_new = Math.round(predictions[date]);
+            $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
+          }
         });
       }
 
       $(document).ready(function() {
-	load_prediction('World');
+	      load_prediction('World');
         $( ".inner-switch" ).on("click", function() {
           $("body").toggleClass("dark");
 
@@ -175,8 +175,8 @@
         });
 
         $("#country").change(function(){
-	  $("#myTable").find("tr:gt(0)").remove();
-	  country = $("#country").find(":selected").text();
+          $("#myTable").find("tr:gt(0)").remove();
+          country = $("#country").find(":selected").text();
           load_prediction(country);
         });
       });
@@ -217,6 +217,9 @@
           </li>
             <li class="nav-item">
             <a class="nav-link" href="/india">India Statistics</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/predictions"><i class="fas fa-chart-line"></i> Predictions</a>
           </li>
         </ul>
 
