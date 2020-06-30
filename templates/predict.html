@@ -132,14 +132,13 @@
       function load_prediction(country){
       	url = "api/predict/"+country;
 
-        $.get(url, function(data, status){
-          d = JSON.parse(data['data']);
-
-          if (d!='failed'){
-              
+        $.get(url, function(data, status){          
+          if(data['data']!='failed'){
+            d = JSON.parse(data['data']);
+            
             dates = d['ds'];
             predictions = d['predictions'];
-          
+        
             for(date in dates){
               date_new = new Date(dates[date]);
               date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
@@ -148,10 +147,10 @@
             }
           }
           else{
-            $('#myTable tr:last').after('<tr><td>Sorry! No record found.</td><td>');
+              $('#myTable tr:last').after('<tr><td>Sorry! No result found.</td><td>');
           }
-        });
-      }
+        });      
+       }
 
       $(document).ready(function() {
 	      load_prediction('World');
@@ -232,6 +231,9 @@
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="/predictions"><i class="fas fa-chart-line"></i> Predictions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blog"><i class="far fa-newspaper"></i> Blog</a>
           </li>
         </ul>
 

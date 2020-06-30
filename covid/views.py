@@ -6,7 +6,7 @@ import requests
 from os import path
 from bs4 import BeautifulSoup
 from datetime import datetime
-#from fbprophet import Prophet
+from fbprophet import Prophet
 import pandas as pd
 
 country_dict = {"USA": "United States of America", "UK": "United Kingdom", "UAE": "United Arab Emirates", 
@@ -99,47 +99,27 @@ def district_daily_data(state, district):
     deceased  = [x["deceased"] for x in data_daily]
 
     return {'date': date, 'active': active, 'confirmed': confirmed, 'recovered': recovered, 'deceased': deceased}
-'''
+
 def predictions2(country):
-
     if country == 'World':
-
         world = DailyData.objects.filter(country='World')
-
         world_values = world.values('date','totalcase')
-
         country_data = pd.DataFrame.from_records(world_values)
-
         country = 'World'
-
-    elif country == 'United States':
-
-        country = 'US'
-
-        data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
-
-        country_data = data[country]
-
-        country = 'Other'
-
     else:
-
+        if country == 'United States':
+            country='US'
         data = requests.get('https://pomber.github.io/covid19/timeseries.json').json()
-    
         country_data = data[country]
-
         country = 'Other'
 
 
     
     df = pd.DataFrame(country_data)
-
+    
     if country == 'World':
-
         df.rename(columns={'date': 'ds', 'totalcase': 'y'}, inplace=True)
-
     else:
-
         df.rename(columns={'date': 'ds', 'confirmed': 'y'}, inplace=True)
 
     m = Prophet(changepoint_prior_scale=5, interval_width=1)
@@ -159,10 +139,12 @@ def predictions2(country):
 def predict_country(country):
     url = "https://pomber.github.io/covid19/timeseries.json"
     countries = requests.get(url).json()
+    countries['World'] = True
+    countries['US'] = True
+
     x = country
     r = [country for country in countries if country == x]
-    print(r)
-
+    
     if len(r) != 0:
         df = predictions2(country)
         df.rename(columns={'ds':'dates','yhat_upper':'predictions'},inplace=True)
@@ -172,7 +154,7 @@ def predict_country(country):
 
     else:
         return {'data':'failed'}
-'''
+
 def home(request):
     world_data = scrape_world()
 
