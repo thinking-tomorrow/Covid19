@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'covid',
     'rest_framework',
     'api',
+    'blog',
 ]
 
 MIDDLEWARE = [
