@@ -132,24 +132,23 @@
       function load_prediction(country){
       	url = "api/predict/"+country;
 
-        $.get(url, function(data, status){
-          
-	  if(data['data']!='failed'){
-	    d = JSON.parse(data['data']);
-	    
-	    dates = d['ds'];
-	    predictions = d['predictions'];
-	
-	    for(date in dates){
-	      date_new = new Date(dates[date]);
-	      date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
-	      prediction_new = Math.round(predictions[date]);
-	      $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
-	    }
-	   }
-	   else{
-	      $('#myTable tr:last').after('<tr><td>Sorry! No result found.</td><td>');
-	   }
+        $.get(url, function(data, status){          
+          if(data['data']!='failed'){
+            d = JSON.parse(data['data']);
+            
+            dates = d['ds'];
+            predictions = d['predictions'];
+        
+            for(date in dates){
+              date_new = new Date(dates[date]);
+              date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
+              prediction_new = Math.round(predictions[date]);
+              $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
+            }
+          }
+          else{
+              $('#myTable tr:last').after('<tr><td>Sorry! No result found.</td><td>');
+          }
         });      
        }
 
@@ -232,6 +231,9 @@
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="/predictions"><i class="fas fa-chart-line"></i> Predictions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blog"><i class="far fa-newspaper"></i> Blog</a>
           </li>
         </ul>
 
