@@ -1,51 +1,111 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
-<head>
-    <title>My Blog</title>
+<html lang="en">
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- My Style Sheets -->
+    <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- Font Awesome Script -->
+    <script src="https://kit.fontawesome.com/74ba14d0ba.js" crossorigin="anonymous"></script>
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<div class="container">
+    <title>Covid Info</title>
+  </head>
 
-<div class="col-md-8 offset-md-2">
-    <h1>{{ post.title }}</h1>
-    <small>
-        {{ post.created_on.date }} |&nbsp;
-        Categories:&nbsp;
-        {% for category in post.categories.all %}
-        <a href="{% url 'blog_category' category.name %}">
-            {{ category.name }}
-        </a>&nbsp;
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
+      <a class="navbar-brand" href="#"></a>
+      <a class="navbar-brand" href="#">
+        <img id="brand" src="../static/fav.png" width="40" height="40" alt="" style="margin: 0;">
+        COVID INFO
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href='/'><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/world"><i class="fas fa-globe"></i>World</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/country"><i class="fas fa-flag"></i>  Country-Wise</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tips"><i class="fas fa-question"></i> Tips and Tricks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about"><i class="fas fa-address-card"></i> About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/graphs"><i class="fas fa-signal"></i>  Graphs</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/india">India Statistics</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/predictions"><i class="fas fa-chart-line"></i> Predictions</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/blog"><i class="far fa-newspaper"></i> Blog</a>
+          </li>
+        </ul>
+
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank"><i class="far fa-envelope-open fa-2x" style="color: white; margin-right: 10px"></i></a>
+        <a href="https://github.com/thinking-tomorrow" target="_blank"><i class="fab fa-github fa-2x" style="color: white; margin-right: 10px"></i></a>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="col-md-8 offset-md-2">
+        <h1>{{ post.title }}</h1>
+        
+        <small>
+          {{ post.created_on.date }} |&nbsp; Categories:&nbsp;
+          {% for category in post.categories.all %}
+            <a href="{% url 'blog_category' category.name %}">{{ category.name }}</a>&nbsp;
+          {% endfor %}
+        </small>
+      
+        <p>{{ post.body | linebreaks }}</p>
+        
+        <h3>Leave a comment:</h3>
+        
+        <form action="/blog/{{ post.pk }}/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.author }}
+            </div>
+            <div class="form-group">
+                {{ form.body }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    
+        <h3>Comments:</h3>
+        {% for comment in comments %}
+          <p>On {{comment.created_on.date }}&nbsp;<b>{{ comment.author }}</b> wrote:</p>
+          <p>{{ comment.body }}</p>
+          <hr>
         {% endfor %}
-    </small>
-    <p>{{ post.body | linebreaks }}</p>
-    <h3>Leave a comment:</h3>
-    <form action="/blog/{{ post.pk }}/" method="post">
-        {% csrf_token %}
-        <div class="form-group">
-            {{ form.author }}
-        </div>
-        <div class="form-group">
-            {{ form.body }}
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <h3>Comments:</h3>
-    {% for comment in comments %}
-    <p>
-        On {{comment.created_on.date }}&nbsp;
-        <b>{{ comment.author }}</b> wrote:
-    </p>
-    <p>{{ comment.body }}</p>
-    <hr>
-    {% endfor %}
-</div>
+      </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
