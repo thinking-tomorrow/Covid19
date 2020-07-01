@@ -199,11 +199,11 @@
 
           if( $( "body" ).hasClass( "dark" )) {
             $(".inner-switch" ).text( "ON" );
-            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';';
+            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + '; path=/';
           }
           else {
             $(".inner-switch" ).text( "OFF" );
-            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';';
+            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + '; path=/';
           }
         });
         c = getCookie("dark");
