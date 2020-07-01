@@ -21,9 +21,127 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <title>Covid Info</title>
+
+    <style>
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #161625!important;
+          color: #e6e6e6;
+        }
+      }
+      .switch {
+        align-self: flex-end;
+        margin: 0.9375rem;
+      }
+      .inner-switch {
+        display: inline-block;
+        cursor: pointer;
+        border: 1px solid #555;
+        border-radius: 1.25rem;
+        width: 3.125rem;
+        text-align: center;
+        font-size: 1rem;
+        padding: 0.1875rem;
+        margin-left: 0.3125rem;
+      }
+
+      /* Rounded sliders */
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .dark{
+        background-color: #161625!important;
+        color: #e6e6e6;
+        border-color: #161625!important;
+      }
+
+      #chat{
+        display: none;
+        position: fixed;
+        bottom: 85px;
+        right: 10px;
+      }
+
+      .init{
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        padding: 10px;
+        color: white;
+        background-color: #33c5ff;
+        border-radius: 10cm;
+        cursor: pointer;
+      }
+
+      .init:hover{
+        background-color: #008bc2;
+      }
+    </style>
+
+    <script>
+      $(document).ready(function(){
+        $(".init").click(function() {
+          $("#chat").toggle();
+        });			
+      });
+
+      function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
+        }
+        return "";
+      }
+     
+      $(document).ready(function() {
+        $( ".inner-switch" ).on("click", function() {
+          $("body").toggleClass("dark");
+
+          var CookieDate = new Date;
+          CookieDate.setFullYear(CookieDate.getFullYear() +10);
+
+          if( $( "body" ).hasClass( "dark" )) {
+            $(".inner-switch" ).text( "ON" );
+            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';';
+          }
+          else {
+            $(".inner-switch" ).text( "OFF" );
+            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';';
+          }
+        });
+
+        c = getCookie("dark");
+        if (c == "true"){
+          $("body").addClass("dark");
+          $(".inner-switch" ).text( "ON" );
+        }
+
+        $(document).mouseup(function(e) {
+          var container = $("#chat");
+
+          if (!container.is(e.target) && container.has(e.target).length === 0 && !$(".init").is(e.target)) 
+          {
+            container.hide();
+          }
+        });
+      });
+    </script>
   </head>
 
   <body>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1">
       <a class="navbar-brand" href="#"></a>
       <a class="navbar-brand" href="#">
@@ -70,6 +188,10 @@
       </div>
     </nav>
 
+    <div class="switch">Dark mode:
+      <span class="inner-switch" style="background-color: green; color: white;">OFF</span>
+    </div>
+
 
     <div class="container">
       <div class="col-md-8 offset-md-2">
@@ -90,6 +212,16 @@
         {% endfor %}
       </div>
     </div>
+
+    <iframe
+      allow="microphone;"
+      width="350"
+      height="430"
+      src="https://console.dialogflow.com/api-client/demo/embedded/4e788627-f4b9-46bc-9650-d15dd825ca16"
+      id="chat">
+    </iframe>
+
+    <i class="far fa-comments fa-3x init"></i>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

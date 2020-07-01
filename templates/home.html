@@ -155,42 +155,6 @@
         animateValue('recovery', recovery_count-1000, recovery_count, 5000);
       }
 
-      function load(){
-        datePickerId.max = new Date().toISOString().split("T")[0];
-        datePickerId.value = new Date().toISOString().split("T")[0];
-      }
-
-      function getDetail(){
-        input = document.getElementById('datePickerId');
-        input_date = new Date(input.value);
-        input_date.setHours(0, 0);
-
-        modal_body = document.getElementById("modal-body");
-        modal = document.getElementById("myModal");
-        var date;
-
-        for (i=0; i<labels.length; i++){
-          compa_date = new Date(labels[i]);
-
-          if (input_date.getTime() == compa_date.getTime()){
-            date = labels[i];
-            deaths = new_death[i];
-            cases = new_cases[i];
-            t_cases = total_cases[i];
-            t_death = total_deaths[i];
-          }
-        }
-
-        if (date){
-          modal_body.innerHTML = '<center>Date : ' + date + '<br>' + 'New Cases : ' + cases + "<br>" + "New Deaths : " + deaths + '<br>' + 'Total Cases : ' + t_cases + "<br>" + "Total Deaths : " + t_death + "</center>";
-        }
-        else{
-          modal_body.innerHTML = '<center><p class="text text-danger">No results found. Please give a date between 31/12/2020 to yesterday</p></center>';
-        }
-        $("#myModal").modal();
-
-      }
-
       var total_cases = [];
       var total_deaths = [];
       var new_death = [];
