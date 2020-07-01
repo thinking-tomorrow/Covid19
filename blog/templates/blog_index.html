@@ -194,7 +194,7 @@
 
     <div class="container">
       <div class="col-md-8 offset-md-2">
-        <h1>Covid Index</h1>
+        <h1>Covid Blog</h1>
         <hr>
         {% for post in posts %}
           <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
@@ -207,6 +207,7 @@
               {% endfor %}
           </small>
           <p>{{ post.body | slice:":400" }}...</p>
+          <hr>
         {% endfor %}
       </div>
     </div>
