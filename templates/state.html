@@ -228,12 +228,12 @@
           if( $( "body" ).hasClass( "dark" )) {
             $(".inner-switch" ).text( "ON" );
             $('.sidenav div').css('opacity', '1');
-            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';';
+            document.cookie = "dark=true; expires="+CookieDate.toGMTString() + ';path=/';
           }
           else {
             $(".inner-switch" ).text( "OFF" );
             $('.sidenav div').css('opacity', '0.8');
-            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';';
+            document.cookie = "dark=false; expires="+CookieDate.toGMTString() + ';path=/';
           }
         });
         c = getCookie("dark");
