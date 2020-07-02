@@ -197,17 +197,20 @@
         <h1>Covid Blog</h1>
         <hr>
         {% for post in posts %}
-          <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
-          <small>
-              {{ post.created_on.date }} |&nbsp;Categories:&nbsp;
-              {% for category in post.categories.all %}
-                <a href="{% url 'blog_category' category.name %}">
-                  {{ category.name }}
-                </a>&nbsp;
-              {% endfor %}
-          </small>
-          <p>{{ post.body | slice:":400" }}...</p>
-          <hr>
+	  <img src="../media/{{post.image}}" width="200" height="100" style="float: right; margin-left: 10px;">
+	  <div>
+            <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
+            <small>
+                {{ post.created_on.date }} |&nbsp;Categories:&nbsp;
+                {% for category in post.categories.all %}
+                  <a href="{% url 'blog_category' category.name %}">
+                    {{ category.name }}
+                  </a>&nbsp;
+                {% endfor %}
+            </small>
+            <p>{{ post.body | slice:":400" }}...</p>
+            <hr>
+	  </div>
         {% endfor %}
       </div>
     </div>
