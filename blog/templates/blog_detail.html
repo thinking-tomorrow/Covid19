@@ -202,6 +202,8 @@
             <a href="{% url 'blog_category' category.name %}">{{ category.name }}</a>&nbsp;
           {% endfor %}
         </small>
+
+        <img src="{{post.image}}" alt="" width="" height="">
       
         <p>{{ post.body | linebreaks }}</p>
         
