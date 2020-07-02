@@ -194,20 +194,40 @@
     <div class="container">
 
       <div class="col-md-8 offset-md-2">
-        <h1>{{ post.title }}</h1>
+        <div>
+          <h1>{{ post.title }}</h1>
         
-        <small>
-          {{ post.created_on.date }} |&nbsp; Categories:&nbsp;
-          {% for category in post.categories.all %}
-            <a href="{% url 'blog_category' category.name %}">{{ category.name }}</a>&nbsp;
-          {% endfor %}
-        </small>
+          <small>
+            {{ post.created_on.date }} |&nbsp; Categories:&nbsp;
+            {% for category in post.categories.all %}
+              <a href="{% url 'blog_category' category.name %}">{{ category.name }}</a>&nbsp;
+            {% endfor %}
+          </small>
+        </div>
 
-        <img src="{{post.image}}" alt="" width="" height="">
+	<br>	
+
+	<center>
+          <img src="../../media/{{post.image}}" alt="" width="" height="">
+	</center>
       
         <p>{{ post.body | linebreaks }}</p>
         
-        <h3>Leave a comment:</h3>
+	<hr><br><br>
+    	
+	{% if comments%}
+	  <div style="border-radius: 10px; border: 1px solid rgb(255, 252, 207); background-color: rgb(255, 254, 237);padding: 10px;">
+            <h3>Comments:</h3>
+            {% for comment in comments %}
+              <p>On {{comment.created_on.date }}&nbsp;<b>{{ comment.author }}</b> wrote:</p>
+              <p>{{ comment.body }}</p>
+            {% endfor %}
+	  </div>
+	{% endif %}
+
+	<br><br>
+
+        <h4>Leave a comment:</h4>
         
         <form action="/blog/{{ post.pk }}/" method="post">
             {% csrf_token %}
@@ -219,13 +239,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    
-        <h3>Comments:</h3>
-        {% for comment in comments %}
-          <p>On {{comment.created_on.date }}&nbsp;<b>{{ comment.author }}</b> wrote:</p>
-          <p>{{ comment.body }}</p>
-          <hr>
-        {% endfor %}
+
       </div>
     </div>
 
