@@ -216,8 +216,8 @@
 	<hr><br><br>
     	
 	{% if comments%}
-	  <div style="border-radius: 10px; border: 1px solid rgb(255, 252, 207); background-color: rgb(255, 254, 237);padding: 10px;">
-            <h3>Comments:</h3>
+	  <div style="border-radius: 10px; border: 1px solid rgb(255, 254, 237); background-color: rgb(255, 252, 207);padding: 10px;">
+            <h3>({{no_comment}}) Comments:</h3>
             {% for comment in comments %}
               <p>On {{comment.created_on.date }}&nbsp;<b>{{ comment.author }}</b> wrote:</p>
               <p>{{ comment.body }}</p>
