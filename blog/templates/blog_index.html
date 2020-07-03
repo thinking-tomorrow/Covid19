@@ -63,13 +63,13 @@
         display: none;
         position: fixed;
         bottom: 85px;
-        right: 10px;
+        left: 10px;
       }
 
       .init{
         position: fixed;
         bottom: 10px;
-        right: 10px;
+        left: 10px;
         padding: 10px;
         color: white;
         background-color: #33c5ff;
@@ -197,19 +197,38 @@
         <h1>Covid Blog</h1>
         <hr>
         {% for post in posts %}
-          <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
-          <small>
-              {{ post.created_on.date }} |&nbsp;Categories:&nbsp;
-              {% for category in post.categories.all %}
-                <a href="{% url 'blog_category' category.name %}">
-                  {{ category.name }}
-                </a>&nbsp;
-              {% endfor %}
-          </small>
-          <p>{{ post.body | slice:":400" }}...</p>
-          <hr>
+	  <img src="../media/{{post.image}}" width="200" height="100" style="float: right; margin-left: 10px;">
+	  <div>
+            <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
+            <small>
+                {{ post.created_on.date }} |&nbsp;Categories:&nbsp;
+                {% for category in post.categories.all %}
+                  <a href="{% url 'blog_category' category.name %}">
+                    {{ category.name }}
+                  </a>&nbsp;
+                {% endfor %}
+            </small>
+            <p>{{ post.body | slice:":400" }}...</p>
+            <hr>
+	  </div>
         {% endfor %}
       </div>
+    </div>
+
+    <div style="padding-top: 220px;">
+    <hr>
+        <ul style="float: left; display: inline-block; ">
+        <p style="margin-left: 100px;color:gray;font-family:Verdana;">knowcovid.tk blog</p>
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank" style="margin-left: 100px;color:gray;font-family:Verdana;">thinkingtomorrow.2020@gmail.com</a>
+        </ul>
+
+        <ul style="float: left; display: inline-block; ">
+            <a href="https://github.com/thinking-tomorrow" target="_blank" style="margin-left: 100px;color:gray;font-family:Verdana;"><i class="fab fa-github"> Thinking Tomorrow</i></a>
+        </ul>
+        <ul style="float: left; display: inline-block; ">
+        <p style="margin-left: 100px;color:gray;font-family:Verdana;">A space to express some of our thoughts and opinions.</p>
+            <a href="https://knowcovid.tk/" target="_blank" style="margin-left: 100px;color:gray;font-family:Verdana;">knowcovid.tk</a>
+        </ul>
     </div>
 
     <iframe

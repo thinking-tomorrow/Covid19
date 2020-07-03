@@ -63,13 +63,13 @@
         display: none;
         position: fixed;
         bottom: 85px;
-        right: 10px;
+        left: 10px;
       }
 
       .init{
         position: fixed;
         bottom: 10px;
-        right: 10px;
+        left: 10px;
         padding: 10px;
         color: white;
         background-color: #33c5ff;
@@ -205,11 +205,29 @@
           </small>
         </div>
 
-        <img src="{{post.image}}" alt="" width="" height="">
+	<br>	
+
+	<center>
+          <img src="../../media/{{post.image}}" alt="" width="" height="">
+	</center>
       
         <p>{{ post.body | linebreaks }}</p>
         
-        <h3>Leave a comment:</h3>
+	<hr><br><br>
+    	
+	{% if comments%}
+	  <div style="border-radius: 10px; border: 1px solid rgb(255, 254, 237); background-color: rgb(255, 252, 207);padding: 10px;">
+            <h3>({{no_comment}}) Comments:</h3>
+            {% for comment in comments %}
+              <p>On {{comment.created_on.date }}&nbsp;<b>{{ comment.author }}</b> wrote:</p>
+              <p>{{ comment.body }}</p>
+            {% endfor %}
+	  </div>
+	{% endif %}
+
+	<br><br>
+
+        <h4>Leave a comment:</h4>
         
         <form action="/blog/{{ post.pk }}/" method="post">
             {% csrf_token %}
@@ -221,15 +239,26 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    
-        <h3>Comments:</h3>
-        {% for comment in comments %}
-          <p>On {{comment.created_on.date }}&nbsp;<b>{{ comment.author }}</b> wrote:</p>
-          <p>{{ comment.body }}</p>
-          <hr>
-        {% endfor %}
+
       </div>
     </div>
+
+    <div style="padding-top: 220px;">
+    <hr>
+        <ul style="float: left; display: inline-block; ">
+        <p style="margin-left: 100px;color:gray;font-family:Verdana;">knowcovid.tk blog</p>
+        <a href="mailto://thinkingtomorrow.2020@gmail.com" target="_blank" style="margin-left: 100px;color:gray;font-family:Verdana;">thinkingtomorrow.2020@gmail.com</a>
+        </ul>
+
+        <ul style="float: left; display: inline-block; ">
+            <a href="https://github.com/thinking-tomorrow" target="_blank" style="margin-left: 100px;color:gray;font-family:Verdana;"><i class="fab fa-github"> Thinking Tomorrow</i></a>
+        </ul>
+        <ul style="float: left; display: inline-block; ">
+        <p style="margin-left: 100px;color:gray;font-family:Verdana;">A space to express some of our thoughts and opinions.</p>
+            <a href="https://knowcovid.tk/" target="_blank" style="margin-left: 100px;color:gray;font-family:Verdana;">knowcovid.tk</a>
+        </ul>
+    </div>
+
 
     <iframe
       allow="microphone;"
