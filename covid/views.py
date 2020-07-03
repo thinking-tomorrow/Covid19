@@ -298,4 +298,4 @@ def predictions(request):
 
 
 def resources(request):
-    return render(request, 'resources.html')
+    return render(request, 'resource.html')
