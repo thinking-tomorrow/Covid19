@@ -16,5 +16,6 @@ urlpatterns = [
     path('graphs',views.graphs,name='graphs'),
     path('india',views.india, name="india"),
     path('india/<str:state_name>',views.state,name="india"),
-    path('predictions',views.predictions,name="predictions")
+    path('predictions',views.predictions,name="predictions"),
+    path('resources', views.resources, name='resources')
 ]

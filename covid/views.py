@@ -289,13 +289,13 @@ def state(request, state_name):
     return render(request,'state.html',{'state':state_name , 'districts' : districts, 'states_data':states_data , 'state_confirmed':state_data_confirmed, 'state_date':state_date, 'state_recovered':state_data_recovered, 'total_confirmed':total_confirmed})
 
 def predictions(request):
-
     countries = []
 
     for country in CountryData.objects.all():
-
         countries.append(country.name)
 
-    print(countries)
-
     return render(request,'predict.html',{'countries':countries})
+
+
+def resources(request):
+    return render(request, 'resources.html')
