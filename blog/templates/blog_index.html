@@ -80,6 +80,17 @@
       .init:hover{
         background-color: #008bc2;
       }
+      
+      .article-img{
+	float: right; margin-left: 10px;
+      }
+
+      @media only screen and (max-width: 600px) {
+	.article-img{
+	  float: none;
+	  margin: auto;
+        }
+      }
     </style>
 
     <script>
@@ -197,7 +208,7 @@
         <h1>Covid Blog</h1>
         <hr>
         {% for post in posts %}
-	  <img src="../media/{{post.image}}" width="200" height="100" style="float: right; margin-left: 10px;">
+	  <img src="../media/{{post.image}}" width="200" height="100" style="" class="article-img">
 	  <div>
             <h2><a href="{% url 'blog_detail' post.pk%}">{{ post.title }}</a></h2>
             <small>
