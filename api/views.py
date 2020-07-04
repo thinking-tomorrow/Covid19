@@ -4,6 +4,8 @@ import json
 import requests
 from covid.models import CountryData, DailyData
 from django.views.decorators.csrf import csrf_exempt
+import pandas as pd
+import requests
 
 def home(request):
     return HttpResponse("OUR API")
@@ -144,3 +146,6 @@ def webhook(request):
 def predict(request, country):
     data = cv.predict_country(country)
     return JsonResponse(data)
+
+def resources(state):
+    data = requests.get('https://api.covid19india.org/resources/resources.json').json()
