@@ -129,31 +129,32 @@
         return "";
       }
 
-      function load_prediction(country){
-      	url = "api/predict/"+country;
+      function load_resource(state){
+      	url = "api/resources/"+state;
 
         $.get(url, function(data, status){          
-          if(data['data']!='failed'){
+          /**if(data['data']!='failed'){
             d = JSON.parse(data['data']);
             
             dates = d['ds'];
-            predictions = d['predictions'];
+            resources = d['resources'];
         
             for(date in dates){
               date_new = new Date(dates[date]);
               date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
-              prediction_new = Math.round(predictions[date]);
-              $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
+              resource_new = Math.round(resources[date]);
+              $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+resource_new+'</td></tr>');
             }
           }
           else{
               $('#myTable tr:last').after('<tr><td>Sorry! No result found.</td><td>');
-          }
+          }**/
+          console.log(data)
         });      
        }
 
       $(document).ready(function() {
-	      //load_prediction('World');
+	      load_resource('West Bengal');
         $( ".inner-switch" ).on("click", function() {
           $("body").toggleClass("dark");
 
@@ -188,7 +189,7 @@
         $("#country").change(function(){
           $("#myTable").find("tr:gt(0)").remove();
           country = $("#country").find(":selected").text();
-          load_prediction(country);
+          load_resource(country);
         });
       });
     </script>
