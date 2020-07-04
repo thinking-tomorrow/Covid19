@@ -155,4 +155,6 @@ def resources(request, state):
     df = data_df.loc[state]
     sorted_df = df[(df['category'] == 'CoVID-19 Testing Lab') | (df['category'] == 'Government Helpline') | (df['category'] == 'Hospitals and Centers') | (df['category'] == 'Quarantine Facility') | (df['category'] == 'Fever Clinic')]
 
-    return JsonResponse(sorted_df)
+    data = {'data':sorted_df}
+
+    return JsonResponse(data)
