@@ -149,3 +149,10 @@ def predict(request, country):
 
 def resources(state):
     data = requests.get('https://api.covid19india.org/resources/resources.json').json()
+    data_df = pd.DataFrame(data['resources'])
+    data_df.set_index('state', inplace=True)
+
+    df = data_df.loc[state]
+    sorted_df = df[(df['category'] == 'CoVID-19 Testing Lab') | (df['category'] == 'Government Helpline') | (df['category'] == 'Hospitals and Centers') | (df['category'] == 'Quarantine Facility') | (df['category'] == 'Fever Clinic')]
+
+    return JsonResponse(sorted_df)
