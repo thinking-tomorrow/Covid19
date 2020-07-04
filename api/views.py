@@ -157,7 +157,7 @@ def resources(request, state):
 
     sorted_df.reset_index(inplace=True)
 
-    new_df = sorted_df.to_json()
+    new_df = sorted_df.to_json(orient='rows')
 
     data = {'data':new_df}
 
