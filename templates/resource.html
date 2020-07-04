@@ -150,7 +150,7 @@
               $('#myTable tr:last').after('<tr><td>Sorry! No result found.</td><td>');
           }**/
           console.log(data);
-          for (resource in data){
+          for (resource in data['data']){
             console.log(resource['category'])
           }
         });      
