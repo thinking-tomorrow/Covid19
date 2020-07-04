@@ -147,7 +147,7 @@ def predict(request, country):
     data = cv.predict_country(country)
     return JsonResponse(data)
 
-def resources(state):
+def resources(request, state):
     data = requests.get('https://api.covid19india.org/resources/resources.json').json()
     data_df = pd.DataFrame(data['resources'])
     data_df.set_index('state', inplace=True)
