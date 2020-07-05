@@ -106,12 +106,13 @@
     </style>
 
     <script>
-     
-      $(document).ready(function(){
-        $(".init").click(function() {
-          $("#chat").toggle();
-        });
-      });
+      states = ['Andaman & Nicobar', 'Andhra Pradesh', 'Assam', 'Bihar', 'Chandigarh',
+		'Chhattisgarh', 'Delhi', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh',
+	        'Jammu & Kashmir', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh',
+	        'Maharashtra', 'Manipur', 'Meghalaya', 'Odisha', 'PAN India', 'Puducherry',
+ 		'Punjab', 'Rajasthan', 'Tamil Nadu', 'Telangana', 'Uttar Pradesh',
+ 		'West Bengal', 'Sikkim', 'Tripura', 'Uttarakhand']
+
 
       function getCookie(cname) {
         var name = cname + "=";
@@ -129,31 +130,37 @@
         return "";
       }
 
-      function load_prediction(country){
-      	url = "api/predict/"+country;
+      function load_resource(state){
+      	url = "api/resources/"+state;
 
-        $.get(url, function(data, status){          
-          if(data['data']!='failed'){
-            d = JSON.parse(data['data']);
-            
-            dates = d['ds'];
-            predictions = d['predictions'];
-        
-            for(date in dates){
-              date_new = new Date(dates[date]);
-              date_new = date_new.getDate()+'-'+(date_new.getMonth()+1)+'-'+date_new.getFullYear();
-              prediction_new = Math.round(predictions[date]);
-              $('#myTable tr:last').after('<tr><td>'+date_new+'</td><td>'+prediction_new+'</td></tr>');
-            }
-          }
-          else{
-              $('#myTable tr:last').after('<tr><td>Sorry! No result found.</td><td>');
+        $.get(url, function(data, status){         
+          categories = data['data'];
+	  for (category in categories){
+            resources = JSON.parse(categories[category]);
+            $('#myTable tr:last').after("<tr colspan='3'><td>"+resources[0]['category']+"</td></tr>");
+
+            for (resource in resources){
+	      c = resources[resource];
+	      $('#myTable tr:last').after("<tr><td>"+c['city']+"</td><td>"+c['phonenumber']+"</td><td><a href='"+c['contact']+"' target='_blank'>"+c['nameoftheorganisation']+"</a></td></tr>");
+	    }
           }
         });      
+	$("#state-name").text(state+" - Resources");
        }
 
       $(document).ready(function() {
-	      //load_prediction('World');
+	
+	$(".init").click(function() {
+          $("#chat").toggle();
+        });
+
+
+	for (i=0; i<states.length; i++){
+          $("#states").append(new Option(states[i], states[i]));
+	}
+
+	load_resource('Andaman & Nicobar');
+
         $( ".inner-switch" ).on("click", function() {
           $("body").toggleClass("dark");
 
@@ -185,10 +192,10 @@
           }
         });
 
-        $("#country").change(function(){
+        $("#states").change(function(){
           $("#myTable").find("tr:gt(0)").remove();
-          country = $("#country").find(":selected").text();
-          load_prediction(country);
+          state = $("#states").find(":selected").text();
+          load_resource(state);
         });
       });
     </script>
@@ -247,18 +254,18 @@
     </div>
 
     <center>
-      <select id="country" name="country">
-        <option value="World">World</option>
-        {% for country in countries %}
-          <option value="{{country}}">{{country}}</option>
-        {% endfor %}
+      <h1 id="state-name"></h1>
+      
+      <select id="states">
+
       </select>
 
       <table class="table table-striped table-dark sticky" id="myTable" style="margin-top:100px;">
         <thead class="thead-light">
           <tr name="head">
-            <th id="name">Date</th>
-            <th id="total">Projected</th>
+            <th>City</th>
+            <th>Phone</th>
+	    <th>Organization</th>
           </tr>
         </thead>
 
