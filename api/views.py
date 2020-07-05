@@ -152,13 +152,13 @@ def resources(request, state):
     data_df = pd.DataFrame(data['resources'])
     data_df.set_index('state', inplace=True)
 
-    df = data_df.loc[state]
+    df = data_df[data_df.index==state]
     sorted_df = df[(df['category'] == 'CoVID-19 Testing Lab') | (df['category'] == 'Government Helpline') | (df['category'] == 'Hospitals and Centers') | (df['category'] == 'Quarantine Facility') | (df['category'] == 'Fever Clinic')]
-
     sorted_df.reset_index(inplace=True)
 
-    new_df = sorted_df.to_json(orient='rows')
+    new_df = sorted_df.groupby(by='category').apply(lambda x: x.to_json(orient='records'))
+    # new_df = sorted_df.to_json(orient='records')
 
-    data = {'data':new_df}
+    data = {'data':new_df.tolist()}
 
     return JsonResponse(data)
