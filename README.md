@@ -1,6 +1,6 @@
 # COVID-19 INFO WEBSITE
 
-[![site](https://img.shields.io/static/v1?label=Visit&message=Our%20Site&color=green&link=http://knowcovid.tk)](https://knowcovid.tk)
+[![site](https://img.shields.io/static/v1?label=Visit&message=Our%20Site&color=green&link=https://knowcovid.tk)](https://knowcovid.tk)
 [![email](https://img.shields.io/static/v1?label=Email&message=Us&color=orange&link=mailto:thinkingtomorrow.2020@gmail.com)](mailto:thinkingtomorrow.2020@gmail.com)
 
 * A public awareness website to track the spread of covid-19
@@ -8,7 +8,7 @@
 * Covid Chat Bot
 * India Statistics
 
-Covid-19 has left the entire world maimed and crippled to their house. At this juncture it's imperative for people to be aware about the tips and tricks to be safe from this fatal disease and at the same time people are anxious as to know when this thing will end. To solve this [we](www.thinkingtomorrow.cf) has come up with [www.knowcovid.tk](www.knowcovid.tk) the one stop guide for developers and users to get the latest information scraped from the internet at the click of a botton. We scrape the data from multiple websites and display it in an easy to understand human readable format. For those who cannot wait any longer and wants to know the fate of this virus, we have the predictions page. Our [api](www.knowcovid.tk/api) has a rich collection of data suitable for all developers to get the daily information about Covid-19 at the grassroot level. We have implemented the first of it's kind a covid chatbot which will give you the latest info on covid-19 in an interactive fashion.
+Covid-19 has left the entire world maimed and crippled to their house. At this juncture it's imperative for people to be aware about the tips and tricks to be safe from this fatal disease and at the same time people are anxious as to know when this thing will end. To solve this [we](www.thinkingtomorrow.cf) has come up with [www.knowcovid.tk](www.knowcovid.tk) the one stop guide for developers and users to get the latest information scraped from the internet at the click of a botton. We scrape the data from multiple websites and display it in an easy to understand human readable format. For those who cannot wait any longer and wants to know the fate of this virus, we have the predictions page. Our [api](https://www.knowcovid.tk/api) has a rich collection of data suitable for all developers to get the daily information about Covid-19 at the grassroot level. We have implemented the first of it's kind a covid chatbot which will give you the latest info on covid-19 in an interactive fashion.
 
 ## Home page
 ![alt Home page](https://github.com/thinking-tomorrow/Covid19/blob/master/images/home.jpg?raw=true)
