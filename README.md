@@ -17,7 +17,7 @@ The home page is the perfect guide to know the daily covid score around the worl
 
 ## Chat Bot
 We provide the first of its kind AI powered interactive Covid Chat Bot. You can ask anything to the chat bot about covid. It can also give you the do's and dont's of covid-19. You can ask questions like - How many people died today? How many people died in Russia today? and so on...
-![alt chat bot](https://github.com/thinking-tomorrow/Covid19/blob/master/images/bot.jpg?raw=true)
+![alt chat bot](https://github.com/thinking-tomorrow/Covid19/blob/master/images/bot.JPG?raw=true)
 
 
 ## Predictions [![site](https://img.shields.io/static/v1?label=Visit&message=Predictions&color=blue&link=https://knowcovid.tk/predictions)](https://knowcovid.tk/predictions)
